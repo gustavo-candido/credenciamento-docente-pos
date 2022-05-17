@@ -1,2 +1,2 @@
-# sucupira-disciplinas
-Sistema online para   cadastro de atividades da pós para o sistema   Sucupira da CAPES
+# Sistema credenciamento docente para pós
+Sistema online para credenciamento de professor na pós-graduação
