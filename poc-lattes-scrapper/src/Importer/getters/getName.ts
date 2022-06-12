@@ -1,7 +1,10 @@
-import { TLattes } from "Importer/types";
+import { isFilledString } from "../../utils";
+import type { TLattes } from "../types";
 
-const getName = (lattes: TLattes): string => {
-  return lattes?.["CURRICULO-VITAE"]?.["DADOS-GERAIS"]?.["NOME-COMPLETO"];
+const getName = (lattes: TLattes): string | undefined => {
+  const name = lattes?.["CURRICULO-VITAE"]?.["DADOS-GERAIS"]?.["NOME-COMPLETO"];
+
+  return isFilledString(name) ? name : undefined;
 };
 
 export default getName;

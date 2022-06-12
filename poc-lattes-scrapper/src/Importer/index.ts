@@ -17,10 +17,14 @@ class Importer {
   }
 
   getName() {
-    this.infos = {
-      ...this.infos,
-      "NOME-COMPLETO": getName(this.lattes),
-    };
+    const name = getName(this.lattes);
+
+    if (name) {
+      this.infos = {
+        ...this.infos,
+        "NOME-COMPLETO": name,
+      };
+    }
 
     return this;
   }
