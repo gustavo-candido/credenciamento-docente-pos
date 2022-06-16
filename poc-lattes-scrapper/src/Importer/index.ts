@@ -30,10 +30,14 @@ class Importer {
   }
 
   getFieldOfSearch() {
-    this.infos = {
-      ...this.infos,
-      "LINHA-DE-PESQUISA": getResearchesFields(this.lattes),
-    };
+    const researchesFields = getResearchesFields(this.lattes);
+
+    if (researchesFields) {
+      this.infos = {
+        ...this.infos,
+        "LINHA-DE-PESQUISA": researchesFields,
+      };
+    }
 
     return this;
   }
