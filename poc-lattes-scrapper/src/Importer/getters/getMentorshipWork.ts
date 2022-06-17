@@ -1,6 +1,10 @@
-import { hasSponsor, parentJsonPath } from "../../utils";
+import { hasSponsor, parentJsonPath } from "@utils/index";
 
-import type { TLattes, MentorshipWorkByDegree, MentorshipWork } from "../types";
+import type {
+  TLattes,
+  MentorshipWorkByDegree,
+  MentorshipWork,
+} from "@Importer/types";
 
 const getSponsorInfo = (statusDegreeMentorshipDetails: any) => {
   let sponsorship: Pick<

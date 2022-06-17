@@ -1,8 +1,8 @@
 import jsonpath from "jsonpath";
 import flattendeep from "lodash.flattendeep";
-import { isFilledString } from "../../utils";
+import isFilledString from "@utils/isFilledString";
 
-import type { TLattes } from "../types";
+import type { TLattes } from "@Importer/types";
 
 const ptTitleKey = "TITULO-DA-LINHA-DE-PESQUISA";
 const enTitleKey = "TITULO-DA-LINHA-DE-PESQUISA-INGLES";

@@ -1,6 +1,6 @@
 import getResearchesFields from "../getResearchesFields";
 
-import type { TLattes } from "../../types";
+import type { TLattes } from "@Importer/types";
 
 type Subject = {
   subject: string;

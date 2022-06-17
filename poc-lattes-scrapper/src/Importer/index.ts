@@ -1,4 +1,4 @@
-import { readLattesAsJson } from "../utils";
+import readLattesAsJson from "@utils/readLattesAsJson";
 
 import { getName, getResearchesFields, getMentorshipWork } from "./getters";
 

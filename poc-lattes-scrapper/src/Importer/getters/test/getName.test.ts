@@ -1,6 +1,6 @@
 import getName from "../getName";
 
-import type { TLattes } from "../../types";
+import type { TLattes } from "@Importer/types";
 
 describe("getResearchesFields", () => {
   describe("Lattes contains name", () => {
