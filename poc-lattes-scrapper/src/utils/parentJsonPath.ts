@@ -7,9 +7,9 @@ const parentJsonPath = (
   return jsonpath
     .nodes(json, path)
     .map((item) => {
-      let fullPath = [...item.path];
+      const fullPath = [...item.path];
       fullPath.splice(-1);
-      return jsonpath.stringify([...fullPath]);
+      return jsonpath.stringify(fullPath);
     })
     .map((sanitizedPath) => jsonpath.query(json, sanitizedPath)?.[0]);
 };
