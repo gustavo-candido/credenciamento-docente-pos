@@ -1,13 +1,17 @@
-import readLattesAsJson from "./readLattesAsJson";
+import hasSponsor from "./hasSponsor";
 import isFilledString from "./isFilledString";
 import makeIterable from "./makeIterable";
-import hasSponsor from "./hasSponsor";
 import parentJsonPath from "./parentJsonPath";
+import prioritizeLanguage from "./prioritizeLanguage";
+import readLattesAsJson from "./readLattesAsJson";
+import readQualis from "./readQualis";
 
 export {
-  readLattesAsJson,
+  hasSponsor,
   isFilledString,
   makeIterable,
-  hasSponsor,
   parentJsonPath,
+  prioritizeLanguage,
+  readLattesAsJson,
+  readQualis,
 };
