@@ -5,4 +5,9 @@ module.exports = {
     "^.+\\.ts?$": "ts-jest",
   },
   transformIgnorePatterns: ["<rootDir>/node_modules/"],
+
+  moduleNameMapper: {
+    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@Importer/(.*)$": "<rootDir>/src/Importer/$1",
+  },
 };
