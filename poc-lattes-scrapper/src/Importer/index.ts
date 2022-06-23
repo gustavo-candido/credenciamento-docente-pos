@@ -1,6 +1,11 @@
 import readLattesAsJson from "@utils/readLattesAsJson";
 
-import { getName, getResearchesFields, getMentorshipWork } from "./getters";
+import {
+  getName,
+  getResearchesFields,
+  getMentorshipWork,
+  getProdBib,
+} from "./getters";
 
 import type { TLattes, MentorshipWork } from "./types";
 
@@ -8,6 +13,7 @@ type TImporter = {
   "NOME-COMPLETO": string;
   "LINHA-DE-PESQUISA": string[];
   Orientacao: MentorshipWork;
+  "PROD-BIB": any;
 };
 
 class Importer {
@@ -50,6 +56,19 @@ class Importer {
       this.infos = {
         ...this.infos,
         Orientacao: mentorshipWork,
+      };
+    }
+
+    return this;
+  }
+
+  getProdBib() {
+    const prodBib = getProdBib(this.lattes);
+
+    if (prodBib) {
+      this.infos = {
+        ...this.infos,
+        "PROD-BIB": prodBib,
       };
     }
 

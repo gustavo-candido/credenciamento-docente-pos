@@ -23,3 +23,20 @@ export type MentorshipWork = {
     postdoctoral: MentorshipWorkByDegree[];
   };
 };
+
+export type TProdBib = {
+  TITLE: string;
+  YEAR: string;
+  ISSN: string;
+  QUALIS: string;
+  IGERAL: number;
+  IRESTRITO: number;
+};
+
+export type TProdWithSummary = {
+  DATA: TProdBib[];
+  SUMMARY: {
+    "IGERAL-TOTAL": number;
+    "IRESTRITO-TOTAL": number;
+  };
+};

@@ -1,6 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import Importer from "./Importer";
+import { readQualis } from "./utils";
 
 const app = express();
 const port = 3000;
@@ -12,12 +13,14 @@ app.get("/", (req, res) => {
     .getName()
     .getFieldOfSearch()
     .getMentorshipWork()
+    .getProdBib()
     .build();
   return res.json(infos);
 });
 
 app.get("/test", (req, res) => {
-  const infos = new Importer().getMentorshipWork().build();
+  const infos = new Importer().getProdBib().build();
+  // return res.json(readQualis());
   return res.json(infos);
 });
 

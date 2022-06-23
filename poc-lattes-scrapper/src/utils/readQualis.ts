@@ -4,13 +4,24 @@ const readQualis = () => {
   const workbook = XLSX.readFile(process.env.QUALIS_PATH ?? "", {});
   const sheet_name_list = workbook.SheetNames;
 
-  const qualisAnais = XLSX.utils
-    .sheet_to_json(workbook.Sheets[sheet_name_list[0]])
-    .map((item: any) => ({ ID: item["SIGLA"], QUALIS: item["Qualis Final"] }));
+  const qualisAnais = new Map();
+  XLSX.utils
+    .sheet_to_json<Record<string, string>>(workbook.Sheets[sheet_name_list[0]])
+    .forEach((item: Record<string, string>, _): void => {
+      if ("ISSN" in item) {
+        qualisPer.set(item["SIGLA"], item["Qualis Final"]);
+      }
+    });
 
-  const qualisPer = XLSX.utils
-    .sheet_to_json(workbook.Sheets[sheet_name_list[1]])
-    .map((item: any) => ({ ID: item["ISSN"], QUALIS: item["ESTRATO FINAL"] }));
+  const qualisPer = new Map();
+
+  XLSX.utils
+    .sheet_to_json<Record<string, string>>(workbook.Sheets[sheet_name_list[1]])
+    .forEach((item: Record<string, string>, _): void => {
+      if ("ISSN" in item) {
+        qualisPer.set(item["ISSN"].replace("-", ""), item["ESTRATO FINAL"]);
+      }
+    });
 
   return {
     anais: qualisAnais,
