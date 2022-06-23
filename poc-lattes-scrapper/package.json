@@ -29,6 +29,7 @@
     "express": "^4.18.1",
     "jsonpath": "^1.1.1",
     "lodash.flattendeep": "^4.4.0",
+    "xlsx": "^0.18.5",
     "xml2json": "^0.12.0"
   }
 }
