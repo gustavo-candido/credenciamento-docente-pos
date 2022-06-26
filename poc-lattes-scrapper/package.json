@@ -7,7 +7,8 @@
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "dev:server": "ts-node-dev --inspect --ignore-watch node_modules  -r tsconfig-paths/register src/server.ts",
-    "start": "ts-node src/server.ts"
+    "prod:server": "node dist/server.js",
+    "build": "npx tsc --project tsconfig.json && npx tscpaths -p tsconfig.json -s ./src -o ./dist"
   },
   "author": "Gustavo Candido",
   "license": "ISC",
@@ -29,6 +30,7 @@
     "express": "^4.18.1",
     "jsonpath": "^1.1.1",
     "lodash.flattendeep": "^4.4.0",
+    "tscpaths": "0.0.9",
     "xlsx": "^0.18.5",
     "xml2json": "^0.12.0"
   }
