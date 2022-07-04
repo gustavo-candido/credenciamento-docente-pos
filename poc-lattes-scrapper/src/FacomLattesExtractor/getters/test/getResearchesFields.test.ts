@@ -1,6 +1,6 @@
 import getResearchesFields from "../getResearchesFields";
 
-import type { TLattes } from "@Importer/types";
+import type { TLattes } from "@FacomLattesExtractor/types";
 
 type Subject = {
   subject: string;

@@ -1,6 +1,6 @@
 import getName from "../getName";
 
-import type { TLattes } from "@Importer/types";
+import type { TLattes } from "@FacomLattesExtractor/types";
 
 describe("getResearchesFields", () => {
   describe("Lattes contains name", () => {

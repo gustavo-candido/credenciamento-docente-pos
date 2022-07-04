@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config";
-import Importer from "./Importer";
+import FacomLattesExtractor from "./FacomLattesExtractor";
 import { readQualis } from "./utils";
 
 const app = express();
@@ -9,7 +9,7 @@ const port = 3000;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  const infos = new Importer()
+  const infos = new FacomLattesExtractor()
     .getName()
     .getFieldOfSearch()
     .getMentorshipWork()
@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/test", (req, res) => {
-  const infos = new Importer().getProdBib().build();
+  const infos = new FacomLattesExtractor().getProdBib().build();
   // return res.json(readQualis());
   return res.json(infos);
 });

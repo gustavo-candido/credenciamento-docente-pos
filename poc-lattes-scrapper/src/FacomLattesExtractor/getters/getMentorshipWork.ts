@@ -4,7 +4,7 @@ import type {
   TLattes,
   MentorshipWorkByDegree,
   MentorshipWork,
-} from "@Importer/types";
+} from "@FacomLattesExtractor/types";
 
 const getSponsorInfo = (statusDegreeMentorshipDetails: any) => {
   let sponsorship: Pick<

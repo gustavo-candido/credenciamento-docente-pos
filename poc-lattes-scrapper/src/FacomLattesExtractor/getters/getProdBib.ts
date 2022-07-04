@@ -7,7 +7,11 @@ import {
   readQualis,
 } from "@utils/index";
 
-import type { TLattes, TProdBib, TProdWithSummary } from "@Importer/types";
+import type {
+  TLattes,
+  TProdBib,
+  TProdWithSummary,
+} from "@FacomLattesExtractor/types";
 
 const normalizeQualisOfProdBib = (prodBib: TProdBib): TProdBib => ({
   ...prodBib,

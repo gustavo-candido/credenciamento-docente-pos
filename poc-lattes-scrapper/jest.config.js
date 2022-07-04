@@ -8,6 +8,6 @@ module.exports = {
 
   moduleNameMapper: {
     "^@utils/(.*)$": "<rootDir>/src/utils/$1",
-    "^@Importer/(.*)$": "<rootDir>/src/Importer/$1",
+    "^@FacomLattesExtractor/(.*)$": "<rootDir>/src/FacomLattesExtractor/$1",
   },
 };

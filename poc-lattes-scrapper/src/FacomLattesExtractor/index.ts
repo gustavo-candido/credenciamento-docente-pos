@@ -9,16 +9,16 @@ import {
 
 import type { TLattes, MentorshipWork } from "./types";
 
-type TImporter = {
+type TFacomLattesExtractor = {
   "NOME-COMPLETO": string;
   "LINHA-DE-PESQUISA": string[];
   Orientacao: MentorshipWork;
   "PROD-BIB": any;
 };
 
-class Importer {
+class FacomLattesExtractor {
   private lattes: TLattes;
-  private infos = {} as TImporter;
+  private infos = {} as TFacomLattesExtractor;
   constructor() {
     this.lattes = readLattesAsJson();
   }
@@ -80,4 +80,4 @@ class Importer {
   }
 }
 
-export default Importer;
+export default FacomLattesExtractor;
