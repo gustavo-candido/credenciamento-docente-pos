@@ -1,4 +1,5 @@
-import { hasSponsor, parentJsonPath } from "@utils/index";
+import jsonpath from "jsonpath";
+import { hasSponsor, parentJsonPath, prioritizeLanguage } from "@utils/index";
 
 import type {
   TLattes,
@@ -72,8 +73,11 @@ const getStatusDegreeMentorshipWork = (
     statusDegreeMentorshipsData.push({
       "TIPO-DE-ORIENTACAO":
         statusDegreeMentorshipDetails?.["TIPO-DE-ORIENTACAO"],
-      TITULO: statusDegreeMentorshipBasicData?.["TITULO"],
-      ANO: statusDegreeMentorshipBasicData?.["ANO"],
+      TITULO: prioritizeLanguage({
+        "pt-br": statusDegreeMentorshipBasicData?.["TITULO"],
+        en: statusDegreeMentorshipBasicData?.["TITULO-INGLES"],
+      }),
+      ANO: parseInt(statusDegreeMentorshipBasicData?.["ANO"]),
       ...getStudentInfo(status, statusDegreeMentorshipDetails),
       ...getSponsorInfo(statusDegreeMentorshipDetails),
     });
@@ -82,9 +86,53 @@ const getStatusDegreeMentorshipWork = (
   return statusDegreeMentorshipsData;
 };
 
+const getICStatus = (
+  lattes: TLattes,
+  status: "current" | "concluded"
+): MentorshipWorkByDegree[] => {
+  const basicDataKey =
+    status === "concluded"
+      ? "DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-CONCLUIDAS"
+      : "DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-EM-ANDAMENTO";
+
+  const detailsDataKey =
+    status === "concluded"
+      ? "DETALHAMENTO-DE-OUTRAS-ORIENTACOES-CONCLUIDAS"
+      : "DETALHAMENTO-DE-OUTRAS-ORIENTACOES-EM-ANDAMENTO";
+
+  const basicOtherMentorship = parentJsonPath(lattes, `$..['${basicDataKey}']`);
+
+  const ICMentorships = basicOtherMentorship.filter((mentorship) => {
+    const kind = mentorship?.[basicDataKey]?.["NATUREZA"];
+    return kind === "INICIACAO_CIENTIFICA";
+  });
+
+  const icStatus = [];
+
+  for (let ICMentorship of ICMentorships) {
+    const ICMentorshipsBasicData = ICMentorship?.[basicDataKey];
+
+    const ICMentorshipsBasicDetails = ICMentorship?.[detailsDataKey];
+
+    icStatus.push({
+      "TIPO-DE-ORIENTACAO": "ORIENTADOR_PRINCIPAL",
+      TITULO: prioritizeLanguage({
+        "pt-br": ICMentorshipsBasicData?.["TITULO"],
+        en: ICMentorshipsBasicData?.["TITULO-INGLES"],
+      }),
+      ANO: parseInt(ICMentorshipsBasicData?.["ANO"]),
+      ...getStudentInfo(status, ICMentorshipsBasicDetails),
+      ...getSponsorInfo(ICMentorshipsBasicDetails),
+    });
+  }
+
+  return icStatus;
+};
+
 const getMentorshipWork = (lattes: TLattes): MentorshipWork => {
   return {
     concluded: {
+      ic: getICStatus(lattes, "concluded"),
       master: getStatusDegreeMentorshipWork(lattes, "MESTRADO", "concluded"),
       doctoral: getStatusDegreeMentorshipWork(lattes, "DOUTORADO", "concluded"),
       postdoctoral: getStatusDegreeMentorshipWork(
@@ -95,6 +143,7 @@ const getMentorshipWork = (lattes: TLattes): MentorshipWork => {
     },
 
     current: {
+      ic: getICStatus(lattes, "current"),
       master: getStatusDegreeMentorshipWork(lattes, "MESTRADO", "current"),
       doctoral: getStatusDegreeMentorshipWork(lattes, "DOUTORADO", "current"),
       postdoctoral: getStatusDegreeMentorshipWork(

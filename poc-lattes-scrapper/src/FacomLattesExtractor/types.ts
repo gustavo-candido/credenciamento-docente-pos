@@ -3,7 +3,7 @@ export type TLattes = Record<string, any>;
 export type MentorshipWorkByDegree = {
   "TIPO-DE-ORIENTACAO": string;
   TITULO: string;
-  ANO: string;
+  ANO: number;
   "NOME-DO-ORIENTADO"?: string;
   "NOME-DO-ORIENTANDO"?: string;
   "FLAG-BOLSA": string;
@@ -13,11 +13,13 @@ export type MentorshipWorkByDegree = {
 
 export type MentorshipWork = {
   concluded: {
+    ic: MentorshipWorkByDegree[];
     master: MentorshipWorkByDegree[];
     doctoral: MentorshipWorkByDegree[];
     postdoctoral: MentorshipWorkByDegree[];
   };
   current: {
+    ic: MentorshipWorkByDegree[];
     master: MentorshipWorkByDegree[];
     doctoral: MentorshipWorkByDegree[];
     postdoctoral: MentorshipWorkByDegree[];
@@ -39,4 +41,11 @@ export type TProdWithSummary = {
     "IGERAL-TOTAL": number;
     "IRESTRITO-TOTAL": number;
   };
+};
+
+export type TFacomLattesExtractor = {
+  "NOME-COMPLETO": string;
+  "LINHA-DE-PESQUISA": string[];
+  Orientacao: MentorshipWork;
+  "PROD-BIB": any;
 };

@@ -7,23 +7,18 @@ import {
   getProdBib,
 } from "./getters";
 
-import type { TLattes, MentorshipWork } from "./types";
-
-type TFacomLattesExtractor = {
-  "NOME-COMPLETO": string;
-  "LINHA-DE-PESQUISA": string[];
-  Orientacao: MentorshipWork;
-  "PROD-BIB": any;
-};
+import type { TLattes, MentorshipWork, TFacomLattesExtractor } from "./types";
 
 class FacomLattesExtractor {
   private lattes: TLattes;
-  private infos = {} as TFacomLattesExtractor;
+
+  public infos = {} as TFacomLattesExtractor;
+
   constructor() {
     this.lattes = readLattesAsJson();
   }
 
-  getName() {
+  public getName() {
     const name = getName(this.lattes);
 
     if (name) {
@@ -36,7 +31,7 @@ class FacomLattesExtractor {
     return this;
   }
 
-  getFieldOfSearch() {
+  public getFieldOfSearch() {
     const researchesFields = getResearchesFields(this.lattes);
 
     if (researchesFields) {
@@ -49,7 +44,7 @@ class FacomLattesExtractor {
     return this;
   }
 
-  getMentorshipWork() {
+  public getMentorshipWork() {
     const mentorshipWork = getMentorshipWork(this.lattes);
 
     if (mentorshipWork) {
@@ -62,7 +57,7 @@ class FacomLattesExtractor {
     return this;
   }
 
-  getProdBib() {
+  public getProdBib() {
     const prodBib = getProdBib(this.lattes);
 
     if (prodBib) {
@@ -75,7 +70,7 @@ class FacomLattesExtractor {
     return this;
   }
 
-  build() {
+  public build() {
     return this.infos;
   }
 }
