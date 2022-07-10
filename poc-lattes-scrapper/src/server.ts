@@ -9,11 +9,7 @@ const port = 3000;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  const infos = new FacomLattesExtractor()
-    .getName()
-    .getFieldOfSearch()
-    .getProdBib()
-    .build();
+  const infos = new FacomLattesExtractor().getProdBib().build();
   return res.json(infos);
 });
 

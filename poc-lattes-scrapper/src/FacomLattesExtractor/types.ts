@@ -26,21 +26,28 @@ export type MentorshipWork = {
   };
 };
 
-export type TProdBib = {
-  TITLE: string;
-  YEAR: string;
-  ISSN: string;
-  QUALIS: string;
-  IGERAL: number;
-  IRESTRITO: number;
+export type TArticleProd = {
+  igeral: number;
+  irestrito: number;
+  issn: string;
+  qualis: string;
+  title: string;
+  year: number;
 };
 
-export type TProdWithSummary = {
-  DATA: TProdBib[];
-  SUMMARY: {
-    "IGERAL-TOTAL": number;
-    "IRESTRITO-TOTAL": number;
-  };
+export type TEventWork = {
+  eventName: string;
+  igeral: number;
+  irestrito: number;
+  qualis: string;
+  sigla: string;
+  title: string;
+  year: number;
+};
+
+export type TProdBib = {
+  article: TArticleProd[];
+  event: TEventWork[];
 };
 
 export type TFacomLattesExtractor = {
