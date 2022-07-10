@@ -13,47 +13,7 @@ import type {
   TProdWithSummary,
 } from "@FacomLattesExtractor/types";
 
-const normalizeQualisOfProdBib = (prodBib: TProdBib): TProdBib => ({
-  ...prodBib,
-  IGERAL: normalizeQualis(prodBib.IGERAL),
-  IRESTRITO: normalizeQualis(prodBib.IRESTRITO),
-});
-
-const normalizeSummary = (
-  summary: TProdWithSummary["SUMMARY"]
-): TProdWithSummary["SUMMARY"] => ({
-  "IGERAL-TOTAL": normalizeQualis(summary["IGERAL-TOTAL"]),
-  "IRESTRITO-TOTAL": normalizeQualis(summary["IRESTRITO-TOTAL"]),
-});
-
-const getProdWithSummaryNormalized = (
-  prodBib: TProdBib[]
-): TProdWithSummary => {
-  const updateSummary = (
-    acc: TProdWithSummary,
-    prod: TProdBib
-  ): TProdWithSummary => {
-    return {
-      DATA: [...acc.DATA, prod],
-      SUMMARY: {
-        ["IGERAL-TOTAL"]: acc.SUMMARY["IGERAL-TOTAL"] + prod.IGERAL,
-        ["IRESTRITO-TOTAL"]: acc.SUMMARY["IRESTRITO-TOTAL"] + prod.IRESTRITO,
-      },
-    };
-  };
-
-  const prodWithSummary = prodBib.reduce(updateSummary, {
-    DATA: [],
-    SUMMARY: { ["IGERAL-TOTAL"]: 0, ["IRESTRITO-TOTAL"]: 0 },
-  });
-
-  return {
-    DATA: prodWithSummary.DATA.map((item) => normalizeQualisOfProdBib(item)),
-    SUMMARY: normalizeSummary(prodWithSummary.SUMMARY),
-  };
-};
-
-const getProdArticles = (lattes: TLattes): TProdBib[] => {
+const getProdArticlesNormalized = (lattes: TLattes): TProdBib[] => {
   const articles = parentJsonPath(lattes, "$..['DETALHAMENTO-DO-ARTIGO']");
   const checkQualis = readQualis();
 
@@ -63,9 +23,9 @@ const getProdArticles = (lattes: TLattes): TProdBib[] => {
       item?.["DADOS-BASICOS-DO-ARTIGO"]?.["TITULO-DO-ARTIGO-INGLES"];
     const year = item?.["DADOS-BASICOS-DO-ARTIGO"]?.["ANO-DO-ARTIGO"];
     const issn = item?.["DETALHAMENTO-DO-ARTIGO"]?.["ISSN"].replace("-", "");
-    const qualis = checkQualis.per.get(issn);
-    const generalScore = qualisScore(qualis);
-    const restrictScore = qualisScoreRestrict(qualis);
+    const qualis = checkQualis.per.get(issn) ?? "?";
+    const generalScore = normalizeQualis(qualisScore(qualis));
+    const restrictScore = normalizeQualis(qualisScoreRestrict(qualis));
     return {
       TITLE: prioritizeLanguage({ "pt-br": title, en: titleEn }),
       YEAR: year,
@@ -77,10 +37,10 @@ const getProdArticles = (lattes: TLattes): TProdBib[] => {
   });
 };
 
-const getProdBib = (lattes: TLattes): TProdWithSummary => {
-  const articleProd = getProdArticles(lattes);
+const getProdBib = (lattes: TLattes): TProdBib[] => {
+  const articleProd = getProdArticlesNormalized(lattes);
 
-  return getProdWithSummaryNormalized(articleProd);
+  return articleProd;
 };
 
 export default getProdBib;
