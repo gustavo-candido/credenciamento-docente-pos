@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import FacomLattesExtractor from "./FacomLattesExtractor";
-import { readQualis } from "./utils";
+import FacomNormCred from "./FacomNormCred";
 
 const app = express();
 const port = 3000;
@@ -12,15 +12,21 @@ app.get("/", (req, res) => {
   const infos = new FacomLattesExtractor()
     .getName()
     .getFieldOfSearch()
-    .getMentorshipWork()
     .getProdBib()
     .build();
   return res.json(infos);
 });
 
 app.get("/test", (req, res) => {
-  const infos = new FacomLattesExtractor().getProdBib().build();
-  // return res.json(readQualis());
+  const infos = new FacomNormCred()
+    .getICConcluida()
+    .getPosDocSup()
+    .getMestresFor()
+    .getDoutoresFor()
+    .getOriMest()
+    .getOriDout()
+    .getCoorMestDout()
+    .build();
   return res.json(infos);
 });
 
