@@ -1,6 +1,11 @@
 import isFilledString from "@utils/isFilledString";
 
-const prioritizeLanguage = (item: any): string => {
+type TLocales = {
+  "pt-br"?: string;
+  en?: string;
+};
+
+const prioritizeLanguage = (item: TLocales): string => {
   const ptContent = item?.["pt-br"];
 
   if (isFilledString(ptContent)) {

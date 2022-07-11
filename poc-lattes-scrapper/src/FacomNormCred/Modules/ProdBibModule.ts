@@ -1,12 +1,13 @@
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
 
-import { TFacomLattesExtractor } from "@FacomLattesExtractor/types";
 import {
   filterByIGeneral,
   filterByIRestrict,
   filterByTime,
 } from "@FacomNormCred/filters";
-import { TProdBibModule } from "@FacomNormCred/types";
+
+import type { TFacomLattesExtractor } from "@FacomLattesExtractor/types";
+import type { TProdBibModule } from "@FacomNormCred/types";
 
 class ProdBibModule {
   private extractedLattesInfo: TFacomLattesExtractor;

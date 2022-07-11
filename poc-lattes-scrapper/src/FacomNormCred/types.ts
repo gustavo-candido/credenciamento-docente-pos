@@ -1,18 +1,21 @@
-import { MentorshipWorkByDegree, TProdBib } from "@FacomLattesExtractor/types";
+import type {
+  MentorshipWorkByDegree,
+  TProdBib,
+} from "@FacomLattesExtractor/types";
 
 export type TFormModule = {
-  iCConcluida: MentorshipWorkByDegree[];
-  posDocSup: MentorshipWorkByDegree[];
-  mestresFor: MentorshipWorkByDegree[];
-  doutoresFor: MentorshipWorkByDegree[];
-  oriMest: MentorshipWorkByDegree[];
-  oriDout: MentorshipWorkByDegree[];
   coorMestDout: MentorshipWorkByDegree[];
+  doutoresFor: MentorshipWorkByDegree[];
+  iCConcluida: MentorshipWorkByDegree[];
+  mestresFor: MentorshipWorkByDegree[];
+  oriDout: MentorshipWorkByDegree[];
+  oriMest: MentorshipWorkByDegree[];
+  posDocSup: MentorshipWorkByDegree[];
 };
 
 export type TProdBibModule = {
-  irestrict: TProdBib;
   igeneral: TProdBib;
+  irestrict: TProdBib;
 };
 
-export type TFacomNormCred = any;
+export type TFacomNormCred = TFormModule & TProdBibModule;

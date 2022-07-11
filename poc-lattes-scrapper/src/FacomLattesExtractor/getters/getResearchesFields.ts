@@ -1,9 +1,9 @@
 import jsonpath from "jsonpath";
 import flattendeep from "lodash.flattendeep";
-import isFilledString from "@utils/isFilledString";
+
+import { isFilledString, prioritizeLanguage } from "@utils/index";
 
 import type { TLattes } from "@FacomLattesExtractor/types";
-import prioritizeLanguage from "@utils/prioritizeLanguage";
 
 const ptTitleKey = "TITULO-DA-LINHA-DE-PESQUISA";
 const enTitleKey = "TITULO-DA-LINHA-DE-PESQUISA-INGLES";

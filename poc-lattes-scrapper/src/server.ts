@@ -1,7 +1,8 @@
 import express from "express";
 import "dotenv/config";
-import FacomLattesExtractor from "./FacomLattesExtractor";
-import FacomNormCred from "./FacomNormCred";
+
+import FacomLattesExtractor from "@FacomLattesExtractor/index";
+import FacomNormCred from "@FacomNormCred/index";
 
 const app = express();
 const port = 3000;

@@ -1,13 +1,13 @@
 import readLattesAsJson from "@utils/readLattesAsJson";
 
 import {
-  getName,
-  getResearchesFields,
   getMentorshipWork,
+  getName,
   getProdBib,
+  getResearchesFields,
 } from "./getters";
 
-import type { TLattes, MentorshipWork, TFacomLattesExtractor } from "./types";
+import type { TFacomLattesExtractor, TLattes } from "./types";
 
 class FacomLattesExtractor {
   private lattes: TLattes;

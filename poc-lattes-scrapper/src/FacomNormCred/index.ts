@@ -1,10 +1,8 @@
 import { FormModule, ProdBibModule } from "./Modules";
 
-import { TFacomNormCred } from "./types";
+import type { TFacomNormCred } from "./types";
 
 class FacomNormCred {
-  public infos = {} as TFacomNormCred;
-
   constructor() {}
 
   public getFormModule() {
@@ -30,7 +28,7 @@ class FacomNormCred {
     return prodBibModule;
   }
 
-  public build() {
+  public build(): TFacomNormCred {
     return {
       ...this.getFormModule(),
       ...this.getProdBibModule(),
