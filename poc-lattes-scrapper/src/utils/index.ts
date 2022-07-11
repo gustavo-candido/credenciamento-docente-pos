@@ -1,5 +1,6 @@
 import hasSponsor from "./hasSponsor";
 import isFilledString from "./isFilledString";
+import isQualisRestrict from "./isQualisRestrict";
 import makeIterable from "./makeIterable";
 import normalizeQualis from "./normalizeQualis";
 import parentJsonPath from "./parentJsonPath";
@@ -12,6 +13,7 @@ import readQualis from "./readQualis";
 export {
   hasSponsor,
   isFilledString,
+  isQualisRestrict,
   makeIterable,
   normalizeQualis,
   parentJsonPath,
