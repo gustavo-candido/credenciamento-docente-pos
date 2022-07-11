@@ -3,23 +3,23 @@ import { hasSponsor, parentJsonPath, prioritizeLanguage } from "@utils/index";
 import type {
   TLattes,
   MentorshipWork,
-  MentorshipWorkByDegree,
+  MentorshipWorkByDegreeDTO,
 } from "@FacomLattesExtractor/types";
 
 const getSponsorInfo = (statusDegreeMentorshipDetails: any) => {
   let sponsorship: Pick<
-    MentorshipWorkByDegree,
-    "hasSponsor" | "sponsorCode" | "sponsorName"
+    MentorshipWorkByDegreeDTO,
+    "has_sponsor" | "sponsor_code" | "sponsor_name"
   > = {
-    hasSponsor: hasSponsor(statusDegreeMentorshipDetails?.["FLAG-BOLSA"]),
+    has_sponsor: hasSponsor(statusDegreeMentorshipDetails?.["FLAG-BOLSA"]),
   };
 
-  if (sponsorship.hasSponsor) {
+  if (sponsorship.has_sponsor) {
     sponsorship = {
       ...sponsorship,
-      sponsorCode:
+      sponsor_code:
         statusDegreeMentorshipDetails?.["CODIGO-AGENCIA-FINANCIADORA"],
-      sponsorName: statusDegreeMentorshipDetails?.["NOME-DA-AGENCIA"],
+      sponsor_name: statusDegreeMentorshipDetails?.["NOME-DA-AGENCIA"],
     };
   }
 
@@ -29,9 +29,9 @@ const getSponsorInfo = (statusDegreeMentorshipDetails: any) => {
 const getStudentInfo = (
   status: "current" | "concluded",
   statusDegreeMentorshipDetails: any
-): Pick<MentorshipWorkByDegree, "studentName"> => {
+): Pick<MentorshipWorkByDegreeDTO, "student_name"> => {
   return {
-    studentName:
+    student_name:
       status === "concluded"
         ? statusDegreeMentorshipDetails?.["NOME-DO-ORIENTADO"]
         : statusDegreeMentorshipDetails?.["NOME-DO-ORIENTANDO"],
@@ -42,8 +42,8 @@ const getStatusDegreeMentorshipWork = (
   lattes: TLattes,
   degree: "MESTRADO" | "DOUTORADO" | "POS-DOUTORADO",
   status: "current" | "concluded"
-): MentorshipWorkByDegree[] => {
-  const statusDegreeMentorshipsData: MentorshipWorkByDegree[] = [];
+): MentorshipWorkByDegreeDTO[] => {
+  const statusDegreeMentorshipsData: MentorshipWorkByDegreeDTO[] = [];
 
   const statusDegreeMentorships = parentJsonPath(
     lattes,
@@ -85,7 +85,7 @@ const getStatusDegreeMentorshipWork = (
 const getICStatus = (
   lattes: TLattes,
   status: "current" | "concluded"
-): MentorshipWorkByDegree[] => {
+): MentorshipWorkByDegreeDTO[] => {
   const basicDataKey =
     status === "concluded"
       ? "DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-CONCLUIDAS"
@@ -103,7 +103,7 @@ const getICStatus = (
     return kind === "INICIACAO_CIENTIFICA";
   });
 
-  const icStatus = [] as MentorshipWorkByDegree[];
+  const icStatus = [] as MentorshipWorkByDegreeDTO[];
 
   for (let ICMentorship of ICMentorships) {
     const ICMentorshipsBasicData = ICMentorship?.[basicDataKey];

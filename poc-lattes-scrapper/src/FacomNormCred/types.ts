@@ -1,16 +1,16 @@
 import type {
-  MentorshipWorkByDegree,
+  MentorshipWorkByDegreeDTO,
   TProdBib,
 } from "@FacomLattesExtractor/types";
 
 export type TFormModule = {
-  coorMestDout: MentorshipWorkByDegree[];
-  doutoresFor: MentorshipWorkByDegree[];
-  iCConcluida: MentorshipWorkByDegree[];
-  mestresFor: MentorshipWorkByDegree[];
-  oriDout: MentorshipWorkByDegree[];
-  oriMest: MentorshipWorkByDegree[];
-  posDocSup: MentorshipWorkByDegree[];
+  coorMestDout: MentorshipWorkByDegreeDTO[];
+  doutoresFor: MentorshipWorkByDegreeDTO[];
+  iCConcluida: MentorshipWorkByDegreeDTO[];
+  mestresFor: MentorshipWorkByDegreeDTO[];
+  oriDout: MentorshipWorkByDegreeDTO[];
+  oriMest: MentorshipWorkByDegreeDTO[];
+  posDocSup: MentorshipWorkByDegreeDTO[];
 };
 
 export type TProdBibModule = {

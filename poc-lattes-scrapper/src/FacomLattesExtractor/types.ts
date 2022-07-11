@@ -1,27 +1,27 @@
 export type TLattes = Record<string, any>;
 
-export type MentorshipWorkByDegree = {
+export interface MentorshipWorkByDegreeDTO {
   role: string;
   title: string;
   year: number;
-  studentName: string;
-  hasSponsor: boolean;
-  sponsorCode?: string;
-  sponsorName?: string;
-};
+  student_name: string;
+  has_sponsor: boolean;
+  sponsor_code?: string;
+  sponsor_name?: string;
+}
 
 export type MentorshipWork = {
   concluded: {
-    ic: MentorshipWorkByDegree[];
-    master: MentorshipWorkByDegree[];
-    doctoral: MentorshipWorkByDegree[];
-    postdoctoral: MentorshipWorkByDegree[];
+    ic: MentorshipWorkByDegreeDTO[];
+    master: MentorshipWorkByDegreeDTO[];
+    doctoral: MentorshipWorkByDegreeDTO[];
+    postdoctoral: MentorshipWorkByDegreeDTO[];
   };
   current: {
-    ic: MentorshipWorkByDegree[];
-    master: MentorshipWorkByDegree[];
-    doctoral: MentorshipWorkByDegree[];
-    postdoctoral: MentorshipWorkByDegree[];
+    ic: MentorshipWorkByDegreeDTO[];
+    master: MentorshipWorkByDegreeDTO[];
+    doctoral: MentorshipWorkByDegreeDTO[];
+    postdoctoral: MentorshipWorkByDegreeDTO[];
   };
 };
 
