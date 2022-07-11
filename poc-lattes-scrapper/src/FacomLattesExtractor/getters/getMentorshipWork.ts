@@ -9,17 +9,17 @@ import type {
 const getSponsorInfo = (statusDegreeMentorshipDetails: any) => {
   let sponsorship: Pick<
     MentorshipWorkByDegree,
-    "FLAG-BOLSA" | "CODIGO-AGENCIA-FINANCIADORA" | "NOME-DA-AGENCIA"
+    "hasSponsor" | "sponsorCode" | "sponsorName"
   > = {
-    "FLAG-BOLSA": statusDegreeMentorshipDetails?.["FLAG-BOLSA"],
+    hasSponsor: hasSponsor(statusDegreeMentorshipDetails?.["FLAG-BOLSA"]),
   };
 
-  if (hasSponsor(statusDegreeMentorshipDetails?.["FLAG-BOLSA"])) {
+  if (sponsorship.hasSponsor) {
     sponsorship = {
       ...sponsorship,
-      "CODIGO-AGENCIA-FINANCIADORA":
+      sponsorCode:
         statusDegreeMentorshipDetails?.["CODIGO-AGENCIA-FINANCIADORA"],
-      "NOME-DA-AGENCIA": statusDegreeMentorshipDetails?.["NOME-DA-AGENCIA"],
+      sponsorName: statusDegreeMentorshipDetails?.["NOME-DA-AGENCIA"],
     };
   }
 
@@ -29,14 +29,12 @@ const getSponsorInfo = (statusDegreeMentorshipDetails: any) => {
 const getStudentInfo = (
   status: "current" | "concluded",
   statusDegreeMentorshipDetails: any
-): Pick<MentorshipWorkByDegree, "NOME-DO-ORIENTADO" | "NOME-DO-ORIENTANDO"> => {
-  if (status === "concluded") {
-    return {
-      "NOME-DO-ORIENTADO": statusDegreeMentorshipDetails?.["NOME-DO-ORIENTADO"],
-    };
-  }
+): Pick<MentorshipWorkByDegree, "studentName"> => {
   return {
-    "NOME-DO-ORIENTANDO": statusDegreeMentorshipDetails?.["NOME-DO-ORIENTANDO"],
+    studentName:
+      status === "concluded"
+        ? statusDegreeMentorshipDetails?.["NOME-DO-ORIENTADO"]
+        : statusDegreeMentorshipDetails?.["NOME-DO-ORIENTANDO"],
   };
 };
 
@@ -71,7 +69,7 @@ const getStatusDegreeMentorshipWork = (
 
     statusDegreeMentorshipsData.push({
       role: statusDegreeMentorshipDetails?.["TIPO-DE-ORIENTACAO"],
-      TITULO: prioritizeLanguage({
+      title: prioritizeLanguage({
         "pt-br": statusDegreeMentorshipBasicData?.["TITULO"],
         en: statusDegreeMentorshipBasicData?.["TITULO-INGLES"],
       }),
@@ -114,7 +112,7 @@ const getICStatus = (
 
     icStatus.push({
       role: "ORIENTADOR_PRINCIPAL",
-      TITULO: prioritizeLanguage({
+      title: prioritizeLanguage({
         "pt-br": ICMentorshipsBasicData?.["TITULO"],
         en: ICMentorshipsBasicData?.["TITULO-INGLES"],
       }),

@@ -2,13 +2,12 @@ export type TLattes = Record<string, any>;
 
 export type MentorshipWorkByDegree = {
   role: string;
-  TITULO: string;
+  title: string;
   year: number;
-  "NOME-DO-ORIENTADO"?: string;
-  "NOME-DO-ORIENTANDO"?: string;
-  "FLAG-BOLSA": string;
-  "CODIGO-AGENCIA-FINANCIADORA"?: string;
-  "NOME-DA-AGENCIA"?: string;
+  studentName: string;
+  hasSponsor: boolean;
+  sponsorCode?: string;
+  sponsorName?: string;
 };
 
 export type MentorshipWork = {
