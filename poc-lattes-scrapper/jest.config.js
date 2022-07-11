@@ -10,5 +10,6 @@ module.exports = {
     "^@utils/(.*)$": "<rootDir>/src/utils/$1",
     "^@FacomLattesExtractor/(.*)$": "<rootDir>/src/FacomLattesExtractor/$1",
     "^@FacomNormCred/(.*)$": "<rootDir>/src/FacomLattesExtractor/$1",
+    "^@ProdArticle/(.*)$": "<rootDir>/src/prod_article/$1",
   },
 };

@@ -6,7 +6,8 @@
     "paths": {
       "@utils/*": ["./src/utils/*"],
       "@FacomLattesExtractor/*": ["./src/FacomLattesExtractor/*"],
-      "@FacomNormCred/*": ["./src/FacomNormCred/*"]
+      "@FacomNormCred/*": ["./src/FacomNormCred/*"],
+      "@ProdArticle/*": ["./src/prod_article/*"]
     },
     "outDir": "./dist",
     "esModuleInterop": true,

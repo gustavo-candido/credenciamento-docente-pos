@@ -2,9 +2,10 @@ import isQualisRestrict from "@utils/isQualisRestrict";
 
 import type {
   MentorshipWorkByDegreeDTO,
-  TArticleProd,
   TEventWork,
 } from "@FacomLattesExtractor/types";
+
+import type { ProdArticleDTO } from "@ProdArticle/ProdArticleDTO";
 
 export const filterByTime = (data: Pick<MentorshipWorkByDegreeDTO, "year">) =>
   2017 <= data.year;
@@ -18,9 +19,9 @@ export const filterByCoorientador = (
 ) => data.role === "CO_ORIENTADOR";
 
 export const filterByIRestrict = (
-  data: Pick<TArticleProd | TEventWork, "qualis">
+  data: Pick<ProdArticleDTO | TEventWork, "qualis">
 ) => isQualisRestrict(data.qualis);
 
 export const filterByIGeneral = (
-  data: Pick<TArticleProd | TEventWork, "qualis">
+  data: Pick<ProdArticleDTO | TEventWork, "qualis">
 ) => !isQualisRestrict(data.qualis);

@@ -8,13 +8,14 @@ import {
 } from "@utils/index";
 
 import type {
-  TArticleProd,
   TEventWork,
   TLattes,
   TProdBib,
 } from "@FacomLattesExtractor/types";
 
-const getProdArticlesNormalized = (lattes: TLattes): TArticleProd[] => {
+import type { ProdArticleDTO } from "@ProdArticle/ProdArticleDTO";
+
+const getProdArticlesNormalized = (lattes: TLattes): ProdArticleDTO[] => {
   const articles = parentJsonPath(lattes, "$..['DETALHAMENTO-DO-ARTIGO']");
   const checkQualis = readQualis();
 
@@ -28,7 +29,12 @@ const getProdArticlesNormalized = (lattes: TLattes): TArticleProd[] => {
     const qualis = checkQualis.per.get(issn) ?? "?";
     const generalScore = normalizeQualis(qualisScore(qualis));
     const restrictScore = normalizeQualis(qualisScoreRestrict(qualis));
+
+    const currentDate = new Date(Date.now());
+
     return {
+      create_at: currentDate,
+      update_at: currentDate,
       igeral: generalScore,
       irestrito: restrictScore,
       issn,

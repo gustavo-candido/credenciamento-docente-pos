@@ -1,3 +1,5 @@
+import type { ProdArticleDTO } from "@ProdArticle/ProdArticleDTO";
+
 export type TLattes = Record<string, any>;
 
 export interface MentorshipWorkByDegreeDTO {
@@ -25,15 +27,6 @@ export type MentorshipWork = {
   };
 };
 
-export type TArticleProd = {
-  igeral: number;
-  irestrito: number;
-  issn: string;
-  qualis: string;
-  title: string;
-  year: number;
-};
-
 export type TEventWork = {
   eventName: string;
   igeral: number;
@@ -45,7 +38,7 @@ export type TEventWork = {
 };
 
 export type TProdBib = {
-  article: TArticleProd[];
+  article: ProdArticleDTO[];
   event: TEventWork[];
 };
 
