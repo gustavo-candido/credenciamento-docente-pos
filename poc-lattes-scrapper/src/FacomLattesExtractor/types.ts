@@ -1,9 +1,9 @@
 export type TLattes = Record<string, any>;
 
 export type MentorshipWorkByDegree = {
-  "TIPO-DE-ORIENTACAO": string;
+  role: string;
   TITULO: string;
-  ANO: number;
+  year: number;
   "NOME-DO-ORIENTADO"?: string;
   "NOME-DO-ORIENTANDO"?: string;
   "FLAG-BOLSA": string;
@@ -54,5 +54,5 @@ export type TFacomLattesExtractor = {
   "NOME-COMPLETO": string;
   "LINHA-DE-PESQUISA": string[];
   Orientacao: MentorshipWork;
-  "PROD-BIB": any;
+  "PROD-BIB": TProdBib;
 };

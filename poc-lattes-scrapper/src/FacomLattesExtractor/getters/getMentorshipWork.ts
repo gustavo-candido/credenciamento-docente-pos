@@ -1,4 +1,3 @@
-import jsonpath from "jsonpath";
 import { hasSponsor, parentJsonPath, prioritizeLanguage } from "@utils/index";
 
 import type {
@@ -71,13 +70,12 @@ const getStatusDegreeMentorshipWork = (
       ];
 
     statusDegreeMentorshipsData.push({
-      "TIPO-DE-ORIENTACAO":
-        statusDegreeMentorshipDetails?.["TIPO-DE-ORIENTACAO"],
+      role: statusDegreeMentorshipDetails?.["TIPO-DE-ORIENTACAO"],
       TITULO: prioritizeLanguage({
         "pt-br": statusDegreeMentorshipBasicData?.["TITULO"],
         en: statusDegreeMentorshipBasicData?.["TITULO-INGLES"],
       }),
-      ANO: parseInt(statusDegreeMentorshipBasicData?.["ANO"]),
+      year: parseInt(statusDegreeMentorshipBasicData?.["ANO"]),
       ...getStudentInfo(status, statusDegreeMentorshipDetails),
       ...getSponsorInfo(statusDegreeMentorshipDetails),
     });
@@ -107,7 +105,7 @@ const getICStatus = (
     return kind === "INICIACAO_CIENTIFICA";
   });
 
-  const icStatus = [];
+  const icStatus = [] as MentorshipWorkByDegree[];
 
   for (let ICMentorship of ICMentorships) {
     const ICMentorshipsBasicData = ICMentorship?.[basicDataKey];
@@ -115,12 +113,12 @@ const getICStatus = (
     const ICMentorshipsBasicDetails = ICMentorship?.[detailsDataKey];
 
     icStatus.push({
-      "TIPO-DE-ORIENTACAO": "ORIENTADOR_PRINCIPAL",
+      role: "ORIENTADOR_PRINCIPAL",
       TITULO: prioritizeLanguage({
         "pt-br": ICMentorshipsBasicData?.["TITULO"],
         en: ICMentorshipsBasicData?.["TITULO-INGLES"],
       }),
-      ANO: parseInt(ICMentorshipsBasicData?.["ANO"]),
+      year: parseInt(ICMentorshipsBasicData?.["ANO"]),
       ...getStudentInfo(status, ICMentorshipsBasicDetails),
       ...getSponsorInfo(ICMentorshipsBasicDetails),
     });
