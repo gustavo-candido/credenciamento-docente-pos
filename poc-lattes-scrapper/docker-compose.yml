@@ -5,4 +5,16 @@ services:
     image: nginx:1.23.0-alpine
     container_name: ngnix
     ports:
-      - "8000:80" # maquine 8000 ngnix 80
+      - "8000:80" # maquine 8000 nginx 80
+
+  api:
+    build: .
+    container_name: cred_pos_api
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    links:
+      - nginx
+    depends_on:
+      - nginx
