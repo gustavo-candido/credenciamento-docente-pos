@@ -1,6 +1,6 @@
-import { MentorshipWorkByDegree } from "@FacomLattesExtractor/types";
+import { MentorshipWorkByDegree, TProdBib } from "@FacomLattesExtractor/types";
 
-export type TFacomNormCred = {
+export type TFormModule = {
   iCConcluida: MentorshipWorkByDegree[];
   posDocSup: MentorshipWorkByDegree[];
   mestresFor: MentorshipWorkByDegree[];
@@ -9,3 +9,10 @@ export type TFacomNormCred = {
   oriDout: MentorshipWorkByDegree[];
   coorMestDout: MentorshipWorkByDegree[];
 };
+
+export type TProdBibModule = {
+  irestrict: TProdBib;
+  igeneral: TProdBib;
+};
+
+export type TFacomNormCred = any;

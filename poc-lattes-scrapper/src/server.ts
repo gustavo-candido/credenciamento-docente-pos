@@ -14,15 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/test", (req, res) => {
-  const infos = new FacomNormCred()
-    .getICConcluida()
-    .getPosDocSup()
-    .getMestresFor()
-    .getDoutoresFor()
-    .getOriMest()
-    .getOriDout()
-    .getCoorMestDout()
-    .build();
+  const infos = new FacomNormCred().build();
   return res.json(infos);
 });
 

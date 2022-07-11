@@ -5,7 +5,8 @@
     "baseUrl": ".",
     "paths": {
       "@utils/*": ["./src/utils/*"],
-      "@FacomLattesExtractor/*": ["./src/FacomLattesExtractor/*"]
+      "@FacomLattesExtractor/*": ["./src/FacomLattesExtractor/*"],
+      "@FacomNormCred/*": ["./src/FacomNormCred/*"]
     },
     "outDir": "./dist",
     "esModuleInterop": true,

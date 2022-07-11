@@ -9,5 +9,6 @@ module.exports = {
   moduleNameMapper: {
     "^@utils/(.*)$": "<rootDir>/src/utils/$1",
     "^@FacomLattesExtractor/(.*)$": "<rootDir>/src/FacomLattesExtractor/$1",
+    "^@FacomNormCred/(.*)$": "<rootDir>/src/FacomLattesExtractor/$1",
   },
 };
