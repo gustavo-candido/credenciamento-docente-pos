@@ -1,19 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
     "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es5", "es6"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    "outDir": "./dist",
     "paths": {
       "@utils/*": ["./src/utils/*"],
       "@FacomLattesExtractor/*": ["./src/FacomLattesExtractor/*"],
       "@FacomNormCred/*": ["./src/FacomNormCred/*"],
-      "@ProdArticle/*": ["./src/prod_article/*"]
+      "@ProdArticle/*": ["./src/prod_article/*"],
+      "@typeorm/*": ["./src/typeorm/*"]
     },
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
     "strict": true,
-    "skipLibCheck": true
+    "target": "es5"
   }
 }

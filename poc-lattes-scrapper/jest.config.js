@@ -11,5 +11,6 @@ module.exports = {
     "^@FacomLattesExtractor/(.*)$": "<rootDir>/src/FacomLattesExtractor/$1",
     "^@FacomNormCred/(.*)$": "<rootDir>/src/FacomLattesExtractor/$1",
     "^@ProdArticle/(.*)$": "<rootDir>/src/prod_article/$1",
+    "^@typeorm/(.*)$": "<rootDir>/src/typeorm/$1",
   },
 };

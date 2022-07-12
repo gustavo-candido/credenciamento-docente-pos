@@ -8,7 +8,12 @@
     "test:coverage": "jest --coverage",
     "dev:server": "ts-node-dev --inspect --ignore-watch node_modules  -r tsconfig-paths/register src/server.ts",
     "prod:server": "node dist/server.js",
-    "build": "npx tsc --project tsconfig.json && npx tscpaths -p tsconfig.json -s ./src -o ./dist"
+    "build": "npx tsc --project tsconfig.json && npx tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "start": "ts-node src/index.ts",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:create": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create src/typeorm/migration/$npm_config_name",
+    "migration:run": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run --dataSource src/typeorm/data-source.ts",
+    "migration:revert:last": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert --dataSource src/typeorm/data-source.ts"
   },
   "author": "Gustavo Candido",
   "license": "ISC",
@@ -17,7 +22,10 @@
     "express": "^4.18.1",
     "jsonpath": "^1.1.1",
     "lodash.flattendeep": "^4.4.0",
+    "pg": "^8.4.0",
+    "reflect-metadata": "^0.1.13",
     "tscpaths": "^0.0.9",
+    "typeorm": "0.3.7",
     "xlsx": "^0.18.5",
     "xml2json": "^0.12.0"
   },
@@ -26,12 +34,13 @@
     "@types/jest": "^28.1.4",
     "@types/jsonpath": "^0.2.0",
     "@types/lodash.flattendeep": "^4.4.7",
-    "@types/node": "^18.0.1",
+    "@types/node": "^16.11.10",
     "@types/xml2json": "^0.11.4",
     "jest": "^28.1.2",
     "ts-jest": "^28.0.5",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.0.0",
-    "typescript": "^4.7.4"
+    "typescript": "4.5.2",
+    "ts-node": "10.7.0"
   }
 }

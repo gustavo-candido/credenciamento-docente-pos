@@ -1,24 +1,43 @@
-import express from "express";
+import "reflect-metadata";
 import "dotenv/config";
+import express from "express";
 
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import FacomNormCred from "@FacomNormCred/index";
+import { AppDataSource } from "@typeorm/data-source";
+import { User } from "@typeorm/entity/User";
 
-const app = express();
-const port = 3000;
+(async () => {
+  await AppDataSource.initialize()
+    .then(async () => {
+      console.log(`🗂️  Db connected!`);
+    })
+    .catch((error) => console.log("🗂️  Db fail to connect", error));
 
-app.use(express.json());
+  const app = express();
+  const port = 3000;
 
-app.get("/", (req, res) => {
-  const infos = new FacomLattesExtractor().getProdBib().build();
-  return res.json(infos);
-});
+  const userRepository = AppDataSource.getRepository(User);
 
-app.get("/test", (req, res) => {
-  const infos = new FacomNormCred().build();
-  return res.json(infos);
-});
+  const users = await userRepository.find();
 
-app.listen(port, () => {
-  console.log(`🚀 Running on ${port}`);
-});
+  console.log(`users`);
+  console.log(users);
+
+  app.use(express.json());
+  ``;
+
+  app.get("/", (req, res) => {
+    const infos = new FacomLattesExtractor().getProdBib().build();
+    return res.json(infos);
+  });
+
+  app.get("/test", (req, res) => {
+    const infos = new FacomNormCred().build();
+    return res.json(infos);
+  });
+
+  app.listen(port, () => {
+    console.log(`🚀 Running app on ${port}`);
+  });
+})();
