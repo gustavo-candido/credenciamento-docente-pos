@@ -5,7 +5,6 @@ import express from "express";
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import FacomNormCred from "@FacomNormCred/index";
 import { AppDataSource } from "@typeorm/data-source";
-import { User } from "@typeorm/entity/User";
 import QualisPerSeedService from "@typeorm/seed/QualisPerSeedService";
 
 (async () => {
@@ -13,22 +12,17 @@ import QualisPerSeedService from "@typeorm/seed/QualisPerSeedService";
     .then(async () => {
       console.log(`🗂️  Db connected!`);
     })
-    .catch((error) => console.log("🗂️  Db fail to connect", error));
+    .catch((error) =>
+      console.log(error, "🗂️  Db fail to connect (error above)\n")
+    );
 
   const app = express();
   const port = 3000;
 
-  // const userRepository = AppDataSource.getRepository(User);
-
-  // const users = await userRepository.find();
-
-  // console.log(`users`);
-  // console.log(users);
-
   app.use(express.json());
 
-  app.get("/", (req, res) => {
-    const infos = new FacomLattesExtractor().getProdBib().build();
+  app.get("/", async (req, res) => {
+    const infos = (await new FacomLattesExtractor().getProdBib()).build();
     return res.json(infos);
   });
 

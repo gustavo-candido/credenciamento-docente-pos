@@ -57,8 +57,8 @@ class FacomLattesExtractor {
     return this;
   }
 
-  public getProdBib() {
-    const prodBib = getProdBib(this.lattes);
+  public async getProdBib() {
+    const prodBib = await getProdBib(this.lattes);
 
     if (prodBib) {
       this.infos = {

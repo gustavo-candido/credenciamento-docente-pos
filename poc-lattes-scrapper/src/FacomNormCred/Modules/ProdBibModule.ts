@@ -14,7 +14,7 @@ class ProdBibModule {
   public infos = {} as TProdBibModule;
 
   constructor() {
-    this.extractedLattesInfo = new FacomLattesExtractor().getProdBib().build();
+    // this.extractedLattesInfo = await(new FacomLattesExtractor().getProdBib()).build();
   }
 
   public getIRestrito() {

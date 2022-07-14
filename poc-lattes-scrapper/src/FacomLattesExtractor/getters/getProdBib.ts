@@ -4,7 +4,6 @@ import {
   prioritizeLanguage,
   qualisScore,
   qualisScoreRestrict,
-  readQualis,
 } from "@utils/index";
 
 import type {
@@ -14,19 +13,28 @@ import type {
 } from "@FacomLattesExtractor/types";
 
 import type { ProdArticleDTO } from "@ProdArticle/ProdArticleDTO";
+import { AppDataSource } from "@typeorm/data-source";
+import { QualisPer } from "@typeorm/entity/QualisPer";
 
-const getProdArticlesNormalized = (lattes: TLattes): ProdArticleDTO[] => {
+const getProdArticlesNormalized = async (lattes: TLattes) => {
   const articles = parentJsonPath(lattes, "$..['DETALHAMENTO-DO-ARTIGO']");
-  const checkQualis = readQualis();
+  const qualisPerRepository = AppDataSource.getRepository(QualisPer);
 
-  return articles.map((item) => {
+  const dataArray = await qualisPerRepository.find({
+    select: ["issn", "qualis"],
+  });
+
+  const dataMap = new Map(dataArray.map((item) => [item.issn, item.qualis]));
+
+  return articles.map((item): ProdArticleDTO => {
     const title = item?.["DADOS-BASICOS-DO-ARTIGO"]?.["TITULO-DO-ARTIGO"];
     const titleEn =
       item?.["DADOS-BASICOS-DO-ARTIGO"]?.["TITULO-DO-ARTIGO-INGLES"];
 
     const year = parseInt(item?.["DADOS-BASICOS-DO-ARTIGO"]?.["ANO-DO-ARTIGO"]);
     const issn = item?.["DETALHAMENTO-DO-ARTIGO"]?.["ISSN"].replace("-", "");
-    const qualis = checkQualis.per.get(issn) ?? "?";
+
+    const qualis = dataMap.get(issn) ?? "?";
     const generalScore = normalizeQualis(qualisScore(qualis));
     const restrictScore = normalizeQualis(qualisScoreRestrict(qualis));
 
@@ -34,12 +42,12 @@ const getProdArticlesNormalized = (lattes: TLattes): ProdArticleDTO[] => {
 
     return {
       create_at: currentDate,
-      update_at: currentDate,
       igeral: generalScore,
       irestrito: restrictScore,
       issn,
       qualis,
       title: prioritizeLanguage({ "pt-br": title, en: titleEn }),
+      update_at: currentDate,
       year,
     };
   });
@@ -81,8 +89,8 @@ const getEventWork = (lattes: TLattes): TEventWork[] => {
   });
 };
 
-const getProdBib = (lattes: TLattes): TProdBib => {
-  const articleProd = getProdArticlesNormalized(lattes);
+const getProdBib = async (lattes: TLattes): Promise<TProdBib> => {
+  const articleProd = await getProdArticlesNormalized(lattes);
   const eventWork = getEventWork(lattes);
 
   return {
