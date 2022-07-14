@@ -15,6 +15,7 @@ import type {
 import type { ProdArticleDTO } from "@ProdArticle/ProdArticleDTO";
 import { AppDataSource } from "@typeorm/data-source";
 import { QualisPer } from "@typeorm/entity/QualisPer";
+import { QualisAnais } from "@typeorm/entity/QualisAnais";
 
 const getProdArticlesNormalized = async (lattes: TLattes) => {
   const articles = parentJsonPath(lattes, "$..['DETALHAMENTO-DO-ARTIGO']");
@@ -53,45 +54,62 @@ const getProdArticlesNormalized = async (lattes: TLattes) => {
   });
 };
 
-const getEventWork = (lattes: TLattes): TEventWork[] => {
+const getEventWork = async (lattes: TLattes): Promise<TEventWork[]> => {
   const eventWork = parentJsonPath(lattes, "$..['DETALHAMENTO-DO-TRABALHO']");
+  const qualisAnaisRepository = AppDataSource.getRepository(QualisAnais);
 
-  return eventWork.map((item) => {
-    const title = item?.["DADOS-BASICOS-DO-TRABALHO"]?.["TITULO-DO-TRABALHO"];
-    const titleEn =
-      item?.["DADOS-BASICOS-DO-TRABALHO"]?.["TITULO-DO-TRABALHO-INGLES"];
+  return await Promise.all(
+    eventWork.map(async (item) => {
+      const title = item?.["DADOS-BASICOS-DO-TRABALHO"]?.["TITULO-DO-TRABALHO"];
+      const titleEn =
+        item?.["DADOS-BASICOS-DO-TRABALHO"]?.["TITULO-DO-TRABALHO-INGLES"];
 
-    const year = parseInt(
-      item?.["DADOS-BASICOS-DO-TRABALHO"]?.["ANO-DO-TRABALHO"]
-    );
+      const year = parseInt(
+        item?.["DADOS-BASICOS-DO-TRABALHO"]?.["ANO-DO-TRABALHO"]
+      );
 
-    const qualis = "?"; //TODO getQualis(item);
-    const sigla = "?"; // TODO
-    const generalScore = qualisScore(qualis);
-    const restrictScore = qualisScoreRestrict(qualis);
+      const eventDetails = item?.["DETALHAMENTO-DO-TRABALHO"];
+      const eventNamePT = eventDetails["NOME-DO-EVENTO"]?.toUpperCase();
+      const eventNameEN = eventDetails["NOME-DO-EVENTO-INGLES"]?.toUpperCase();
 
-    const eventDetails = item?.["DETALHAMENTO-DO-TRABALHO"];
-    const eventNamePT = eventDetails["NOME-DO-EVENTO"];
-    const eventNameEN = eventDetails["NOME-DO-EVENTO"];
-    const eventName = prioritizeLanguage({
-      "pt-br": eventNamePT,
-      en: eventNameEN,
-    });
-    return {
-      eventName,
-      igeral: generalScore,
-      irestrito: restrictScore,
-      qualis,
-      sigla,
-      title: prioritizeLanguage({ "pt-br": title, en: titleEn }),
-      year,
-    };
-  });
+      const eventName = prioritizeLanguage({
+        "pt-br": eventNamePT,
+        en: eventNameEN,
+      });
+
+      let qualis = "?";
+      let sigla = "?";
+
+      for (let name of [eventNamePT, eventNameEN]) {
+        const data = await qualisAnaisRepository.findOneBy({
+          name,
+        });
+
+        if (!data) continue;
+
+        qualis = data.qualis;
+        sigla = data.sigla;
+      }
+
+      const generalScore = qualisScore(qualis);
+      const restrictScore = qualisScoreRestrict(qualis);
+
+      return {
+        eventName,
+        igeral: generalScore,
+        irestrito: restrictScore,
+        qualis,
+        sigla,
+        title: prioritizeLanguage({ "pt-br": title, en: titleEn }),
+        year,
+      };
+    })
+  );
 };
 
 const getProdBib = async (lattes: TLattes): Promise<TProdBib> => {
   const articleProd = await getProdArticlesNormalized(lattes);
-  const eventWork = getEventWork(lattes);
+  const eventWork = await getEventWork(lattes);
 
   return {
     article: articleProd,
@@ -100,34 +118,3 @@ const getProdBib = async (lattes: TLattes): Promise<TProdBib> => {
 };
 
 export default getProdBib;
-
-// const getQualis = (eventWork: any): string => {
-//   const eventWorkDetails = eventWork?.["DETALHAMENTO-DO-TRABALHO"];
-//   const eventName = eventWorkDetails?.["NOME-DO-EVENTO"];
-//   const eventNameEn = eventWorkDetails?.["NOME-DO-EVENTO-INGLES"];
-//   const checkQualis = readQualis();
-
-//   const maybeQualisByIndex = (eventTitle: string) => {
-//     return checkQualis.anais.arrBySigla.findIndex(({ sigla }) =>
-//       eventTitle.includes(sigla)
-//     );
-//   };
-
-//   let qualis = checkQualis.anais.mapByName.get(eventName);
-
-//   if (!!qualis) {
-//     qualis = checkQualis.anais.mapByName.get(eventNameEn);
-//   }
-
-//   if (!!qualis) {
-//     const index = maybeQualisByIndex(eventName);
-//     if (index >= 0) qualis = checkQualis.anais.arrBySigla[index].qualis;
-//   }
-
-//   if (!!qualis) {
-//     const index = maybeQualisByIndex(eventNameEn);
-//     if (index >= 0) qualis = checkQualis.anais.arrBySigla[index].qualis;
-//   }
-
-//   return qualis ?? "?";
-// };
