@@ -5,7 +5,7 @@ import express from "express";
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import FacomNormCred from "@FacomNormCred/index";
 import { AppDataSource } from "@typeorm/data-source";
-import QualisPerSeedService from "@typeorm/seed/QualisPerSeedService";
+import QualisAnaisSeedService from "@typeorm/seed/QuaisAnaisSeedService";
 
 (async () => {
   await AppDataSource.initialize()
@@ -27,8 +27,8 @@ import QualisPerSeedService from "@typeorm/seed/QualisPerSeedService";
   });
 
   app.get("/test", (req, res) => {
-    const infos = new FacomNormCred().build();
-    return res.json(new QualisPerSeedService().run());
+    // const infos = new FacomNormCred().build();
+    return res.json(new QualisAnaisSeedService().run());
   });
 
   app.listen(port, () => {
