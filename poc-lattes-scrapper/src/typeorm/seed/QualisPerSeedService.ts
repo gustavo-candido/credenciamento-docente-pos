@@ -21,7 +21,7 @@ export default class QualisPerSeedService {
       )
       .map((item) => ({
         issn: item["ISSN"].replace("-", ""),
-        title: item["TITULO"],
+        title: item["TITULO"].toUpperCase(),
         qualis: item["ESTRATO FINAL"],
       }));
 
