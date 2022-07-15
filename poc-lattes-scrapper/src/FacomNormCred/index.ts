@@ -1,12 +1,19 @@
+import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import { FormModule, ProdBibModule } from "./Modules";
 
 import type { TFacomNormCred } from "./types";
 
 class FacomNormCred {
-  constructor() {}
+  private facomLattesExtractor;
+
+  constructor() {
+    this.facomLattesExtractor = new FacomLattesExtractor();
+  }
 
   public getFormModule() {
-    const formModule = new FormModule()
+    const formModule = new FormModule(
+      this.facomLattesExtractor.getMentorshipWork()
+    )
       .getICConcluida()
       .getPosDocSup()
       .getMestresFor()
@@ -19,8 +26,10 @@ class FacomNormCred {
     return formModule;
   }
 
-  public getProdBibModule() {
-    const prodBibModule = new ProdBibModule()
+  public async getProdBibModule() {
+    const prodBibModule = new ProdBibModule(
+      await this.facomLattesExtractor.getProdBib()
+    )
       .getIRestrito()
       .getIGeral()
       .build();
@@ -28,10 +37,10 @@ class FacomNormCred {
     return prodBibModule;
   }
 
-  public build(): TFacomNormCred {
+  public async build(): Promise<TFacomNormCred> {
     return {
       ...this.getFormModule(),
-      ...this.getProdBibModule(),
+      ...(await this.getProdBibModule()),
     };
   }
 }

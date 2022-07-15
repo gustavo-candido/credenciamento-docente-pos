@@ -10,12 +10,11 @@ import type { TFacomLattesExtractor } from "@FacomLattesExtractor/types";
 import type { TProdBibModule } from "@FacomNormCred/types";
 
 class ProdBibModule {
-  private extractedLattesInfo: TFacomLattesExtractor;
   public infos = {} as TProdBibModule;
 
-  constructor() {
-    // this.extractedLattesInfo = await(new FacomLattesExtractor().getProdBib()).build();
-  }
+  constructor(
+    private extractedLattesInfo: Pick<TFacomLattesExtractor, "PROD-BIB">
+  ) {}
 
   public getIRestrito() {
     const prodBib = this.extractedLattesInfo["PROD-BIB"];

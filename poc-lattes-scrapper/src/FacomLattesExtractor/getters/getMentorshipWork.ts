@@ -2,8 +2,8 @@ import { hasSponsor, parentJsonPath, prioritizeLanguage } from "@utils/index";
 
 import type {
   TLattes,
-  MentorshipWork,
   MentorshipWorkByDegreeDTO,
+  TMentorshipWork,
 } from "@FacomLattesExtractor/types";
 
 const getSponsorInfo = (statusDegreeMentorshipDetails: any) => {
@@ -125,7 +125,7 @@ const getICStatus = (
   return icStatus;
 };
 
-const getMentorshipWork = (lattes: TLattes): MentorshipWork => {
+const getMentorshipWork = (lattes: TLattes): TMentorshipWork => {
   return {
     concluded: {
       ic: getICStatus(lattes, "concluded"),

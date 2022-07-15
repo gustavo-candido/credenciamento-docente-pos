@@ -9,14 +9,11 @@ import type { TFacomLattesExtractor } from "@FacomLattesExtractor/types";
 import type { TFormModule } from "@FacomNormCred/types";
 
 class FormModule {
-  private extractedLattesInfo: TFacomLattesExtractor;
   public infos = {} as TFormModule;
 
-  constructor() {
-    this.extractedLattesInfo = new FacomLattesExtractor()
-      .getMentorshipWork()
-      .build();
-  }
+  constructor(
+    private extractedLattesInfo: Pick<TFacomLattesExtractor, "Orientacao">
+  ) {}
 
   private getCoorMest(): TFormModule["coorMestDout"] {
     const concludedMentorships =

@@ -12,7 +12,7 @@ export interface MentorshipWorkByDegreeDTO {
   sponsor_name?: string;
 }
 
-export type MentorshipWork = {
+export type TMentorshipWork = {
   concluded: {
     ic: MentorshipWorkByDegreeDTO[];
     master: MentorshipWorkByDegreeDTO[];
@@ -45,6 +45,6 @@ export type TProdBib = {
 export type TFacomLattesExtractor = {
   "NOME-COMPLETO": string;
   "LINHA-DE-PESQUISA": string[];
-  Orientacao: MentorshipWork;
+  Orientacao: TMentorshipWork;
   "PROD-BIB": TProdBib;
 };
