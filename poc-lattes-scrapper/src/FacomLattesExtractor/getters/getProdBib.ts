@@ -43,8 +43,8 @@ const getProdArticlesNormalized = async (lattes: TLattes) => {
 
     return {
       create_at: currentDate,
-      igeral: generalScore,
-      irestrito: restrictScore,
+      i_geral: generalScore,
+      i_restrito: restrictScore,
       issn,
       qualis,
       title: prioritizeLanguage({ "pt-br": title, en: titleEn }),
@@ -96,8 +96,8 @@ const getEventWork = async (lattes: TLattes): Promise<TEventWork[]> => {
 
       return {
         eventName,
-        igeral: generalScore,
-        irestrito: restrictScore,
+        i_geral: generalScore,
+        i_restrito: restrictScore,
         qualis,
         sigla,
         title: prioritizeLanguage({ "pt-br": title, en: titleEn }),

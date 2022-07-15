@@ -1,5 +1,3 @@
-import FacomLattesExtractor from "@FacomLattesExtractor/index";
-
 import {
   filterByIGeneral,
   filterByIRestrict,
@@ -28,7 +26,7 @@ class ProdBibModule {
 
     this.infos = {
       ...this.infos,
-      irestrict: { article: articlesValid, event: eventsValid },
+      i_restrict: { article: articlesValid, event: eventsValid },
     };
 
     return this;
@@ -46,7 +44,7 @@ class ProdBibModule {
 
     this.infos = {
       ...this.infos,
-      igeneral: { article: articlesValid, event: eventsValid },
+      i_general: { article: articlesValid, event: eventsValid },
     };
 
     return this;

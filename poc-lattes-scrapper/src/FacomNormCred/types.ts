@@ -4,18 +4,18 @@ import type {
 } from "@FacomLattesExtractor/types";
 
 export type TFormModule = {
-  coorMestDout: MentorshipWorkByDegreeDTO[];
-  doutoresFor: MentorshipWorkByDegreeDTO[];
-  iCConcluida: MentorshipWorkByDegreeDTO[];
-  mestresFor: MentorshipWorkByDegreeDTO[];
-  oriDout: MentorshipWorkByDegreeDTO[];
-  oriMest: MentorshipWorkByDegreeDTO[];
-  posDocSup: MentorshipWorkByDegreeDTO[];
+  coor_mest_dout: MentorshipWorkByDegreeDTO[];
+  doutores_for: MentorshipWorkByDegreeDTO[];
+  ic_concluida: MentorshipWorkByDegreeDTO[];
+  mestres_for: MentorshipWorkByDegreeDTO[];
+  ori_dout: MentorshipWorkByDegreeDTO[];
+  ori_mest: MentorshipWorkByDegreeDTO[];
+  pos_doc_sup: MentorshipWorkByDegreeDTO[];
 };
 
 export type TProdBibModule = {
-  igeneral: TProdBib;
-  irestrict: TProdBib;
+  i_general: TProdBib;
+  i_restrict: TProdBib;
 };
 
 export type TFacomNormCred = TFormModule & TProdBibModule;

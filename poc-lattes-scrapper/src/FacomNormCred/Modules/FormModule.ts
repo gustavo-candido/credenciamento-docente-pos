@@ -15,24 +15,20 @@ class FormModule {
     private extractedLattesInfo: Pick<TFacomLattesExtractor, "Orientacao">
   ) {}
 
-  private getCoorMest(): TFormModule["coorMestDout"] {
+  private getCoorMest(): TFormModule["coor_mest_dout"] {
     const concludedMentorships =
       this.extractedLattesInfo["Orientacao"].concluded;
 
-    const concludedMestres = concludedMentorships.master
-      .filter(filterByOrientador)
-      .filter(filterByTime);
+    const concludedMestres = concludedMentorships.master;
 
     return concludedMestres;
   }
 
-  private getCoorDout(): TFormModule["coorMestDout"] {
+  private getCoorDout(): TFormModule["coor_mest_dout"] {
     const concludedMentorships =
       this.extractedLattesInfo["Orientacao"].concluded;
 
-    const concludedDout = concludedMentorships.doctoral
-      .filter(filterByOrientador)
-      .filter(filterByTime);
+    const concludedDout = concludedMentorships.doctoral;
 
     return concludedDout;
   }
@@ -42,12 +38,9 @@ class FormModule {
       this.extractedLattesInfo["Orientacao"].concluded;
 
     const concludedIC = concludedMentorships.ic;
+    const concludedICValid = concludedIC;
 
-    const concludedICValid = concludedIC
-      .filter(filterByOrientador)
-      .filter(filterByTime);
-
-    this.infos = { ...this.infos, iCConcluida: concludedICValid };
+    this.infos = { ...this.infos, ic_concluida: concludedICValid };
 
     return this;
   }
@@ -62,7 +55,7 @@ class FormModule {
       .filter(filterByOrientador)
       .filter(filterByTime);
 
-    this.infos = { ...this.infos, posDocSup: concludedPosDocSupValid };
+    this.infos = { ...this.infos, pos_doc_sup: concludedPosDocSupValid };
 
     return this;
   }
@@ -77,7 +70,7 @@ class FormModule {
       .filter(filterByOrientador)
       .filter(filterByTime);
 
-    this.infos = { ...this.infos, mestresFor: concludedMestresFormValid };
+    this.infos = { ...this.infos, mestres_for: concludedMestresFormValid };
 
     return this;
   }
@@ -92,7 +85,7 @@ class FormModule {
       .filter(filterByOrientador)
       .filter(filterByTime);
 
-    this.infos = { ...this.infos, doutoresFor: concludedDoutoresForValid };
+    this.infos = { ...this.infos, doutores_for: concludedDoutoresForValid };
 
     return this;
   }
@@ -106,7 +99,7 @@ class FormModule {
 
     this.infos = {
       ...this.infos,
-      coorMestDout: coorMestDoutValid,
+      coor_mest_dout: coorMestDoutValid,
     };
     return this;
   }
@@ -119,7 +112,7 @@ class FormModule {
       .filter(filterByOrientador)
       .filter(filterByTime);
 
-    this.infos = { ...this.infos, oriMest: currentOriMestValid };
+    this.infos = { ...this.infos, ori_mest: currentOriMestValid };
 
     return this;
   }
@@ -132,7 +125,7 @@ class FormModule {
       .filter(filterByOrientador)
       .filter(filterByTime);
 
-    this.infos = { ...this.infos, oriDout: currentOriDoutValid };
+    this.infos = { ...this.infos, ori_dout: currentOriDoutValid };
 
     return this;
   }

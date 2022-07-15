@@ -29,8 +29,8 @@ export type TMentorshipWork = {
 
 export type TEventWork = {
   eventName: string;
-  igeral: number;
-  irestrito: number;
+  i_geral: number;
+  i_restrito: number;
   qualis: string;
   sigla: string;
   title: string;

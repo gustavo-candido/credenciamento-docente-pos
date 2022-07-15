@@ -26,7 +26,7 @@ import { AppDataSource } from "@typeorm/data-source";
   });
 
   app.get("/test", async (req, res) => {
-    const infos = await new FacomNormCred().getFormModule();
+    const infos = await new FacomNormCred().getAllModules();
     return res.json(infos);
   });
 
