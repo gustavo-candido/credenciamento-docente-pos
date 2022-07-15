@@ -4,23 +4,20 @@ import {
   filterByTime,
 } from "@FacomNormCred/filters";
 
-import type { TFacomLattesExtractor } from "@FacomLattesExtractor/types";
+import type { TProdBib } from "@FacomLattesExtractor/types";
 import type { TProdBibModule } from "@FacomNormCred/types";
 
 class ProdBibModule {
   public infos = {} as TProdBibModule;
 
-  constructor(
-    private extractedLattesInfo: Pick<TFacomLattesExtractor, "PROD-BIB">
-  ) {}
+  constructor(private prodBib: TProdBib) {}
 
   public getIRestrito() {
-    const prodBib = this.extractedLattesInfo["PROD-BIB"];
-    const articlesValid = prodBib.article
+    const articlesValid = this.prodBib.article
       .filter(filterByTime)
       .filter(filterByIRestrict);
 
-    const eventsValid = prodBib.event
+    const eventsValid = this.prodBib.event
       .filter(filterByTime)
       .filter(filterByIRestrict);
 
@@ -33,12 +30,11 @@ class ProdBibModule {
   }
 
   public getIGeral() {
-    const prodBib = this.extractedLattesInfo["PROD-BIB"];
-    const articlesValid = prodBib.article
+    const articlesValid = this.prodBib.article
       .filter(filterByTime)
       .filter(filterByIGeneral);
 
-    const eventsValid = prodBib.event
+    const eventsValid = this.prodBib.event
       .filter(filterByTime)
       .filter(filterByIGeneral);
 

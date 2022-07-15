@@ -19,33 +19,25 @@ class FacomLattesExtractor {
   public getName() {
     const name = getName(this.lattes);
 
-    return {
-      "NOME-COMPLETO": name ?? "",
-    };
+    return name ?? "";
   }
 
   public getFieldOfSearch() {
     const researchesFields = getResearchesFields(this.lattes);
 
-    return {
-      "LINHA-DE-PESQUISA": researchesFields ?? [],
-    };
+    return researchesFields ?? [];
   }
 
   public getMentorshipWork() {
     const mentorshipWork = getMentorshipWork(this.lattes);
 
-    return {
-      Orientacao: mentorshipWork,
-    };
+    return mentorshipWork;
   }
 
   public async getProdBib() {
     const prodBib = await getProdBib(this.lattes);
 
-    return {
-      "PROD-BIB": prodBib,
-    };
+    return prodBib;
   }
 }
 

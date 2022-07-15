@@ -41,10 +41,3 @@ export type TProdBib = {
   article: ProdArticleDTO[];
   event: TEventWork[];
 };
-
-export type TFacomLattesExtractor = {
-  "NOME-COMPLETO": string;
-  "LINHA-DE-PESQUISA": string[];
-  Orientacao: TMentorshipWork;
-  "PROD-BIB": TProdBib;
-};

@@ -1,44 +1,24 @@
-import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import {
   filterByCoorientador,
   filterByOrientador,
   filterByTime,
 } from "@FacomNormCred/filters";
 
-import type { TFacomLattesExtractor } from "@FacomLattesExtractor/types";
+import type { TMentorshipWork } from "@FacomLattesExtractor/types";
 import type { TFormModule } from "@FacomNormCred/types";
 
 class FormModule {
   public infos = {} as TFormModule;
 
-  constructor(
-    private extractedLattesInfo: Pick<TFacomLattesExtractor, "Orientacao">
-  ) {}
-
-  private getCoorMest(): TFormModule["coor_mest_dout"] {
-    const concludedMentorships =
-      this.extractedLattesInfo["Orientacao"].concluded;
-
-    const concludedMestres = concludedMentorships.master;
-
-    return concludedMestres;
-  }
-
-  private getCoorDout(): TFormModule["coor_mest_dout"] {
-    const concludedMentorships =
-      this.extractedLattesInfo["Orientacao"].concluded;
-
-    const concludedDout = concludedMentorships.doctoral;
-
-    return concludedDout;
-  }
+  constructor(private mentorshipWork: TMentorshipWork) {}
 
   public getICConcluida() {
-    const concludedMentorships =
-      this.extractedLattesInfo["Orientacao"].concluded;
-
+    const concludedMentorships = this.mentorshipWork.concluded;
     const concludedIC = concludedMentorships.ic;
-    const concludedICValid = concludedIC;
+
+    const concludedICValid = concludedIC
+      .filter(filterByOrientador)
+      .filter(filterByTime);
 
     this.infos = { ...this.infos, ic_concluida: concludedICValid };
 
@@ -46,9 +26,7 @@ class FormModule {
   }
 
   public getPosDocSup() {
-    const concludedMentorships =
-      this.extractedLattesInfo["Orientacao"].concluded;
-
+    const concludedMentorships = this.mentorshipWork.concluded;
     const concludedPosDocSup = concludedMentorships.postdoctoral;
 
     const concludedPosDocSupValid = concludedPosDocSup
@@ -61,9 +39,7 @@ class FormModule {
   }
 
   public getMestresFor() {
-    const concludedMentorships =
-      this.extractedLattesInfo["Orientacao"].concluded;
-
+    const concludedMentorships = this.mentorshipWork.concluded;
     const concludedMestresForm = concludedMentorships.master;
 
     const concludedMestresFormValid = concludedMestresForm
@@ -76,9 +52,7 @@ class FormModule {
   }
 
   public getDoutoresFor() {
-    const concludedMentorships =
-      this.extractedLattesInfo["Orientacao"].concluded;
-
+    const concludedMentorships = this.mentorshipWork.concluded;
     const concludedDoutoresFor = concludedMentorships.doctoral;
 
     const concludedDoutoresForValid = concludedDoutoresFor
@@ -90,9 +64,22 @@ class FormModule {
     return this;
   }
 
+  private getCoorMest(): TFormModule["coor_mest_dout"] {
+    const concludedMentorships = this.mentorshipWork.concluded;
+    const concludedMestres = concludedMentorships.master;
+
+    return concludedMestres;
+  }
+
+  private getCoorDout(): TFormModule["coor_mest_dout"] {
+    const concludedMentorships = this.mentorshipWork.concluded;
+    const concludedDout = concludedMentorships.doctoral;
+
+    return concludedDout;
+  }
+
   public getCoorMestDout() {
     const coorMestDout = [...this.getCoorMest(), ...this.getCoorDout()];
-
     const coorMestDoutValid = coorMestDout
       .filter(filterByCoorientador)
       .filter(filterByTime);
@@ -105,7 +92,7 @@ class FormModule {
   }
 
   public getOriMest() {
-    const currentMentorships = this.extractedLattesInfo["Orientacao"].current;
+    const currentMentorships = this.mentorshipWork.current;
     const currentOriMest = currentMentorships.master;
 
     const currentOriMestValid = currentOriMest
@@ -118,7 +105,7 @@ class FormModule {
   }
 
   public getOriDout() {
-    const currentMentorships = this.extractedLattesInfo["Orientacao"].current;
+    const currentMentorships = this.mentorshipWork.current;
     const currentOriDout = currentMentorships.doctoral;
 
     const currentOriDoutValid = currentOriDout
