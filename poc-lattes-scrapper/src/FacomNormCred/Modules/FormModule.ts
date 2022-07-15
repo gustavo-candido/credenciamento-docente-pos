@@ -19,7 +19,9 @@ class FormModule {
     const concludedMentorships =
       this.extractedLattesInfo["Orientacao"].concluded;
 
-    const concludedMestres = concludedMentorships.master;
+    const concludedMestres = concludedMentorships.master
+      .filter(filterByOrientador)
+      .filter(filterByTime);
 
     return concludedMestres;
   }
@@ -28,7 +30,9 @@ class FormModule {
     const concludedMentorships =
       this.extractedLattesInfo["Orientacao"].concluded;
 
-    const concludedDout = concludedMentorships.doctoral;
+    const concludedDout = concludedMentorships.doctoral
+      .filter(filterByOrientador)
+      .filter(filterByTime);
 
     return concludedDout;
   }
