@@ -18,4 +18,6 @@ export type TProdBibModule = {
   i_restrict: TProdBib;
 };
 
+export type TProdTecModule = {};
+
 export type TFacomNormCred = TFormModule & TProdBibModule;

@@ -21,12 +21,12 @@ import { AppDataSource } from "@typeorm/data-source";
   app.use(express.json());
 
   app.get("/", async (req, res) => {
-    const infos = await new FacomLattesExtractor().getProdBib();
+    const infos = await new FacomNormCred().getAllModules();
     return res.json(infos);
   });
 
   app.get("/test", async (req, res) => {
-    const infos = await new FacomNormCred().getAllModules();
+    const infos = await new FacomLattesExtractor().getBooksAndChapters();
     return res.json(infos);
   });
 

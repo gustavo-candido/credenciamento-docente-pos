@@ -5,6 +5,7 @@ import {
   getName,
   getProdBib,
   getResearchesFields,
+  getBooksAndChapters,
 } from "./getters";
 
 import type { TLattes } from "./types";
@@ -38,6 +39,10 @@ class FacomLattesExtractor {
     const prodBib = await getProdBib(this.lattes);
 
     return prodBib;
+  }
+
+  public getBooksAndChapters() {
+    return getBooksAndChapters(this.lattes);
   }
 }
 

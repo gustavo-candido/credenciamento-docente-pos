@@ -41,3 +41,8 @@ export type TProdBib = {
   article: ProdArticleDTO[];
   event: TEventWork[];
 };
+
+export type TBooksChapter = {
+  title: string;
+  year: number;
+};
