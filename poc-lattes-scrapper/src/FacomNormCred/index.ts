@@ -32,9 +32,7 @@ class FacomNormCred {
   }
 
   public getProdTecModule() {
-    const booksAndChapters = this.facomLattesExtractor.getBooksAndChapters();
-
-    return new ProdTecModule().getArticleReview().build();
+    return new ProdTecModule().getOpenSource().build();
   }
 
   public async getAllModules(): Promise<any> {

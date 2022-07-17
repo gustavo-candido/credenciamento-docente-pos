@@ -32,6 +32,14 @@ class ProdTecModule {
     return this;
   }
 
+  public getOpenSource() {
+    const openSourceProjects = new FacomLattesExtractor().getOpenSource();
+
+    this.infos = { ...this.infos, openSourceProjects };
+
+    return this;
+  }
+
   public build() {
     return this.infos;
   }
