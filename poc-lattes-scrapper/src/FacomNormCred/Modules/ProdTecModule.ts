@@ -24,6 +24,14 @@ class ProdTecModule {
     return this;
   }
 
+  public getArticleReview() {
+    const articleReview = new FacomLattesExtractor().getArticleReview();
+
+    this.infos = { ...this.infos, articleReview };
+
+    return this;
+  }
+
   public build() {
     return this.infos;
   }

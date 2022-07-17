@@ -3,6 +3,7 @@ import getName from "./getName";
 import getProdBib from "./getProdBib";
 import getResearchesFields from "./getResearchesFields";
 import getBooksAndChapters from "./getBooksAndChapters";
+import getArticleReview from "./getArticleReview";
 
 export {
   getMentorshipWork,
@@ -10,4 +11,5 @@ export {
   getProdBib,
   getResearchesFields,
   getBooksAndChapters,
+  getArticleReview,
 };
