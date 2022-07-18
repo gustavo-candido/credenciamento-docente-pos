@@ -5,6 +5,7 @@ import express from "express";
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import FacomNormCred from "@FacomNormCred/index";
 import { AppDataSource } from "@typeorm/data-source";
+import routes from "./routes";
 
 (async () => {
   await AppDataSource.initialize()
@@ -19,6 +20,7 @@ import { AppDataSource } from "@typeorm/data-source";
   const port = 3000;
 
   app.use(express.json());
+  app.use(routes);
 
   app.get("/", async (req, res) => {
     const infos = await new FacomNormCred().getAllModules();
