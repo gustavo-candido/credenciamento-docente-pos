@@ -59,7 +59,7 @@ class ProfessorRepository {
       where: { id: professorId },
     });
 
-    const professorNewDataFilter = removeUndefinedKeys({
+    const professorNewDataFiltered = removeUndefinedKeys({
       ...professorNewData,
       birth_date: professorNewData?.birth_date
         ? new Date(professorNewData.birth_date)
@@ -68,7 +68,7 @@ class ProfessorRepository {
 
     const updatedProfessor = {
       ...professor,
-      ...professorNewDataFilter,
+      ...professorNewDataFiltered,
     };
 
     await this.ormRepository.save(updatedProfessor);
