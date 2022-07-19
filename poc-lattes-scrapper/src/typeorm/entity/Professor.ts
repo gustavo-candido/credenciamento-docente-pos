@@ -25,6 +25,9 @@ export class Professor {
   research_topic_id: ResearchTopic;
 
   @Column()
+  placement: string;
+
+  @Column()
   ppgco_weekly_workload: number;
 
   @Column()

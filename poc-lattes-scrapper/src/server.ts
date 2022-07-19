@@ -6,6 +6,8 @@ import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import FacomNormCred from "@FacomNormCred/index";
 import { AppDataSource } from "@typeorm/data-source";
 import routes from "./routes";
+import ProfessorRepository from "./Controllers/Professor/ProfessorRepository";
+import { Professor } from "@typeorm/entity/Professor";
 
 (async () => {
   await AppDataSource.initialize()
@@ -28,7 +30,8 @@ import routes from "./routes";
   });
 
   app.get("/test", async (req, res) => {
-    const infos = await new FacomLattesExtractor().getBooksAndChapters();
+    const infos = await new FacomNormCred().getFormModule();
+
     return res.json(infos);
   });
 

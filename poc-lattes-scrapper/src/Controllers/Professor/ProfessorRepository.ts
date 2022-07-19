@@ -9,25 +9,28 @@ export interface IProfessorDTO {
   ppgco_weekly_workload: number;
   other_ppg_weekly_workload: number;
   has_pq_or_dt_sponsor: false;
+  placement: string;
 }
 class ProfessorRepository {
   constructor(private ormRepository: Repository<Professor>) {}
 
   public async create({
-    name,
     birth_date,
-    research_topic_id,
-    ppgco_weekly_workload,
-    other_ppg_weekly_workload,
     has_pq_or_dt_sponsor,
+    name,
+    other_ppg_weekly_workload,
+    placement,
+    ppgco_weekly_workload,
+    research_topic_id,
   }: IProfessorDTO) {
     const professor = this.ormRepository.create({
-      name,
       birth_date: new Date(birth_date),
-      research_topic_id: research_topic_id,
-      ppgco_weekly_workload,
-      other_ppg_weekly_workload,
       has_pq_or_dt_sponsor,
+      name,
+      other_ppg_weekly_workload,
+      placement,
+      ppgco_weekly_workload,
+      research_topic_id: research_topic_id,
     });
 
     await this.ormRepository.save(professor);
