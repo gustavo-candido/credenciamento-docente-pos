@@ -13,11 +13,15 @@ class ProfessorController {
     );
   }
 
-  public async create(
-    request: Request<{}, {}, Record<string, string>>,
-    response: Response
-  ) {
-    const { name, birth_date } = request.body;
+  public async create(request: Request, response: Response) {
+    const {
+      name,
+      birth_date,
+      research_topic_id,
+      ppgco_weekly_workload,
+      other_ppg_weekly_workload,
+      has_pq_or_dt_sponsor,
+    } = request.body;
 
     try {
       const isDuplicateProfessor = !!(await this.professorRepository.findByName(
@@ -30,7 +34,11 @@ class ProfessorController {
 
       const professor = await this.professorRepository.create({
         name,
-        birth_date: new Date(birth_date),
+        birth_date,
+        research_topic_id,
+        ppgco_weekly_workload,
+        other_ppg_weekly_workload,
+        has_pq_or_dt_sponsor,
       });
 
       return response.json(professor);
@@ -64,19 +72,26 @@ class ProfessorController {
     }
   }
 
-  public async update(
-    request: Request<{ id: string }, {}, Record<string, string>>,
-    response: Response
-  ) {
+  public async update(request: Request, response: Response) {
     const { id } = request.params;
-    const { name, birth_date } = request.body;
+    const {
+      name,
+      birth_date,
+      research_topic_id,
+      ppgco_weekly_workload,
+      other_ppg_weekly_workload,
+      has_pq_or_dt_sponsor,
+    } = request.body;
 
     try {
       const professor = await this.professorRepository.update(id, {
         name,
-        birth_date: new Date(birth_date),
+        birth_date,
+        research_topic_id,
+        ppgco_weekly_workload,
+        other_ppg_weekly_workload,
+        has_pq_or_dt_sponsor,
       });
-
       return response.json(professor);
     } catch (err) {
       return response.status(500).json({ error: err });
