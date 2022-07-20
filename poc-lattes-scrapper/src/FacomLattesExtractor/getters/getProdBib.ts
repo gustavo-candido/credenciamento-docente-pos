@@ -7,12 +7,12 @@ import {
 } from "@utils/index";
 
 import type {
+  ProdArticleDTO,
   TEventWork,
   TLattes,
   TProdBib,
 } from "@FacomLattesExtractor/types";
 
-import type { ProdArticleDTO } from "@ProdArticle/ProdArticleDTO";
 import { AppDataSource } from "@typeorm/data-source";
 import { QualisPer } from "@typeorm/entity/QualisPer";
 import { QualisAnais } from "@typeorm/entity/QualisAnais";
@@ -42,13 +42,11 @@ const getProdArticlesNormalized = async (lattes: TLattes) => {
     const currentDate = new Date(Date.now());
 
     return {
-      create_at: currentDate,
       i_geral: generalScore,
       i_restrito: restrictScore,
       issn,
       qualis,
       title: prioritizeLanguage({ "pt-br": title, en: titleEn }),
-      update_at: currentDate,
       year,
     };
   });

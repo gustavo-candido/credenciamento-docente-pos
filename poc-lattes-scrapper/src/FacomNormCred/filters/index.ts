@@ -2,10 +2,9 @@ import isQualisRestrict from "@utils/isQualisRestrict";
 
 import type {
   MentorshipWorkByDegreeDTO,
+  ProdArticleDTO,
   TEventWork,
 } from "@FacomLattesExtractor/types";
-
-import type { ProdArticleDTO } from "@ProdArticle/ProdArticleDTO";
 
 export const filterByTime = (data: Pick<MentorshipWorkByDegreeDTO, "year">) =>
   2017 <= data.year;

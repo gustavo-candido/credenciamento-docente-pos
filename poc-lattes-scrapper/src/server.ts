@@ -30,7 +30,7 @@ import { Professor } from "@typeorm/entity/Professor";
   });
 
   app.get("/test", async (req, res) => {
-    const infos = await new FacomNormCred().getFormModule();
+    const infos = await new FacomNormCred().getProdBibModule();
 
     return res.json(infos);
   });
