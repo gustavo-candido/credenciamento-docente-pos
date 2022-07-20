@@ -113,9 +113,9 @@ class MentorshipWorkController {
     const { id } = request.params;
 
     try {
-      const professor = await this.mentorshipWorkRepository.deleteById(id);
+      const mentorshipWork = await this.mentorshipWorkRepository.deleteById(id);
 
-      return response.json(professor);
+      return response.json(mentorshipWork);
     } catch (err) {
       return response.status(500).json({ error: err });
     }
