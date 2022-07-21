@@ -14,15 +14,17 @@ class FacomNormCred {
   public getFormModule() {
     const mentorshipWork = this.facomLattesExtractor.getMentorshipWork();
 
-    return new FormModule(mentorshipWork)
-      .getICConcluida()
-      .getPosDocSup()
-      .getMestresFor()
-      .getDoutoresFor()
-      .getCoorMestDout()
-      .getOriMest()
-      .getOriDout()
-      .build();
+    return (
+      new FormModule(mentorshipWork)
+        .getICConcluida()
+        // .getPosDocSup()
+        // .getMestresFor()
+        // .getDoutoresFor()
+        // .getCoorMestDout()
+        // .getOriMest()
+        // .getOriDout()
+        .build()
+    );
   }
 
   public async getProdBibModule() {
