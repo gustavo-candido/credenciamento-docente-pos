@@ -1,11 +1,20 @@
 import { Router } from "express";
-import ImporterControler from "./ImporterController";
-const importerRoutes = Router();
+import multer from "multer";
 
-const importerControler = new ImporterControler();
+import uploadConfig from "@config/upload";
+
+import ImporterController from "./ImporterController";
+
+const importerRoutes = Router();
+const upload = multer(uploadConfig.multer);
+
+const importerController = new ImporterController();
+
 importerRoutes.post(
-  "/:id",
-  async (request, response) => await importerControler.import(request, response)
+  "/",
+  upload.single("record"),
+  async (request, response) =>
+    await importerController.import(request, response)
 );
 
 export default importerRoutes;

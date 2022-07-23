@@ -7,8 +7,8 @@ import type { TFacomNormCred } from "./types";
 class FacomNormCred {
   private facomLattesExtractor;
 
-  constructor() {
-    this.facomLattesExtractor = new FacomLattesExtractor();
+  constructor(lattesPath: string) {
+    this.facomLattesExtractor = new FacomLattesExtractor(lattesPath);
   }
 
   public getFormModule() {

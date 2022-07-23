@@ -15,7 +15,8 @@
       "@FacomLattesExtractor/*": ["./src/FacomLattesExtractor/*"],
       "@FacomNormCred/*": ["./src/FacomNormCred/*"],
       "@ProdArticle/*": ["./src/prod_article/*"],
-      "@typeorm/*": ["./src/typeorm/*"]
+      "@typeorm/*": ["./src/typeorm/*"],
+      "@config/*": ["./src/config/*"]
     },
     "skipLibCheck": true,
     "strictPropertyInitialization": false,

@@ -15,8 +15,8 @@ import type { TLattes } from "./types";
 class FacomLattesExtractor {
   private lattes: TLattes;
 
-  constructor() {
-    this.lattes = readLattesAsJson();
+  constructor(lattesPath: string) {
+    this.lattes = readLattesAsJson(lattesPath);
   }
 
   public getName() {
