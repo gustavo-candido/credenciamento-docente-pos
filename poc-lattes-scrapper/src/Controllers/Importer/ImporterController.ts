@@ -7,13 +7,19 @@ import MentorshipWorkRepository from "../MentorshipWork/MentorshipWorkRepository
 import { AppDataSource } from "@typeorm/data-source";
 import { MentorshipWork } from "@typeorm/entity/MentorshipWork";
 import { Professor } from "@typeorm/entity/Professor";
+import ProdBibRepository from "../ProdBib/ProdBibRepository";
+import { ProdBib } from "@typeorm/entity/ProdBib";
 
 class ImporterController {
   private mentorshipWorkRepository: MentorshipWorkRepository;
+  private prodBibRepository: ProdBibRepository;
 
   constructor() {
     this.mentorshipWorkRepository = new MentorshipWorkRepository(
       AppDataSource.getRepository(MentorshipWork)
+    );
+    this.prodBibRepository = new ProdBibRepository(
+      AppDataSource.getRepository(ProdBib)
     );
   }
 
@@ -33,6 +39,22 @@ class ImporterController {
     return mentorshipWork;
   }
 
+  private async saveProdBib(
+    professorId: Professor["id"],
+    lattesData: TFacomNormCred
+  ) {
+    const lattesDataWithProfId = lattesData.prod_bib.map((item) => ({
+      ...item,
+      professor_id: professorId,
+    }));
+
+    const mentorshipWork = await this.prodBibRepository.create(
+      lattesDataWithProfId
+    );
+
+    return mentorshipWork;
+  }
+
   public async import(request: Request, response: Response) {
     const { professor_id } = request.params;
 
@@ -43,13 +65,14 @@ class ImporterController {
 
       const lattesData = await new FacomNormCred(path).getAllModules();
 
-      const x = await this.saveMentorship(professor_id, lattesData);
+      await this.saveMentorship(professor_id, lattesData);
+      await this.saveProdBib(professor_id, lattesData);
 
       fs.unlink(path, (err) => {
         if (err) throw err;
       });
 
-      return response.json({ data: x });
+      return response.json({ data: lattesData });
     } catch (err) {
       if (isAppError(err)) {
         return response.status(err.statusCode).json({ error: err.message });

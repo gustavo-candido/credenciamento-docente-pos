@@ -16,7 +16,7 @@ export class ProdBib {
 
   @ManyToOne(() => Professor, { onDelete: "CASCADE" })
   @JoinColumn({ name: "professor_id" })
-  professor_id: Professor;
+  professor_id: Professor["id"];
 
   @Column()
   issn_or_sigla: string;

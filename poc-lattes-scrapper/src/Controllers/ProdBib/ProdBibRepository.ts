@@ -2,30 +2,14 @@ import { DeepPartial, Repository } from "typeorm";
 import { ProdBib } from "@typeorm/entity/ProdBib";
 import removeUndefinedKeys from "@utils/removeUndefinedKeys";
 
-export interface IProdBibDTO {
-  professor_id: DeepPartial<ProdBib>;
-  issn_or_sigla: string;
-  year: number;
-  title: string;
-  event_name: string;
-}
+export type ProdBibDTO = DeepPartial<ProdBib>;
+
 class ProdBibRepository {
   constructor(private ormRepository: Repository<ProdBib>) {}
 
-  public async create({
-    professor_id,
-    issn_or_sigla,
-    year,
-    title,
-    event_name,
-  }: IProdBibDTO) {
-    const prodBib = this.ormRepository.create({
-      professor_id,
-      issn_or_sigla,
-      year,
-      title,
-      event_name,
-    });
+  public async create(prodBibData: ProdBibDTO | ProdBibDTO[]) {
+    //@ts-expect-error
+    const prodBib = this.ormRepository.create(prodBibData);
 
     await this.ormRepository.save(prodBib);
 
@@ -40,7 +24,7 @@ class ProdBibRepository {
     return prodBib;
   }
 
-  public async update(prodBibId: string, prodBibNewData: IProdBibDTO) {
+  public async update(prodBibId: string, prodBibNewData: ProdBibDTO) {
     const prodBib = await this.ormRepository.findOne({
       where: { id: prodBibId },
     });

@@ -25,16 +25,6 @@ export type TMentorshipWork = {
   };
 };
 
-export type TEventWork = {
-  eventName: string;
-  i_geral: number;
-  i_restrito: number;
-  qualis: string;
-  sigla: string;
-  title: string;
-  year: number;
-};
-
 export type TProdBib = {
   article: ProdArticleDTO[];
   event: TEventWork[];
@@ -50,6 +40,16 @@ export type ProdArticleDTO = {
   i_restrito: number;
   issn: string;
   qualis: string;
+  title: string;
+  year: number;
+};
+
+export type TEventWork = {
+  eventName: string;
+  i_geral: number;
+  i_restrito: number;
+  qualis: string;
+  sigla: string;
   title: string;
   year: number;
 };

@@ -28,19 +28,20 @@ class FacomNormCred {
   public async getProdBibModule() {
     const prodBib = await this.facomLattesExtractor.getProdBib();
 
-    return new ProdBibModule(prodBib).getIRestrito().getIGeral().build();
+    return new ProdBibModule(prodBib)
+      .getProdBibArticles()
+      .getProdBibEvents()
+      .build();
   }
 
   public async getProdTecModule() {
     // return new ProdTecModule().getOpenSource().build();
   }
 
-  // public async getAllModules(): Promise<any> {
   public async getAllModules(): Promise<TFacomNormCred> {
     return {
-      mentorship: this.getFormModule(),
-      // mentorship: this.getFormModule(),
-      // ...(await this.getProdBibModule()),
+      mentorship: [], //this.getFormModule(),
+      prod_bib: await this.getProdBibModule(),
       // ...this.getProdTecModule(),
     };
   }

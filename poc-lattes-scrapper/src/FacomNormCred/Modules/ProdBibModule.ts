@@ -1,47 +1,36 @@
-import {
-  filterByIGeneral,
-  filterByIRestrict,
-  filterByTime,
-} from "@FacomNormCred/filters";
+import { filterByTime } from "@FacomNormCred/filters";
 
 import type { TProdBib } from "@FacomLattesExtractor/types";
-import type { TProdBibModule } from "@FacomNormCred/types";
+import { TFacomNormCred } from "@FacomNormCred/types";
 
 class ProdBibModule {
-  public infos = {} as TProdBibModule;
+  public infos = [] as TFacomNormCred["prod_bib"];
 
   constructor(private prodBib: TProdBib) {}
 
-  public getIRestrito() {
+  public getProdBibArticles() {
     const articlesValid = this.prodBib.article
       .filter(filterByTime)
-      .filter(filterByIRestrict);
+      .map((item) => ({
+        issn_or_sigla: item.issn,
+        year: item.year,
+        title: item.title,
+      }));
 
-    const eventsValid = this.prodBib.event
-      .filter(filterByTime)
-      .filter(filterByIRestrict);
-
-    this.infos = {
-      ...this.infos,
-      i_restrict: { article: articlesValid, event: eventsValid },
-    };
+    this.infos = [...this.infos, ...articlesValid];
 
     return this;
   }
 
-  public getIGeral() {
-    const articlesValid = this.prodBib.article
-      .filter(filterByTime)
-      .filter(filterByIGeneral);
+  public getProdBibEvents() {
+    const eventsValid = this.prodBib.event.filter(filterByTime).map((item) => ({
+      issn_or_sigla: item.sigla,
+      year: item.year,
+      title: item.title,
+      event_name: item.eventName,
+    }));
 
-    const eventsValid = this.prodBib.event
-      .filter(filterByTime)
-      .filter(filterByIGeneral);
-
-    this.infos = {
-      ...this.infos,
-      i_general: { article: articlesValid, event: eventsValid },
-    };
+    this.infos = [...this.infos, ...eventsValid];
 
     return this;
   }
