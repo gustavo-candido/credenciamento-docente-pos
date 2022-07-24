@@ -2,16 +2,7 @@ import type {
   MentorshipWorkByDegreeDTO,
   TProdBib,
 } from "@FacomLattesExtractor/types";
-
-export type TFormModule = {
-  coor_mest_dout: MentorshipWorkByDegreeDTO[];
-  doutores_for: MentorshipWorkByDegreeDTO[];
-  ic_concluida: MentorshipWorkByDegreeDTO[];
-  mestres_for: MentorshipWorkByDegreeDTO[];
-  ori_dout: MentorshipWorkByDegreeDTO[];
-  ori_mest: MentorshipWorkByDegreeDTO[];
-  pos_doc_sup: MentorshipWorkByDegreeDTO[];
-};
+import { MentorshipWorkDTO } from "src/Controllers/MentorshipWork/MentorshipWorkRepository";
 
 export type TProdBibModule = {
   i_general: TProdBib;
@@ -20,4 +11,6 @@ export type TProdBibModule = {
 
 export type TProdTecModule = {};
 
-export type TFacomNormCred = any;
+export type TFacomNormCred = {
+  mentorship: MentorshipWorkDTO[];
+};

@@ -16,7 +16,7 @@ export class MentorshipWork {
 
   @ManyToOne(() => Professor, { onDelete: "CASCADE" })
   @JoinColumn({ name: "professor_id" })
-  professor_id: Professor;
+  professor_id: Professor["id"];
 
   @Column()
   is_concluded: boolean;

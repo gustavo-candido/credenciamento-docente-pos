@@ -5,12 +5,11 @@ import {
 } from "@FacomNormCred/filters";
 
 import type { TMentorshipWork } from "@FacomLattesExtractor/types";
-import type { TFormModule } from "@FacomNormCred/types";
-import { IMentorshipWorkDTO } from "src/Controllers/MentorshipWork/MentorshipWorkRepository";
-import { mentorshipDegree } from "src/constants";
+import { MENTORSHIP_DEGREE } from "src/constants";
+import { TFacomNormCred } from "@FacomNormCred/types";
 
 class FormModule {
-  public infos = [] as Omit<IMentorshipWorkDTO, "professor_id">[];
+  public infos = [] as TFacomNormCred["mentorship"];
 
   constructor(private mentorshipWork: TMentorshipWork) {}
 
@@ -27,7 +26,7 @@ class FormModule {
         title: item.title,
         year: item.year,
         student_name: item.student_name,
-        degree: mentorshipDegree.IC,
+        degree: MENTORSHIP_DEGREE.IC,
         sponsor_code: item.sponsor_code,
         sponsor_name: item.sponsor_name,
       }));
@@ -50,7 +49,7 @@ class FormModule {
         title: item.title,
         year: item.year,
         student_name: item.student_name,
-        degree: mentorshipDegree.POS,
+        degree: MENTORSHIP_DEGREE.POS,
         sponsor_code: item.sponsor_code,
         sponsor_name: item.sponsor_name,
       }));
@@ -73,7 +72,7 @@ class FormModule {
         title: item.title,
         year: item.year,
         student_name: item.student_name,
-        degree: mentorshipDegree.MAS,
+        degree: MENTORSHIP_DEGREE.MAS,
         sponsor_code: item.sponsor_code,
         sponsor_name: item.sponsor_name,
       }));
@@ -96,7 +95,7 @@ class FormModule {
         title: item.title,
         year: item.year,
         student_name: item.student_name,
-        degree: mentorshipDegree.DOU,
+        degree: MENTORSHIP_DEGREE.DOU,
         sponsor_code: item.sponsor_code,
         sponsor_name: item.sponsor_name,
       }));
@@ -119,7 +118,7 @@ class FormModule {
         title: item.title,
         year: item.year,
         student_name: item.student_name,
-        degree: mentorshipDegree.MAS,
+        degree: MENTORSHIP_DEGREE.MAS,
         sponsor_code: item.sponsor_code,
         sponsor_name: item.sponsor_name,
       }));
@@ -140,7 +139,7 @@ class FormModule {
         title: item.title,
         year: item.year,
         student_name: item.student_name,
-        degree: mentorshipDegree.DOU,
+        degree: MENTORSHIP_DEGREE.DOU,
         sponsor_code: item.sponsor_code,
         sponsor_name: item.sponsor_name,
       }));
@@ -168,7 +167,7 @@ class FormModule {
         title: item.title,
         year: item.year,
         student_name: item.student_name,
-        degree: mentorshipDegree.MAS,
+        degree: MENTORSHIP_DEGREE.MAS,
         sponsor_code: item.sponsor_code,
         sponsor_name: item.sponsor_name,
       }));
@@ -191,7 +190,7 @@ class FormModule {
         title: item.title,
         year: item.year,
         student_name: item.student_name,
-        degree: mentorshipDegree.DOU,
+        degree: MENTORSHIP_DEGREE.DOU,
         sponsor_code: item.sponsor_code,
         sponsor_name: item.sponsor_name,
       }));

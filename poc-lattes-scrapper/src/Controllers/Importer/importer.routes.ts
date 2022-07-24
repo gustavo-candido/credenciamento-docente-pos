@@ -11,7 +11,7 @@ const upload = multer(uploadConfig.multer);
 const importerController = new ImporterController();
 
 importerRoutes.post(
-  "/",
+  "/:professor_id",
   upload.single("record"),
   async (request, response) =>
     await importerController.import(request, response)

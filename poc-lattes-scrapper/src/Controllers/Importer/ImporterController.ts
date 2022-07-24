@@ -6,6 +6,7 @@ import { TFacomNormCred } from "@FacomNormCred/types";
 import MentorshipWorkRepository from "../MentorshipWork/MentorshipWorkRepository";
 import { AppDataSource } from "@typeorm/data-source";
 import { MentorshipWork } from "@typeorm/entity/MentorshipWork";
+import { Professor } from "@typeorm/entity/Professor";
 
 class ImporterController {
   private mentorshipWorkRepository: MentorshipWorkRepository;
@@ -17,26 +18,23 @@ class ImporterController {
   }
 
   private async saveMentorship(
-    professorId: string,
+    professorId: Professor["id"],
     lattesData: TFacomNormCred
   ) {
-    // lattesData.
-    // const mentorshipWork = await this.mentorshipWorkRepository.create({
-    //   professor_id: professorId,
-    //   is_concluded,
-    //   role,
-    //   year,
-    //   title,
-    //   degree,
-    //   student_name,
-    //   sponsor_code,
-    //   sponsor_name,
-    //   nmonths,
-    // });
+    const lattesDataWithProfId = lattesData.mentorship.map((item) => ({
+      ...item,
+      professor_id: professorId,
+    }));
+
+    const mentorshipWork = await this.mentorshipWorkRepository.create(
+      lattesDataWithProfId
+    );
+
+    return mentorshipWork;
   }
 
   public async import(request: Request, response: Response) {
-    const {} = request.body;
+    const { professor_id } = request.params;
 
     try {
       const path = request.file?.path;
@@ -45,11 +43,13 @@ class ImporterController {
 
       const lattesData = await new FacomNormCred(path).getAllModules();
 
+      const x = await this.saveMentorship(professor_id, lattesData);
+
       fs.unlink(path, (err) => {
         if (err) throw err;
       });
 
-      return response.json(lattesData);
+      return response.json({ data: x });
     } catch (err) {
       if (isAppError(err)) {
         return response.status(err.statusCode).json({ error: err.message });

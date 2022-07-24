@@ -5,11 +5,9 @@ export const PLACEMENTS = ["PERMANENTE", "VISITANTE", "COLABORADOR"];
 
 export const MENTORSHIP_ROLES = ["ORIENTADOR_PRINCIPAL", "CO_ORIENTADOR"];
 
-export enum mentorshipDegree {
+export enum MENTORSHIP_DEGREE {
   IC = "IC",
   MAS = "MESTRADO",
   DOU = "DOUTORADO",
   POS = "POS-DOUTORADO",
 }
-
-export const MENTORSHIP_DEGREE = Object.values(mentorshipDegree);
