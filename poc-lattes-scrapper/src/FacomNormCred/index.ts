@@ -14,17 +14,15 @@ class FacomNormCred {
   public getFormModule() {
     const mentorshipWork = this.facomLattesExtractor.getMentorshipWork();
 
-    return (
-      new FormModule(mentorshipWork)
-        .getICConcluida()
-        // .getPosDocSup()
-        // .getMestresFor()
-        // .getDoutoresFor()
-        // .getCoorMestDout()
-        // .getOriMest()
-        // .getOriDout()
-        .build()
-    );
+    return new FormModule(mentorshipWork)
+      .getICConcluida()
+      .getPosDocSup()
+      .getMestresFor()
+      .getDoutoresFor()
+      .getCoorMestDout()
+      .getOriMest()
+      .getOriDout()
+      .build();
   }
 
   public async getProdBibModule() {
@@ -33,14 +31,14 @@ class FacomNormCred {
     return new ProdBibModule(prodBib).getIRestrito().getIGeral().build();
   }
 
-  public getProdTecModule() {
-    return new ProdTecModule().getOpenSource().build();
+  public async getProdTecModule() {
+    // return new ProdTecModule().getOpenSource().build();
   }
 
-  public async getAllModules(): Promise<any> {
-    // public async getAllModules(): Promise<TFacomNormCred> {
+  // public async getAllModules(): Promise<any> {
+  public async getAllModules(): Promise<TFacomNormCred> {
     return {
-      ...this.getFormModule(),
+      mentorship: this.getFormModule(),
       // ...(await this.getProdBibModule()),
       // ...this.getProdTecModule(),
     };

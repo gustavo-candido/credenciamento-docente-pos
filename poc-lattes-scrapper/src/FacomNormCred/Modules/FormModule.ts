@@ -6,9 +6,11 @@ import {
 
 import type { TMentorshipWork } from "@FacomLattesExtractor/types";
 import type { TFormModule } from "@FacomNormCred/types";
+import { IMentorshipWorkDTO } from "src/Controllers/MentorshipWork/MentorshipWorkRepository";
+import { mentorshipDegree } from "src/constants";
 
 class FormModule {
-  public infos = {} as TFormModule;
+  public infos = [] as Omit<IMentorshipWorkDTO, "professor_id">[];
 
   constructor(private mentorshipWork: TMentorshipWork) {}
 
@@ -18,9 +20,19 @@ class FormModule {
 
     const concludedICValid = concludedIC
       .filter(filterByOrientador)
-      .filter(filterByTime);
+      .filter(filterByTime)
+      .map((item) => ({
+        is_concluded: true,
+        role: item.role,
+        title: item.title,
+        year: item.year,
+        student_name: item.student_name,
+        degree: mentorshipDegree.IC,
+        sponsor_code: item.sponsor_code,
+        sponsor_name: item.sponsor_name,
+      }));
 
-    this.infos = { ...this.infos, ic_concluida: concludedICValid };
+    this.infos = [...this.infos, ...concludedICValid];
 
     return this;
   }
@@ -31,9 +43,19 @@ class FormModule {
 
     const concludedPosDocSupValid = concludedPosDocSup
       .filter(filterByOrientador)
-      .filter(filterByTime);
+      .filter(filterByTime)
+      .map((item) => ({
+        is_concluded: true,
+        role: item.role,
+        title: item.title,
+        year: item.year,
+        student_name: item.student_name,
+        degree: mentorshipDegree.POS,
+        sponsor_code: item.sponsor_code,
+        sponsor_name: item.sponsor_name,
+      }));
 
-    this.infos = { ...this.infos, pos_doc_sup: concludedPosDocSupValid };
+    this.infos = [...this.infos, ...concludedPosDocSupValid];
 
     return this;
   }
@@ -44,9 +66,19 @@ class FormModule {
 
     const concludedMestresFormValid = concludedMestresForm
       .filter(filterByOrientador)
-      .filter(filterByTime);
+      .filter(filterByTime)
+      .map((item) => ({
+        is_concluded: true,
+        role: item.role,
+        title: item.title,
+        year: item.year,
+        student_name: item.student_name,
+        degree: mentorshipDegree.MAS,
+        sponsor_code: item.sponsor_code,
+        sponsor_name: item.sponsor_name,
+      }));
 
-    this.infos = { ...this.infos, mestres_for: concludedMestresFormValid };
+    this.infos = [...this.infos, ...concludedMestresFormValid];
 
     return this;
   }
@@ -57,37 +89,69 @@ class FormModule {
 
     const concludedDoutoresForValid = concludedDoutoresFor
       .filter(filterByOrientador)
-      .filter(filterByTime);
+      .filter(filterByTime)
+      .map((item) => ({
+        is_concluded: true,
+        role: item.role,
+        title: item.title,
+        year: item.year,
+        student_name: item.student_name,
+        degree: mentorshipDegree.DOU,
+        sponsor_code: item.sponsor_code,
+        sponsor_name: item.sponsor_name,
+      }));
 
-    this.infos = { ...this.infos, doutores_for: concludedDoutoresForValid };
+    this.infos = [...this.infos, ...concludedDoutoresForValid];
 
     return this;
   }
 
-  private getCoorMest(): TFormModule["coor_mest_dout"] {
+  private getCoorMest() {
     const concludedMentorships = this.mentorshipWork.concluded;
     const concludedMestres = concludedMentorships.master;
 
-    return concludedMestres;
+    const concludedMestresValid = concludedMestres
+      .filter(filterByCoorientador)
+      .filter(filterByTime)
+      .map((item) => ({
+        is_concluded: true,
+        role: item.role,
+        title: item.title,
+        year: item.year,
+        student_name: item.student_name,
+        degree: mentorshipDegree.MAS,
+        sponsor_code: item.sponsor_code,
+        sponsor_name: item.sponsor_name,
+      }));
+
+    return concludedMestresValid;
   }
 
-  private getCoorDout(): TFormModule["coor_mest_dout"] {
+  private getCoorDout() {
     const concludedMentorships = this.mentorshipWork.concluded;
     const concludedDout = concludedMentorships.doctoral;
 
-    return concludedDout;
+    const concludedDoutValid = concludedDout
+      .filter(filterByCoorientador)
+      .filter(filterByTime)
+      .map((item) => ({
+        is_concluded: true,
+        role: item.role,
+        title: item.title,
+        year: item.year,
+        student_name: item.student_name,
+        degree: mentorshipDegree.DOU,
+        sponsor_code: item.sponsor_code,
+        sponsor_name: item.sponsor_name,
+      }));
+
+    return concludedDoutValid;
   }
 
   public getCoorMestDout() {
     const coorMestDout = [...this.getCoorMest(), ...this.getCoorDout()];
-    const coorMestDoutValid = coorMestDout
-      .filter(filterByCoorientador)
-      .filter(filterByTime);
 
-    this.infos = {
-      ...this.infos,
-      coor_mest_dout: coorMestDoutValid,
-    };
+    this.infos = [...this.infos, ...coorMestDout];
     return this;
   }
 
@@ -97,9 +161,19 @@ class FormModule {
 
     const currentOriMestValid = currentOriMest
       .filter(filterByOrientador)
-      .filter(filterByTime);
+      .filter(filterByTime)
+      .map((item) => ({
+        is_concluded: false,
+        role: item.role,
+        title: item.title,
+        year: item.year,
+        student_name: item.student_name,
+        degree: mentorshipDegree.MAS,
+        sponsor_code: item.sponsor_code,
+        sponsor_name: item.sponsor_name,
+      }));
 
-    this.infos = { ...this.infos, ori_mest: currentOriMestValid };
+    this.infos = [...this.infos, ...currentOriMestValid];
 
     return this;
   }
@@ -110,9 +184,19 @@ class FormModule {
 
     const currentOriDoutValid = currentOriDout
       .filter(filterByOrientador)
-      .filter(filterByTime);
+      .filter(filterByTime)
+      .map((item) => ({
+        is_concluded: false,
+        role: item.role,
+        title: item.title,
+        year: item.year,
+        student_name: item.student_name,
+        degree: mentorshipDegree.DOU,
+        sponsor_code: item.sponsor_code,
+        sponsor_name: item.sponsor_name,
+      }));
 
-    this.infos = { ...this.infos, ori_dout: currentOriDoutValid };
+    this.infos = [...this.infos, ...currentOriDoutValid];
 
     return this;
   }

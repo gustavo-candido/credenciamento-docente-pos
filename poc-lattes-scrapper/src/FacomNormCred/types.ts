@@ -20,4 +20,4 @@ export type TProdBibModule = {
 
 export type TProdTecModule = {};
 
-export type TFacomNormCred = TFormModule & TProdBibModule;
+export type TFacomNormCred = any;

@@ -10,9 +10,9 @@ export interface IMentorshipWorkDTO {
   title: string;
   degree: string;
   student_name: string;
-  sponsor_code: string;
-  sponsor_name: string;
-  nmonths: number;
+  sponsor_code?: string;
+  sponsor_name?: string;
+  nmonths?: number;
 }
 class MentorshipWorkRepository {
   constructor(private ormRepository: Repository<MentorshipWork>) {}

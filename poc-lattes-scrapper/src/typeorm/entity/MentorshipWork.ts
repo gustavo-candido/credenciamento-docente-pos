@@ -36,10 +36,10 @@ export class MentorshipWork {
   @Column()
   student_name: string;
 
-  @Column()
+  @Column({ default: null })
   sponsor_code: string;
 
-  @Column()
+  @Column({ default: null })
   sponsor_name: string;
 
   @Column({ default: 0 })
