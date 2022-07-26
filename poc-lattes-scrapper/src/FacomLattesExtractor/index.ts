@@ -32,9 +32,7 @@ class FacomLattesExtractor {
   }
 
   public getMentorshipWork() {
-    const mentorshipWork = getMentorshipWork(this.lattes);
-
-    return mentorshipWork;
+    return getMentorshipWork(this.lattes);
   }
 
   public async getProdBib() {

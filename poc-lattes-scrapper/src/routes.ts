@@ -1,10 +1,10 @@
 import { Router } from "express";
-import mentorshipWorkRoutes from "./Controllers/MentorshipWork/mentorship_work.routes";
-import professorRoutes from "./Controllers/Professor/professor.routes";
-import researchTopicRouter from "./Controllers/ResearchTopic/research_topic.routes";
-import prodBibRoutes from "./Controllers/ProdBib/prod_bib.routes";
-import prodTecRoutes from "./Controllers/ProdTec/prod_tec.routes";
-import importerRoutes from "./Controllers/Importer/importer.routes";
+import mentorshipWorkRoutes from "./Modules/MentorshipWork/mentorship_work.routes";
+import professorRoutes from "./Modules/Professor/professor.routes";
+import researchTopicRouter from "./Modules/ResearchTopic/research_topic.routes";
+import prodBibRoutes from "./Modules/ProdBib/prod_bib.routes";
+import prodTecRoutes from "./Modules/ProdTec/prod_tec.routes";
+import importerRoutes from "./Modules/Importer/importer.routes";
 
 const routes = Router();
 

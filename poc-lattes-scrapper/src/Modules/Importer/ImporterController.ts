@@ -9,6 +9,7 @@ import { MentorshipWork } from "@typeorm/entity/MentorshipWork";
 import { Professor } from "@typeorm/entity/Professor";
 import ProdBibRepository from "../ProdBib/ProdBibRepository";
 import { ProdBib } from "@typeorm/entity/ProdBib";
+import FacomLattesExtractor from "@FacomLattesExtractor/index";
 
 class ImporterController {
   private mentorshipWorkRepository: MentorshipWorkRepository;
@@ -79,6 +80,13 @@ class ImporterController {
       }
       return response.status(500).json({ error: err });
     }
+  }
+
+  public test(request: Request, response: Response) {
+    const path = request.file?.path!;
+    const facomLattesExtractor = new FacomLattesExtractor(path);
+
+    response.json({ data: facomLattesExtractor.getBooksAndChapters() });
   }
 }
 

@@ -17,4 +17,10 @@ importerRoutes.post(
     await importerController.import(request, response)
 );
 
+importerRoutes.get(
+  "/test",
+  upload.single("record"),
+  async (request, response) => await importerController.test(request, response)
+);
+
 export default importerRoutes;
