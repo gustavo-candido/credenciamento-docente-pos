@@ -1,0 +1,13 @@
+.idea/
+
+.vscode/
+
+node_modules/
+
+coverage
+
+.env
+
+temp/*
+
+dist
