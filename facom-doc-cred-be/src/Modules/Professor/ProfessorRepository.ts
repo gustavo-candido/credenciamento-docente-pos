@@ -3,6 +3,7 @@ import { Professor } from "@typeorm/entity/Professor";
 import removeUndefinedKeys from "@utils/removeUndefinedKeys";
 
 export interface IProfessorDTO {
+  lattes_id: string;
   name: string;
   birth_date: Date;
   research_topic_id: DeepPartial<Professor>;
@@ -15,6 +16,7 @@ class ProfessorRepository {
   constructor(private ormRepository: Repository<Professor>) {}
 
   public async create({
+    lattes_id,
     birth_date,
     has_pq_or_dt_sponsor,
     name,
@@ -24,6 +26,7 @@ class ProfessorRepository {
     research_topic_id,
   }: IProfessorDTO) {
     const professor = this.ormRepository.create({
+      lattes_id,
       birth_date: new Date(birth_date),
       has_pq_or_dt_sponsor,
       name,

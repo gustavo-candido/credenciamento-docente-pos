@@ -16,6 +16,7 @@ class ProfessorController {
 
   public async create(request: Request, response: Response) {
     const {
+      lattes_id,
       birth_date,
       has_pq_or_dt_sponsor,
       name,
@@ -39,6 +40,7 @@ class ProfessorController {
       }
 
       const professor = await this.professorRepository.create({
+        lattes_id,
         name,
         birth_date,
         research_topic_id,
@@ -82,6 +84,7 @@ class ProfessorController {
   public async update(request: Request, response: Response) {
     const { id } = request.params;
     const {
+      lattes_id,
       birth_date,
       has_pq_or_dt_sponsor,
       name,
@@ -93,6 +96,7 @@ class ProfessorController {
 
     try {
       const professor = await this.professorRepository.update(id, {
+        lattes_id,
         birth_date,
         has_pq_or_dt_sponsor,
         name,

@@ -18,6 +18,9 @@ export class Professor {
   name: string;
 
   @Column()
+  lattes_id: string;
+
+  @Column()
   birth_date: Date;
 
   @ManyToOne(() => ResearchTopic, { onDelete: "SET NULL" })

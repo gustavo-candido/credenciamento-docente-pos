@@ -14,6 +14,10 @@ export class createProfessorTable1658086420300 implements MigrationInterface {
             default: "uuid_generate_v4()",
           },
           {
+            name: "lattes_id",
+            type: "varchar",
+          },
+          {
             name: "name",
             type: "varchar",
           },
