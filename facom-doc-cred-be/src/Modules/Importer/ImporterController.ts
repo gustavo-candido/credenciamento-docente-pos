@@ -86,7 +86,11 @@ class ImporterController {
     const path = request.file?.path!;
     const facomLattesExtractor = new FacomLattesExtractor(path);
 
-    response.json({ data: facomLattesExtractor.getBooksAndChapters() });
+    fs.unlink(path, (err) => {
+      if (err) throw err;
+    });
+
+    response.json(facomLattesExtractor.getProjects());
   }
 }
 

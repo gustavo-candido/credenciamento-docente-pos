@@ -8,6 +8,7 @@ import {
   getBooksAndChapters,
   getArticleReview,
   getOpenSource,
+  getProjects,
 } from "./getters";
 
 import type { TLattes } from "./types";
@@ -51,6 +52,10 @@ class FacomLattesExtractor {
 
   public getOpenSource() {
     return getOpenSource(this.lattes);
+  }
+
+  public getProjects() {
+    return getProjects(this.lattes);
   }
 }
 

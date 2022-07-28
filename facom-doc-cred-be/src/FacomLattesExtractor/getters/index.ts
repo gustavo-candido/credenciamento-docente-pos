@@ -5,6 +5,7 @@ import getResearchesFields from "./getResearchesFields";
 import getBooksAndChapters from "./getBooksAndChapters";
 import getArticleReview from "./getArticleReview";
 import getOpenSource from "./getOpenSource";
+import getProjects from "./getProjects";
 
 export {
   getMentorshipWork,
@@ -14,4 +15,5 @@ export {
   getBooksAndChapters,
   getArticleReview,
   getOpenSource,
+  getProjects,
 };
