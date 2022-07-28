@@ -40,7 +40,7 @@ class FacomNormCred {
 
   public async getAllModules(): Promise<TFacomNormCred> {
     return {
-      mentorship: [], //this.getFormModule(),
+      mentorship: this.getFormModule(),
       prod_bib: await this.getProdBibModule(),
       // ...this.getProdTecModule(),
     };

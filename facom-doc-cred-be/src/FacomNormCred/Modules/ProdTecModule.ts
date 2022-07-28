@@ -1,9 +1,9 @@
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
-import { TProdTecModule } from "@FacomNormCred/types";
+import { TFacomNormCred, TProdTecModule } from "@FacomNormCred/types";
 
 class ProdTecModule {
-  //   public infos = {} as TProdTecModule;
-  //   constructor() {}
+  // public infos = {} as TFacomNormCred["prod_tec"];
+  // constructor(private prodBib: TPr) {}
   //   public getProdAnais() {
   //     const getBooksAndChapters =
   //       new FacomLattesExtractor().getBooksAndChapters();
