@@ -53,3 +53,11 @@ export type TEventWork = {
   title: string;
   year: number;
 };
+
+export type TProject = {
+  has_sponsor: boolean;
+  kind: string;
+  responsible_id: string;
+  title: string;
+  year: number;
+};

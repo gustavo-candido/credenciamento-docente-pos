@@ -3,11 +3,11 @@ import flattendeep from "lodash.flattendeep";
 
 import prioritizeLanguage from "@utils/prioritizeLanguage";
 
-import type { TLattes } from "@FacomLattesExtractor/types";
+import type { TLattes, TProject } from "@FacomLattesExtractor/types";
 import makeIterable from "@utils/makeIterable";
 import isFilledString from "@utils/isFilledString";
 
-const getProjects = (lattes: TLattes) => {
+const getProjects = (lattes: TLattes): TProject[] => {
   const query = jsonpath.query(lattes, "$..['PROJETO-DE-PESQUISA']");
 
   const projects = flattendeep(query).map((item) => {
@@ -31,9 +31,11 @@ const getProjects = (lattes: TLattes) => {
         en: item?.["NOME-DO-PROJETO-INGLES"],
       }),
       responsible_id: responsible,
-      year: isFilledString(item?.["ANO-FIM"])
-        ? item?.["ANO-FIM"]
-        : item?.["ANO-INICIO"],
+      year: parseInt(
+        isFilledString(item?.["ANO-FIM"])
+          ? item?.["ANO-FIM"]
+          : item?.["ANO-INICIO"]
+      ),
       has_sponsor,
       kind: item?.["NATUREZA"],
     };

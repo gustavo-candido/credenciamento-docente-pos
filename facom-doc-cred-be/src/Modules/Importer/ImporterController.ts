@@ -1,19 +1,21 @@
 import { Request, Response } from "express";
-import { AppError, isAppError } from "../shared";
 import fs from "fs";
+import { AppError, isAppError } from "../shared";
 import FacomNormCred from "@FacomNormCred/index";
-import { TFacomNormCred } from "@FacomNormCred/types";
-import MentorshipWorkRepository from "../MentorshipWork/MentorshipWorkRepository";
 import { AppDataSource } from "@typeorm/data-source";
 import { MentorshipWork } from "@typeorm/entity/MentorshipWork";
 import { Professor } from "@typeorm/entity/Professor";
-import ProdBibRepository from "../ProdBib/ProdBibRepository";
 import { ProdBib } from "@typeorm/entity/ProdBib";
-import FacomLattesExtractor from "@FacomLattesExtractor/index";
+import MentorshipWorkRepository from "../MentorshipWork/MentorshipWorkRepository";
+import ProdBibRepository from "../ProdBib/ProdBibRepository";
+import ProjectRepository from "../Project/ProjectRepository";
+import { TFacomNormCred } from "@FacomNormCred/types";
+import { Project } from "@typeorm/entity/Project";
 
 class ImporterController {
   private mentorshipWorkRepository: MentorshipWorkRepository;
   private prodBibRepository: ProdBibRepository;
+  private projectRepository: ProjectRepository;
 
   constructor() {
     this.mentorshipWorkRepository = new MentorshipWorkRepository(
@@ -21,6 +23,9 @@ class ImporterController {
     );
     this.prodBibRepository = new ProdBibRepository(
       AppDataSource.getRepository(ProdBib)
+    );
+    this.projectRepository = new ProjectRepository(
+      AppDataSource.getRepository(Project)
     );
   }
 
@@ -56,6 +61,20 @@ class ImporterController {
     return mentorshipWork;
   }
 
+  private async saveProject(
+    professorId: Professor["id"],
+    lattesData: TFacomNormCred
+  ) {
+    const lattesDataWithProfId = lattesData.project.map((item) => ({
+      ...item,
+      professor_id: professorId,
+    }));
+
+    const project = await this.projectRepository.create(lattesDataWithProfId);
+
+    return project;
+  }
+
   public async import(request: Request, response: Response) {
     const { professor_id } = request.params;
 
@@ -68,6 +87,7 @@ class ImporterController {
 
       await this.saveMentorship(professor_id, lattesData);
       await this.saveProdBib(professor_id, lattesData);
+      await this.saveProject(professor_id, lattesData);
 
       fs.unlink(path, (err) => {
         if (err) throw err;
@@ -82,15 +102,16 @@ class ImporterController {
     }
   }
 
-  public test(request: Request, response: Response) {
+  public async test(request: Request, response: Response) {
     const path = request.file?.path!;
-    const facomLattesExtractor = new FacomLattesExtractor(path);
+    const facomNormCred = await new FacomNormCred(path).getAllModules();
 
     fs.unlink(path, (err) => {
       if (err) throw err;
     });
 
-    response.json(facomLattesExtractor.getProjects());
+    // response.json(await new FacomNormCred(path).getProjectModule());
+    response.json(facomNormCred.project);
   }
 }
 
