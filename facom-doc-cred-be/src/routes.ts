@@ -6,6 +6,7 @@ import prodBibRoutes from "./Modules/ProdBib/prod_bib.routes";
 import prodTecRoutes from "./Modules/ProdTec/prod_tec.routes";
 import importerRoutes from "./Modules/Importer/importer.routes";
 import projectRouter from "./Modules/Project/project.routes";
+import userRouter from "./Modules/User/user.routes";
 
 const routes = Router();
 
@@ -16,5 +17,6 @@ routes.use("/prod-bib", prodBibRoutes);
 routes.use("/prod-tec", prodTecRoutes);
 routes.use("/import", importerRoutes);
 routes.use("/project", projectRouter);
+routes.use("/user", userRouter);
 
 export default routes;
