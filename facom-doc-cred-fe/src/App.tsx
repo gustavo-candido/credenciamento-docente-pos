@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0);
+  return (
+    <Routes>
+      <Route path="/ab" element={<Bar />} />
+      <Route path="/abc" element={<Foo />} />
+    </Routes>
+  );
+}
 
-  return <div>Hello</div>;
+function Foo() {
+  return <div>Foo</div>;
+}
+
+function Bar() {
+  return <div>Bar</div>;
 }
 
 export default App;
