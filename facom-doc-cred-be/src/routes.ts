@@ -5,6 +5,7 @@ import researchTopicRouter from "./Modules/ResearchTopic/research_topic.routes";
 import prodBibRoutes from "./Modules/ProdBib/prod_bib.routes";
 import prodTecRoutes from "./Modules/ProdTec/prod_tec.routes";
 import importerRoutes from "./Modules/Importer/importer.routes";
+import projectRouter from "./Modules/Project/project.routes";
 
 const routes = Router();
 
@@ -14,5 +15,6 @@ routes.use("/mentorship-work", mentorshipWorkRoutes);
 routes.use("/prod-bib", prodBibRoutes);
 routes.use("/prod-tec", prodTecRoutes);
 routes.use("/import", importerRoutes);
+routes.use("/project", projectRouter);
 
 export default routes;
