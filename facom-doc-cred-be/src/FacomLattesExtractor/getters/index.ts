@@ -6,6 +6,7 @@ import getBooksAndChapters from "./getBooksAndChapters";
 import getArticleReview from "./getArticleReview";
 import getOpenSource from "./getOpenSource";
 import getProjects from "./getProjects";
+import getLattesId from "./getLattesId";
 
 export {
   getMentorshipWork,
@@ -16,4 +17,5 @@ export {
   getArticleReview,
   getOpenSource,
   getProjects,
+  getLattesId,
 };
