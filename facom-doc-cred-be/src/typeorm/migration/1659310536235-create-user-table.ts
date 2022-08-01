@@ -18,10 +18,6 @@ export class createUserTable1659310536235 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "password",
-            type: "varchar",
-          },
-          {
             name: "is_adm",
             type: "boolean",
           },

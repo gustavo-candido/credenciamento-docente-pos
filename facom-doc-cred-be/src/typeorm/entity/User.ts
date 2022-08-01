@@ -14,10 +14,7 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
-  password: string;
-
-  @Column()
+  @Column({ default: false })
   is_adm: boolean;
 
   @CreateDateColumn()

@@ -12,13 +12,43 @@ class UserController {
   }
 
   public async create(request: Request, response: Response) {
-    const { email, password } = request.body;
+    const { email } = request.body;
 
     try {
+      const userAlreadySignUp = await this.userRepository.findByEmail(email);
+
+      if (userAlreadySignUp) {
+        throw new AppError("Usuário já possuí cadastro!");
+      }
+
       const user = await this.userRepository.create({
         email,
-        password,
       });
+
+      // @ts-expect-error
+      delete user.is_adm;
+
+      return response.json(user);
+    } catch (err) {
+      if (isAppError(err)) {
+        return response.status(err.statusCode).json({ error: err.message });
+      }
+      return response.status(500).json({ error: err });
+    }
+  }
+
+  public async auth(request: Request, response: Response) {
+    const { email } = request.body;
+
+    try {
+      const user = await this.userRepository.findByEmail(email);
+
+      if (!user) {
+        throw new AppError("Usuário não encontrado!");
+      }
+
+      // @ts-expect-error
+      delete user.is_adm;
 
       return response.json(user);
     } catch (err) {
