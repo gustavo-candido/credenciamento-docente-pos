@@ -14,7 +14,7 @@ class UserRepository {
     return user;
   }
 
-  public async findByEmail(email: string) {
+  public async findByEmail(email = "") {
     const user = await this.ormRepository.findOneBy({ email });
 
     return user;
