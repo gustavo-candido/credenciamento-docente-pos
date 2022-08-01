@@ -10,7 +10,7 @@ userRouter.post(
   async (request, response) => await userController.create(request, response)
 );
 
-userRouter.get(
+userRouter.post(
   "/sign-in",
   async (request, response) => await userController.auth(request, response)
 );

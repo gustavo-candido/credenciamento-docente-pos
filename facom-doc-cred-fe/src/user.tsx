@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "./services/api";
 
 type User = {
@@ -25,17 +26,18 @@ function useUser(): UserContextData {
 
 function UserProvider({ children }: React.PropsWithChildren<{}>) {
   const [user, setUser] = useState<User>({} as User);
+  const navigate = useNavigate();
 
   const signUp = async (email: string) => {
-    const res = await api.get<User>("user/sign-in", {
-      params: {
-        email,
-      },
+    const res = await api.post<User>("user/sign-in", {
+      email,
     });
 
     if (res?.data?.id) {
       const fetchedUser = { id: res.data?.id };
       setUser(fetchedUser);
+
+      navigate("/");
     }
   };
 
