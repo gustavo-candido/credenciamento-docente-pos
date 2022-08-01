@@ -4,6 +4,7 @@ import express from "express";
 
 import FacomNormCred from "@FacomNormCred/index";
 import { AppDataSource } from "@typeorm/data-source";
+import cors from "cors";
 import routes from "./routes";
 
 (async () => {
@@ -18,9 +19,9 @@ import routes from "./routes";
   const app = express();
   const port = 3000;
 
+  app.use(cors());
   app.use(express.json());
   app.use(routes);
-
   app.get("/", async (req, res) => {
     return res.json({ okay: "okay" });
   });

@@ -1,10 +1,13 @@
 import { Route, Routes } from "react-router-dom";
+import Login from "./Login";
+import loggedRoute from "./loggedRoute";
 
 function App() {
   return (
     <Routes>
-      <Route path="/ab" element={<Bar />} />
-      <Route path="/abc" element={<Foo />} />
+      <Route path="/" element={<Login />} />
+      <Route path="foo" element={loggedRoute(<Foo />)} />
+      <Route path="*" element={<div>Error </div>} />
     </Routes>
   );
 }
