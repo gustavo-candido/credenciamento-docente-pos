@@ -1,13 +1,12 @@
+import Container from "@mui/material/Container";
 import { useUser } from "./user";
+import Table from "./Table";
+import FunctionProdBibForm from "./ProdBibForm";
 
 export default function Dashboard() {
-  const { logout } = useUser();
   return (
-    <>
-      <div>Dashboard</div>{" "}
-      <button type="button" onClick={logout}>
-        logout
-      </button>
-    </>
+    <Container maxWidth="xl">
+      <FunctionProdBibForm />
+    </Container>
   );
 }
