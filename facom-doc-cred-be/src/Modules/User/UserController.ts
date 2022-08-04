@@ -40,7 +40,6 @@ class UserController {
   public async auth(request: Request, response: Response) {
     const { email } = request.body;
 
-    console.log(email);
     try {
       const user = await this.userRepository.findByEmail(email);
 

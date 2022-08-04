@@ -5,17 +5,18 @@ import Dashboard from "./Dashboard";
 import GlobalStyle from "./global";
 import Upload from "./Upload";
 import Header from "./Header";
-import { Container } from "@mui/system";
 import ProjectForm from "./ProjectForm";
 import ProdBibForm from "./ProdBibForm";
 import MentorshipForm from "./MentorshipForm";
+import { useUser } from "./user";
 
 function App() {
+  const { user } = useUser();
   return (
     <>
       <GlobalStyle />
 
-      <Header />
+      {user?.id && <Header />}
 
       <div style={{ marginTop: "64px" }}>
         <Routes>
@@ -27,7 +28,7 @@ function App() {
           <Route path="/prob-bib" element={loggedRoute(<ProdBibForm />)} />
           <Route path="/mentoria" element={loggedRoute(<MentorshipForm />)} />
 
-          <Route path="*" element={<div>Error </div>} />
+          <Route path="*" element={<div> Error </div>} />
         </Routes>
       </div>
     </>
