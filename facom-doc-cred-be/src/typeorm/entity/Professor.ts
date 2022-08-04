@@ -4,15 +4,21 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { ResearchTopic } from "./ResearchTopic";
+import { User } from "./User";
 
 @Entity("professor")
 export class Professor {
   @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @OneToOne(() => User, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "user_id" })
+  user_id: User["id"];
 
   @Column()
   name: string;
