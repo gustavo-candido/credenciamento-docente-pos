@@ -78,6 +78,37 @@ function getInput({ row, name, onChange, inputType }: Record<string, any>) {
         </NativeSelect>
       );
 
+    case "role":
+      return (
+        <NativeSelect
+          defaultValue={row[name]}
+          inputProps={{
+            name,
+            id: row.id,
+          }}
+          onChange={(e) => onChange(e, row)}
+        >
+          <option value={"ORIENTADOR_PRINCIPAL"}>Orientador</option>
+          <option value={"CO_ORIENTADOR"}>Coorientador</option>
+        </NativeSelect>
+      );
+
+    case "degree":
+      return (
+        <NativeSelect
+          defaultValue={row[name]}
+          inputProps={{
+            name,
+            id: row.id,
+          }}
+          onChange={(e) => onChange(e, row)}
+        >
+          <option value={"IC"}>Inic.Cient.</option>
+          <option value={"MESTRADO"}>Mestrado</option>
+          <option value={"DOUTORADO"}>Doutorado</option>
+          <option value={"POS-DOUTORADO"}>Pos</option>
+        </NativeSelect>
+      );
     default:
       return (
         <Input
@@ -117,20 +148,23 @@ type EditableTableProps = {
   labels: string[];
   data: Record<string, any>[];
   inputType: string[];
+  updateRow?: (index: number, args: Record<string, any>) => Promise<void>;
 };
 
 export default function EditableTable({
   labels,
   data,
   inputType,
+  updateRow,
 }: EditableTableProps) {
   const [rows, setRows] = useState<RowData[]>([]);
   const classes = useStyles();
 
   const onToggleEditMode = (id: any) => {
     setRows(() => {
-      return rows.map((row) => {
+      return rows.map((row, index) => {
         if (row.id === id) {
+          updateRow && updateRow(index, row);
           return { ...row, isEditMode: !row.isEditMode };
         }
         return row;

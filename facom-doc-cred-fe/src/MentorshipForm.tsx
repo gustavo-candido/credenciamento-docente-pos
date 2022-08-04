@@ -10,6 +10,7 @@ export default function MentorshipForm() {
   } = useUser();
 
   const [data, setData] = useState([]);
+  const [dataId, setDataID] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -20,48 +21,56 @@ export default function MentorshipForm() {
       setData(
         resData.map((d: any) => ({
           is_concluded: d.is_concluded ? "Sim" : "Não",
+          role: d.role,
+          year: d.year,
+          title: d.title,
+          degree: d.degree,
+          student_name: d.student_name,
+          sponsor_name: d.sponsor_name,
+          nmonths: d.nmonths,
         }))
       );
+
+      setDataID(resData.map((d: any) => d.id));
     })();
   }, []);
 
   return (
-    <EditableTable inputType={["bool"]} labels={["Concluído"]} data={data} />
+    <EditableTable
+      updateRow={async (index: number, args: Record<string, any>) => {
+        let sanitizedArgs = {
+          ...args,
+          is_concluded: args.is_concluded === "Sim",
+        };
+
+        //@ts-expect-error
+        delete sanitizedArgs.id;
+        //@ts-expect-error
+        delete sanitizedArgs.isEditMode;
+
+        api.patch(`/mentorship-work/${dataId[index]}/update`, sanitizedArgs);
+      }}
+      inputType={[
+        "bool",
+        "role",
+        "year",
+        "title",
+        "degree",
+        "student",
+        "sponsor_name",
+        "nmonths",
+      ]}
+      labels={[
+        "Concluído",
+        "Tipo de Orient.",
+        "Ano",
+        "Titulo",
+        "Grau",
+        "Aluno",
+        "Patrocinador",
+        "Meses supervisionados (apenas pós)",
+      ]}
+      data={data}
+    />
   );
 }
-
-// @PrimaryGeneratedColumn("uuid")
-//   id: string;
-
-// @Column()
-// is_concluded: boolean;
-
-// @Column()
-// role: string;
-
-// @Column()
-// year: number;
-
-// @Column()
-// title: string;
-
-// @Column()
-// degree: string;
-
-// @Column()
-// student_name: string;
-
-// @Column({ default: null })
-// sponsor_code: string;
-
-// @Column({ default: null })
-// sponsor_name: string;
-
-// @Column({ default: 0 })
-// nmonths: number;
-
-// @CreateDateColumn()
-// created_at: Date;
-
-// @UpdateDateColumn()
-// updated_at: Date;
