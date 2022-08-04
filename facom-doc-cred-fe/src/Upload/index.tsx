@@ -3,13 +3,26 @@ import React, { ReactElement, ReactNode } from "react";
 
 import Dropzone from "react-dropzone";
 import api from "../services/api";
+import { useUser } from "../user";
 import { DropContainer, UploadMessage } from "./styles";
 
-const onUpload = (file: File[]) => {
-  console.log("uplodad");
+const onUpload = (professorId?: string, file?: File[]) => {
+  api.post(
+    `import/${professorId}`,
+    { record: file?.[0] },
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
 };
 
 const Upload = (): ReactElement => {
+  const {
+    user: { professorId },
+  } = useUser();
+
   function renderDragMessage(
     isDragActive: boolean,
     isDragRejest: boolean
@@ -31,7 +44,7 @@ const Upload = (): ReactElement => {
     <Container maxWidth="xl">
       <Dropzone
         // accept=".csv, application/vnd.ms-excel, text/csv"
-        onDropAccepted={(files) => onUpload(files)}
+        onDropAccepted={(files) => onUpload(professorId, files)}
       >
         {({ getRootProps, getInputProps, isDragActive, isDragReject }): any => (
           <DropContainer
