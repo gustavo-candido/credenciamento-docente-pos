@@ -2,16 +2,18 @@ import { DeepPartial, Repository } from "typeorm";
 import { Professor } from "@typeorm/entity/Professor";
 import removeUndefinedKeys from "@utils/removeUndefinedKeys";
 
-export interface IProfessorDTO {
-  lattes_id: string;
-  name: string;
-  birth_date: Date;
-  research_topic_id: DeepPartial<Professor>;
-  ppgco_weekly_workload: number;
-  other_ppg_weekly_workload: number;
-  has_pq_or_dt_sponsor: false;
-  placement: string;
-}
+// export interface IProfessorDTO {
+//   lattes_id: string;
+//   name: string;
+//   birth_date: Date;
+//   research_topic_id: DeepPartial<Professor>;
+//   ppgco_weekly_workload: number;
+//   other_ppg_weekly_workload: number;
+//   has_pq_or_dt_sponsor: false;
+//   placement: string;
+// }
+
+type ProfessorDTO = DeepPartial<Professor>;
 class ProfessorRepository {
   constructor(private ormRepository: Repository<Professor>) {}
 
@@ -24,16 +26,18 @@ class ProfessorRepository {
     placement,
     ppgco_weekly_workload,
     research_topic_id,
-  }: IProfessorDTO) {
+    user_id,
+  }: ProfessorDTO) {
     const professor = this.ormRepository.create({
       lattes_id,
-      birth_date: new Date(birth_date),
+      birth_date: birth_date ? new Date(birth_date as string) : undefined,
       has_pq_or_dt_sponsor,
       name,
       other_ppg_weekly_workload,
       placement,
       ppgco_weekly_workload,
       research_topic_id: research_topic_id,
+      user_id,
     });
 
     await this.ormRepository.save(professor);
@@ -57,7 +61,15 @@ class ProfessorRepository {
     return professor;
   }
 
-  public async update(professorId: string, professorNewData: IProfessorDTO) {
+  public async findByUser(userId: string) {
+    const professor = await this.ormRepository.query(
+      `select * from professor where user_id = '${userId}'`
+    );
+
+    return professor;
+  }
+
+  public async update(professorId: string, professorNewData: ProfessorDTO) {
     const professor = await this.ormRepository.findOne({
       where: { id: professorId },
     });
@@ -65,7 +77,7 @@ class ProfessorRepository {
     const professorNewDataFiltered = removeUndefinedKeys({
       ...professorNewData,
       birth_date: professorNewData?.birth_date
-        ? new Date(professorNewData.birth_date)
+        ? new Date(professorNewData.birth_date as string)
         : undefined,
     });
 

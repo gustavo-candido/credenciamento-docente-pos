@@ -17,6 +17,12 @@ professorRoutes.get(
     await professorController.findById(request, response)
 );
 
+professorRoutes.get(
+  "/user/:id",
+  async (request, response) =>
+    await professorController.findByUser(request, response)
+);
+
 professorRoutes.patch(
   "/:id/update",
   async (request, response) =>

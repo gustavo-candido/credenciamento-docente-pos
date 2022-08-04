@@ -24,6 +24,7 @@ class ProfessorController {
       placement,
       ppgco_weekly_workload,
       research_topic_id,
+      user_id,
     } = request.body;
 
     try {
@@ -48,6 +49,7 @@ class ProfessorController {
         other_ppg_weekly_workload,
         placement,
         has_pq_or_dt_sponsor,
+        user_id,
       });
 
       return response.json(professor);
@@ -67,6 +69,28 @@ class ProfessorController {
 
     try {
       const professor = await this.professorRepository.findById(id);
+
+      if (!professor) {
+        throw new AppError("Docente não encontrado!", 404);
+      }
+
+      return response.json(professor);
+    } catch (err) {
+      if (isAppError(err)) {
+        return response.status(err.statusCode).json({ error: err.message });
+      }
+      return response.status(500).json({ error: err });
+    }
+  }
+
+  public async findByUser(
+    request: Request<{ id: string }, {}, Record<string, string>>,
+    response: Response
+  ) {
+    const { id } = request.params;
+
+    try {
+      const professor = await this.professorRepository.findByUser(id);
 
       if (!professor) {
         throw new AppError("Docente não encontrado!", 404);
