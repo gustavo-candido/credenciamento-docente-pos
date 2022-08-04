@@ -1,12 +1,12 @@
 import Container from "@mui/material/Container";
 import { useUser } from "./user";
 import Table from "./Table";
-import FunctionProdBibForm from "./ProdBibForm";
+import MentorshipForm from "./MentorshipForm";
 
 export default function Dashboard() {
   return (
     <Container maxWidth="xl">
-      <FunctionProdBibForm />
+      <MentorshipForm />
     </Container>
   );
 }

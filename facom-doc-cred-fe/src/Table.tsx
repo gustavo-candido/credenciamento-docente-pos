@@ -11,6 +11,8 @@ import DoneIcon from "@mui/icons-material/DoneAllTwoTone";
 
 import Input from "@mui/material/Input";
 import { useEffect, useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import NativeSelect from "@mui/material/NativeSelect";
 
 type RowData = {
   id: string;
@@ -57,21 +59,56 @@ const getCustomCellKeys = (row: Record<string, unknown>) => {
   return Object.keys(cpy);
 };
 
-const CustomTableCell = ({ row, name, onChange }: Record<string, any>) => {
+function getInput({ row, name, onChange, inputType }: Record<string, any>) {
   const classes = useStyles();
-  const { isEditMode } = row;
-  return (
-    <TableCell align="left" sx={classes.tableCell}>
-      {isEditMode ? (
+
+  switch (inputType) {
+    case "bool":
+      return (
+        <NativeSelect
+          defaultValue={row[name]}
+          inputProps={{
+            name,
+            id: row.id,
+          }}
+          onChange={(e) => onChange(e, row)}
+        >
+          <option value={"Sim"}>Sim</option>
+          <option value={"Não"}>Não</option>
+        </NativeSelect>
+      );
+
+    default:
+      return (
         <Input
           value={row[name]}
           name={name}
           onChange={(e) => onChange(e, row)}
           sx={classes.input}
         />
-      ) : (
-        row[name]
-      )}
+      );
+  }
+}
+
+const CustomTableCell = ({
+  row,
+  name,
+  onChange,
+  inputType,
+}: Record<string, any>) => {
+  const classes = useStyles();
+  const { isEditMode } = row;
+
+  return (
+    <TableCell align="left" sx={classes.tableCell}>
+      {isEditMode
+        ? getInput({
+            row,
+            name,
+            onChange,
+            inputType,
+          })
+        : row[name]}
     </TableCell>
   );
 };
@@ -79,9 +116,14 @@ const CustomTableCell = ({ row, name, onChange }: Record<string, any>) => {
 type EditableTableProps = {
   labels: string[];
   data: Record<string, any>[];
+  inputType: string[];
 };
 
-export default function EditableTable({ labels, data }: EditableTableProps) {
+export default function EditableTable({
+  labels,
+  data,
+  inputType,
+}: EditableTableProps) {
   const [rows, setRows] = useState<RowData[]>([]);
   const classes = useStyles();
 
@@ -100,6 +142,7 @@ export default function EditableTable({ labels, data }: EditableTableProps) {
     const value = e.target.value;
     const name = e.target.name;
     const { id } = row;
+
     const newRows = rows.map((row) => {
       if (row.id === id) {
         return { ...row, [name]: value };
@@ -149,10 +192,11 @@ export default function EditableTable({ labels, data }: EditableTableProps) {
                     </IconButton>
                   )}
                 </TableCell>
-                {getCustomCellKeys(row).map((key) => (
+                {getCustomCellKeys(row).map((key, index) => (
                   <CustomTableCell
                     {...{ row, name: key, onChange }}
                     key={key}
+                    inputType={inputType[index]}
                   />
                 ))}
               </TableRow>
