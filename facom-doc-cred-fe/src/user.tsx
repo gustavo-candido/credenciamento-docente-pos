@@ -4,6 +4,7 @@ import api from "./services/api";
 
 type User = {
   id: string;
+  professorId?: string;
 };
 
 type UserContextData = {
@@ -29,14 +30,20 @@ function UserProvider({ children }: React.PropsWithChildren<{}>) {
   const navigate = useNavigate();
 
   const signUp = async (email: string) => {
-    const res = await api.post<User>("user/sign-in", {
+    const queryUser = await api.post<User>("user/sign-in", {
       email,
     });
 
-    if (res?.data?.id) {
-      const fetchedUser = { id: res.data?.id };
-      setUser(fetchedUser);
+    const userId = queryUser?.data?.id;
 
+    if (userId) {
+      const queryProfessor = await api.get(`/professor/user/${userId}`);
+
+      const fetchedUser = {
+        id: userId,
+        professorId: queryProfessor?.data?.id,
+      };
+      setUser(fetchedUser);
       navigate("/");
     }
   };

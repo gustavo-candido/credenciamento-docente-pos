@@ -66,7 +66,7 @@ class ProfessorRepository {
       `select * from professor where user_id = '${userId}'`
     );
 
-    return professor;
+    return professor[0];
   }
 
   public async update(professorId: string, professorNewData: ProfessorDTO) {
