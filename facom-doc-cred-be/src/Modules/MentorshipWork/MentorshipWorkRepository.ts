@@ -23,6 +23,13 @@ class MentorshipWorkRepository {
     return mentorshipWork;
   }
 
+  public async findByProfessor(professorId: string) {
+    const mentorshipWork = await this.ormRepository.query(
+      `select * from mentorship_work where professor_id = '${professorId}'`
+    );
+    return mentorshipWork;
+  }
+
   public async update(
     mentorshipWorkId: string,
     mentorshipWorkNewData: MentorshipWorkDTO

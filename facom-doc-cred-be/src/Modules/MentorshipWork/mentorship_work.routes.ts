@@ -17,6 +17,12 @@ mentorshipWorkRoutes.get(
     await mentorshipWorkController.findById(request, response)
 );
 
+mentorshipWorkRoutes.get(
+  "/professor/:id",
+  async (request, response) =>
+    await mentorshipWorkController.findByProfessor(request, response)
+);
+
 mentorshipWorkRoutes.patch(
   "/:id/update",
   async (request, response) =>
