@@ -1,4 +1,4 @@
-import { Table } from "@mui/material";
+import { Container, Table } from "@mui/material";
 import { useEffect, useState } from "react";
 import api from "./services/api";
 import EditableTable from "./Table";
@@ -36,41 +36,43 @@ export default function MentorshipForm() {
   }, []);
 
   return (
-    <EditableTable
-      updateRow={async (index: number, args: Record<string, any>) => {
-        let sanitizedArgs = {
-          ...args,
-          is_concluded: args.is_concluded === "Sim",
-        };
+    <Container maxWidth="xl">
+      <EditableTable
+        updateRow={async (index: number, args: Record<string, any>) => {
+          let sanitizedArgs = {
+            ...args,
+            is_concluded: args.is_concluded === "Sim",
+          };
 
-        //@ts-expect-error
-        delete sanitizedArgs.id;
-        //@ts-expect-error
-        delete sanitizedArgs.isEditMode;
+          //@ts-expect-error
+          delete sanitizedArgs.id;
+          //@ts-expect-error
+          delete sanitizedArgs.isEditMode;
 
-        api.patch(`/mentorship-work/${dataId[index]}/update`, sanitizedArgs);
-      }}
-      inputType={[
-        "bool",
-        "role",
-        "year",
-        "title",
-        "degree",
-        "student",
-        "sponsor_name",
-        "nmonths",
-      ]}
-      labels={[
-        "Concluído",
-        "Tipo de Orient.",
-        "Ano",
-        "Titulo",
-        "Grau",
-        "Aluno",
-        "Patrocinador",
-        "Meses supervisionados (apenas pós)",
-      ]}
-      data={data}
-    />
+          api.patch(`/mentorship-work/${dataId[index]}/update`, sanitizedArgs);
+        }}
+        inputType={[
+          "bool",
+          "role",
+          "year",
+          "title",
+          "degree",
+          "student",
+          "sponsor_name",
+          "nmonths",
+        ]}
+        labels={[
+          "Concluído",
+          "Tipo de Orient.",
+          "Ano",
+          "Titulo",
+          "Grau",
+          "Aluno",
+          "Patrocinador",
+          "Meses supervisionados (apenas pós)",
+        ]}
+        data={data}
+      />
+    </Container>
   );
 }

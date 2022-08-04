@@ -10,6 +10,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 import { useUser } from "./user";
+import ProjectForm from "./ProjectForm";
 const styles = {
   tabContainer: {
     marginLeft: "auto",
@@ -67,6 +68,24 @@ const Header = () => {
           >
             <Tab sx={styles.tab} component={Link} to="/" label="Home" />
             <Tab sx={styles.tab} component={Link} to="/upload" label="Upload" />
+            <Tab
+              sx={styles.tab}
+              component={Link}
+              to="/projetos"
+              label="Projetos"
+            />
+            <Tab
+              sx={styles.tab}
+              component={Link}
+              to="/prob-bib"
+              label="Prod bib"
+            />
+            <Tab
+              sx={styles.tab}
+              component={Link}
+              to="/mentoria"
+              label="Mentoria"
+            />
             <Tab
               sx={styles.tab}
               component={Link}

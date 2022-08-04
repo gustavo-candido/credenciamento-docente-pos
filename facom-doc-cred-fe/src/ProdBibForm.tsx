@@ -1,4 +1,4 @@
-import { Table } from "@mui/material";
+import { Container, Table } from "@mui/material";
 import { useEffect, useState } from "react";
 import api from "./services/api";
 import EditableTable from "./Table";
@@ -31,20 +31,22 @@ export default function ProdBibForm() {
   }, []);
 
   return (
-    <EditableTable
-      updateRow={async (index: number, args: Record<string, any>) => {
-        let sanitizedArgs = {
-          ...args,
-        };
+    <Container maxWidth="xl">
+      <EditableTable
+        updateRow={async (index: number, args: Record<string, any>) => {
+          let sanitizedArgs = {
+            ...args,
+          };
 
-        delete sanitizedArgs.id;
-        delete sanitizedArgs.isEditMode;
+          delete sanitizedArgs.id;
+          delete sanitizedArgs.isEditMode;
 
-        api.patch(`/prod-bib/${dataId[index]}/update`, sanitizedArgs);
-      }}
-      inputType={["text", "text", "text", "text"]}
-      labels={["ISSN/SIGLA", "Título", "Ano", "Nome do evento"]}
-      data={data}
-    />
+          api.patch(`/prod-bib/${dataId[index]}/update`, sanitizedArgs);
+        }}
+        inputType={["text", "text", "text", "text"]}
+        labels={["ISSN/SIGLA", "Título", "Ano", "Nome do evento"]}
+        data={data}
+      />
+    </Container>
   );
 }

@@ -1,4 +1,4 @@
-import { Table } from "@mui/material";
+import { Container, Table } from "@mui/material";
 import { useEffect, useState } from "react";
 import api from "./services/api";
 import EditableTable from "./Table";
@@ -35,23 +35,25 @@ export default function ProjectForm() {
   }, []);
 
   return (
-    <EditableTable
-      updateRow={async (index: number, args: Record<string, any>) => {
-        let sanitizedArgs = {
-          ...args,
-          has_sponsor: args.has_sponsor === "Sim",
-        };
+    <Container maxWidth="xl">
+      <EditableTable
+        updateRow={async (index: number, args: Record<string, any>) => {
+          let sanitizedArgs = {
+            ...args,
+            has_sponsor: args.has_sponsor === "Sim",
+          };
 
-        //@ts-expect-error
-        delete sanitizedArgs.id;
-        //@ts-expect-error
-        delete sanitizedArgs.isEditMode;
+          //@ts-expect-error
+          delete sanitizedArgs.id;
+          //@ts-expect-error
+          delete sanitizedArgs.isEditMode;
 
-        api.patch(`/project/${dataId[index]}/update`, sanitizedArgs);
-      }}
-      inputType={["bool", "text", "text", "text", "text"]}
-      labels={["Possuí patrocínio", "Tipo", "Ano", "Título", "Responsável"]}
-      data={data}
-    />
+          api.patch(`/project/${dataId[index]}/update`, sanitizedArgs);
+        }}
+        inputType={["bool", "text", "text", "text", "text"]}
+        labels={["Possuí patrocínio", "Tipo", "Ano", "Título", "Responsável"]}
+        data={data}
+      />
+    </Container>
   );
 }
