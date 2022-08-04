@@ -1,39 +1,50 @@
-// @PrimaryGeneratedColumn("uuid")
-//   id: string;
-
 import { Table } from "@mui/material";
+import { useEffect, useState } from "react";
+import api from "./services/api";
 import EditableTable from "./Table";
+import { useUser } from "./user";
 
-//   @ManyToOne(() => Professor, { onDelete: "CASCADE" })
-//   @JoinColumn({ name: "professor_id" })
-//   professor_id: Professor["id"];
+export default function ProdBibForm() {
+  const {
+    user: { professorId },
+  } = useUser();
 
-//   @Column()
-//   issn_or_sigla: string;
+  const [data, setData] = useState([]);
+  const [dataId, setDataID] = useState([]);
 
-//   @Column()
-//   year: number;
+  useEffect(() => {
+    (async () => {
+      const res = await api.get(`/prod-bib/professor/${professorId}`);
 
-//   @Column()
-//   title: string;
+      const resData = res?.data ?? [];
+      setData(
+        resData.map((d: any) => ({
+          issn_or_sigla: d.issn_or_sigla,
+          title: d.title,
+          year: d.year,
+          event_ame: d.event_name,
+        }))
+      );
 
-//   @Column({ default: null })
-//   event_name: string;
+      setDataID(resData.map((d: any) => d.id));
+    })();
+  }, []);
 
-//   @CreateDateColumn()
-//   created_at: Date;
-
-//   @UpdateDateColumn()
-//   updated_at: Date;
-
-export default function FunctionProdBibForm() {
   return (
     <EditableTable
-      labels={["Foo", "Bar"]}
-      data={[
-        { foo: 800, bar: `hey` },
-        { foo: 800, bar: `hey` },
-      ]}
+      updateRow={async (index: number, args: Record<string, any>) => {
+        let sanitizedArgs = {
+          ...args,
+        };
+
+        delete sanitizedArgs.id;
+        delete sanitizedArgs.isEditMode;
+
+        api.patch(`/prod-bib/${dataId[index]}/update`, sanitizedArgs);
+      }}
+      inputType={["text", "text", "text", "text"]}
+      labels={["ISSN/SIGLA", "Título", "Ano", "Nome do evento"]}
+      data={data}
     />
   );
 }

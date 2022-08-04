@@ -16,6 +16,12 @@ prodBibRouter.get(
     await prodBibController.findById(request, response)
 );
 
+prodBibRouter.get(
+  "/professor/:id",
+  async (request, response) =>
+    await prodBibController.findByProfessor(request, response)
+);
+
 prodBibRouter.patch(
   "/:id/update",
   async (request, response) => await prodBibController.update(request, response)

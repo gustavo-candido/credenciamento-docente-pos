@@ -56,6 +56,24 @@ class ProdBibController {
       return response.status(500).json({ error: err });
     }
   }
+  public async findByProfessor(request: Request, response: Response) {
+    const { id } = request.params;
+
+    try {
+      const prodBib = await this.prodBibRepository.findByProfessor(id);
+
+      if (!prodBib) {
+        throw new AppError("Produção não encontrada!", 404);
+      }
+
+      return response.json(prodBib);
+    } catch (err) {
+      if (isAppError(err)) {
+        return response.status(err.statusCode).json({ error: err.message });
+      }
+      return response.status(500).json({ error: err });
+    }
+  }
 
   public async update(request: Request, response: Response) {
     const { id } = request.params;
