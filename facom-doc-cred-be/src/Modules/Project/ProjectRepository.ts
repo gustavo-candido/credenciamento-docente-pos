@@ -24,6 +24,13 @@ class ProjectRepository {
     return project;
   }
 
+  public async findByProfessor(professorId: string) {
+    const project = await this.ormRepository.query(
+      `select * from project where professor_id = '${professorId}'`
+    );
+    return project;
+  }
+
   public async update(projectId: string, projectNewData: ProjectDTO) {
     const project = await this.ormRepository.findOne({
       where: { id: projectId },

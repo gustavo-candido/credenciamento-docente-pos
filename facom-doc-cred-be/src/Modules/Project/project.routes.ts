@@ -16,6 +16,12 @@ projectRouter.get(
     await projectController.findById(request, response)
 );
 
+projectRouter.get(
+  "/professor/:id",
+  async (request, response) =>
+    await projectController.findByProfessor(request, response)
+);
+
 projectRouter.patch(
   "/:id/update",
   async (request, response) => await projectController.update(request, response)

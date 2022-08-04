@@ -58,6 +58,25 @@ class ProjectController {
     }
   }
 
+  public async findByProfessor(request: Request, response: Response) {
+    const { id } = request.params;
+
+    try {
+      const project = await this.projectRepository.findByProfessor(id);
+
+      if (!project) {
+        throw new AppError("Projeto não encontrado!", 404);
+      }
+
+      return response.json(project);
+    } catch (err) {
+      if (isAppError(err)) {
+        return response.status(err.statusCode).json({ error: err.message });
+      }
+      return response.status(500).json({ error: err });
+    }
+  }
+
   public async update(request: Request, response: Response) {
     const { id } = request.params;
     const { professor_id, title, responsible_id, year, has_sponsor, kind } =
