@@ -62,6 +62,19 @@ class ResearchTopicController {
     }
   }
 
+  public async findAll(request: Request, response: Response) {
+    try {
+      const researchTopic = await this.researchTopicRepository.findAll();
+
+      return response.json(researchTopic);
+    } catch (err) {
+      if (isAppError(err)) {
+        return response.status(err.statusCode).json({ error: err.message });
+      }
+      return response.status(500).json({ error: err });
+    }
+  }
+
   public async update(
     request: Request<{ id: string }, {}, Record<string, string>>,
     response: Response

@@ -29,6 +29,15 @@ class ResearchTopicRepository {
     }
   }
 
+  public async findAll() {
+    try {
+      const researchTopic = await this.ormRepository.find();
+      return researchTopic;
+    } catch (e) {
+      return null;
+    }
+  }
+
   public async findByName(topic: string) {
     const researchTopic = await this.ormRepository.findOneBy({
       topic,

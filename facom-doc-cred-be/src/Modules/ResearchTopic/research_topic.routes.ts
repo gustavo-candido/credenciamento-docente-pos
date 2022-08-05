@@ -17,6 +17,12 @@ researchTopicRouter.get(
     await researchTopicController.findById(request, response)
 );
 
+researchTopicRouter.get(
+  "/",
+  async (request, response) =>
+    await researchTopicController.findAll(request, response)
+);
+
 researchTopicRouter.patch(
   "/:id/update",
   async (request, response) =>
