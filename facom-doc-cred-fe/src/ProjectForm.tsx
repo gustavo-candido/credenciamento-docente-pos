@@ -18,8 +18,6 @@ export default function ProjectForm() {
 
       const resData = res?.data ?? [];
 
-      console.log(resData);
-
       setData(
         resData.map((d: any) => ({
           has_sponsor: d.has_sponsor ? "Sim" : "Não",

@@ -1,9 +1,11 @@
 import { Label } from "@mui/icons-material";
 import { Button, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FormInputDropdown } from "./FormInputDropdown";
 import { FormInputRadio } from "./FormInputRadio";
 import { FormInputText } from "./FormInputText";
+import api from "./services/api";
 
 const defaultValues = {
   textValue: "",
@@ -45,6 +47,24 @@ export default function Perfil() {
   const { handleSubmit, reset, control, setValue } = methods;
   const onSubmit = (data: any) => console.log(data);
 
+  const [researchTopics, setResearchTopics] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const request = await api.get("/research-topic");
+
+      if (request.data) {
+        const fetchedResearchs = request.data.map((item: any) => ({
+          label: item.topic,
+          value: item.topic,
+        }));
+
+        console.log(fetchedResearchs);
+        setResearchTopics(fetchedResearchs);
+      }
+    })();
+  }, []);
+
   return (
     <Paper>
       <FormInputText name="name" control={control} label="Nome" />
@@ -62,6 +82,7 @@ export default function Perfil() {
         name="research_topic_id"
         control={control}
         label="Linha de pesquisa"
+        options={researchTopics}
       />
       <FormInputText
         name="ppgco_weekly_workload"
