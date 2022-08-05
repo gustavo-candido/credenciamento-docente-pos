@@ -28,9 +28,14 @@ const Header = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
-    const idx = ["/", "/portfolio", "/logout"].indexOf(
-      window.location.pathname
-    );
+    const idx = [
+      "/",
+      "/upload",
+      // "/perfil",
+      "/projetos",
+      "/prob-bib",
+      "/mentoria",
+    ].indexOf(window.location.pathname);
     if (tabIndex !== idx) {
       setTabIndex(idx);
     }
@@ -68,7 +73,7 @@ const Header = () => {
           >
             <Tab sx={styles.tab} component={Link} to="/" label="Home" />
             <Tab sx={styles.tab} component={Link} to="/upload" label="Upload" />
-            <Tab sx={styles.tab} component={Link} to="/perfil" label="Perfil" />
+            {/* <Tab sx={styles.tab} component={Link} to="/perfil" label="Perfil" /> */}
             <Tab
               sx={styles.tab}
               component={Link}

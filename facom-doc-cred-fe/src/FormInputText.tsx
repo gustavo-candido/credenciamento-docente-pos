@@ -6,6 +6,7 @@ export const FormInputText = ({
   name,
   control,
   label,
+  defaultValue,
 }: Record<string, any>) => {
   return (
     <Controller
@@ -18,6 +19,7 @@ export const FormInputText = ({
       }) => (
         <TextField
           helperText={error ? error.message : null}
+          defaultValue={defaultValue}
           size="small"
           error={!!error}
           onChange={onChange}

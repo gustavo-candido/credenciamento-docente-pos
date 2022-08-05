@@ -29,6 +29,12 @@ class ImporterController {
     );
   }
 
+  private async clearData(professorId: Professor["id"]) {
+    await this.mentorshipWorkRepository.deleteByProfessor(professorId);
+    await this.prodBibRepository.deleteByProfessor(professorId);
+    await this.projectRepository.deleteByProfessor(professorId);
+  }
+
   private async saveMentorship(
     professorId: Professor["id"],
     lattesData: TFacomNormCred
@@ -85,6 +91,7 @@ class ImporterController {
 
       const lattesData = await new FacomNormCred(path).getAllModules();
 
+      await this.clearData(professor_id);
       await this.saveMentorship(professor_id, lattesData);
       await this.saveProdBib(professor_id, lattesData);
       await this.saveProject(professor_id, lattesData);

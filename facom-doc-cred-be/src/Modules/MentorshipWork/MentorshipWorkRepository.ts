@@ -60,6 +60,12 @@ class MentorshipWorkRepository {
 
     return mentorshipWork;
   }
+
+  public async deleteByProfessor(professorId: string) {
+    await this.ormRepository.query(
+      `delete mentorship_work where professor_id = '${professorId}'`
+    );
+  }
 }
 
 export default MentorshipWorkRepository;

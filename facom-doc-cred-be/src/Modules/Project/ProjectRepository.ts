@@ -58,6 +58,12 @@ class ProjectRepository {
 
     return project;
   }
+
+  public async deleteByProfessor(professorId: string) {
+    await this.ormRepository.query(
+      `delete project where professor_id = '${professorId}'`
+    );
+  }
 }
 
 export default ProjectRepository;

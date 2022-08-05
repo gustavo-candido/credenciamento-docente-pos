@@ -58,6 +58,12 @@ class ProdBibRepository {
 
     return prodBib;
   }
+
+  public async deleteByProfessor(professorId: string) {
+    await this.ormRepository.query(
+      `delete prod_bib where professor_id = '${professorId}'`
+    );
+  }
 }
 
 export default ProdBibRepository;

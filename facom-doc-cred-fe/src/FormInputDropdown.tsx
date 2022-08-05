@@ -7,6 +7,7 @@ export const FormInputDropdown = ({
   control,
   label,
   options = [],
+  defaultValue,
 }: Record<string, any>) => {
   const generateSelectOptions = () => {
     return options.map((option) => {
@@ -23,7 +24,7 @@ export const FormInputDropdown = ({
       control={control}
       name={name}
       render={({ field: { onChange, value } }) => (
-        <Select onChange={onChange} value={value}>
+        <Select onChange={onChange} value={value} defaultValue={defaultValue}>
           {generateSelectOptions()}
         </Select>
       )}
