@@ -68,6 +68,7 @@ const Header = () => {
           >
             <Tab sx={styles.tab} component={Link} to="/" label="Home" />
             <Tab sx={styles.tab} component={Link} to="/upload" label="Upload" />
+            <Tab sx={styles.tab} component={Link} to="/perfil" label="Perfil" />
             <Tab
               sx={styles.tab}
               component={Link}

@@ -9,6 +9,7 @@ import ProjectForm from "./ProjectForm";
 import ProdBibForm from "./ProdBibForm";
 import MentorshipForm from "./MentorshipForm";
 import { useUser } from "./user";
+import Perfil from "./Perfil";
 
 function App() {
   const { user } = useUser();
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/" element={loggedRoute(<Dashboard />)} />
+          <Route path="/perfil" element={loggedRoute(<Perfil />)} />
           <Route path="/upload" element={loggedRoute(<Upload />)} />
           <Route path="/projetos" element={loggedRoute(<ProjectForm />)} />
           <Route path="/prob-bib" element={loggedRoute(<ProdBibForm />)} />
