@@ -1,8 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("prod_tec_kind")
 export class ProdTecKind {
@@ -11,4 +7,7 @@ export class ProdTecKind {
 
   @Column()
   kind: string;
+
+  @Column({ default: 0.0 })
+  score: number;
 }

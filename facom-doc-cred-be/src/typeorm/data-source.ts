@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
   username: "postgres",
   password: "12345",
   database: "test",
-  synchronize: true,
+  synchronize: false,
   logging: false,
   entities: ["src/typeorm/entity/*.ts"],
   migrations: ["src/typeorm/migration/*.ts"],
