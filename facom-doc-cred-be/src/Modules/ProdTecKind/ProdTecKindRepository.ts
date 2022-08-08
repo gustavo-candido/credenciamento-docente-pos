@@ -25,6 +25,13 @@ class ProdTecKindRepository {
     return prodTecKind;
   }
 
+  public async findByKind(kind: string) {
+    const prodTecKind = await this.ormRepository.findOne({
+      where: { kind },
+    });
+    return prodTecKind;
+  }
+
   public async update(
     prodTecKindId: string,
     prodTecKindNewData: ProdTecKindDTO
