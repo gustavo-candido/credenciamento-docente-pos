@@ -36,7 +36,7 @@ export class createProdTecTable1658280857689 implements MigrationInterface {
           },
           {
             name: "quantity",
-            type: "number",
+            type: "int",
           },
           {
             name: "created_at",
