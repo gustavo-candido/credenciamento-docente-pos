@@ -8,6 +8,6 @@ export class ProdTecKind {
   @Column()
   kind: string;
 
-  @Column({ default: 0.0 })
+  @Column()
   score: number;
 }

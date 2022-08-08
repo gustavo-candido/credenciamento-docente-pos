@@ -19,7 +19,7 @@ export class ProdTec {
   @JoinColumn({ name: "professor_id" })
   professor_id: Professor;
 
-  @ManyToOne(() => ProdTecKind, { onDelete: "CASCADE" })
+  @ManyToOne(() => ProdTecKind)
   @JoinColumn({ name: "prod_tec_kind_id" })
   prod_tec_kind_id: ProdTecKind;
 
