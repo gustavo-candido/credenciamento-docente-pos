@@ -30,7 +30,9 @@ export type TProdBib = {
   event: TEventWork[];
 };
 
-export type TBooksChapter = {
+export type TProdTec = {
+  prod_tec_kind: string;
+  score: number;
   title: string;
   year: number;
 };

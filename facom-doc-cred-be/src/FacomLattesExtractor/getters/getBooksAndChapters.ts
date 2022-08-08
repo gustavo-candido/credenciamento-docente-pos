@@ -1,7 +1,7 @@
 import prioritizeLanguage from "@utils/prioritizeLanguage";
 import jsonpath from "jsonpath";
 
-import type { TLattes, TBooksChapter } from "@FacomLattesExtractor/types";
+import type { TLattes, TProdTec } from "@FacomLattesExtractor/types";
 
 const getBooksAndChapters = (lattes: TLattes) => {
   const publishedBooks = jsonpath.query(
@@ -9,8 +9,8 @@ const getBooksAndChapters = (lattes: TLattes) => {
     "$..['LIVRO-PUBLICADO-OU-ORGANIZADO']"
   );
 
-  let publishedAn = [] as TBooksChapter[];
-  let publishedCol = [] as TBooksChapter[];
+  let publishedAn = [] as Pick<TProdTec, "title" | "year">[];
+  let publishedCol = [] as Pick<TProdTec, "title" | "year">[];
 
   for (let publishedBook of publishedBooks) {
     const basicData = publishedBook?.["DADOS-BASICOS-DO-LIVRO"];
