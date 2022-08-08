@@ -29,7 +29,7 @@ export class ProdTec {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ default: 1 })
   quantity: number;
 
   @CreateDateColumn()

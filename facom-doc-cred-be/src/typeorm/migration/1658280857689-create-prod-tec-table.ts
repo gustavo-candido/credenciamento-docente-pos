@@ -35,6 +35,10 @@ export class createProdTecTable1658280857689 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "quantity",
+            type: "number",
+          },
+          {
             name: "created_at",
             type: "timestamp",
             default: "now()",
