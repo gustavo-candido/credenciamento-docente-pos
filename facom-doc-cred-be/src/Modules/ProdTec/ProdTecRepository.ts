@@ -1,35 +1,15 @@
 import { DeepPartial, Repository } from "typeorm";
 import { ProdTec } from "@typeorm/entity/ProdTec";
 import removeUndefinedKeys from "@utils/removeUndefinedKeys";
-import { ProdTecKind } from "@typeorm/entity/ProdTecKind";
-
-// export interface IProdTecDTO {
-//   professor_id: DeepPartial<ProdBib>;
-//   prod_tec_kind_id: DeepPartial<ProdTecKind>;
-//   year: number;
-//   description: string;
-//   quantity: number;
-// }
 
 export type ProdTecDTO = DeepPartial<ProdTec>;
 
 class ProdTecRepository {
   constructor(private ormRepository: Repository<ProdTec>) {}
 
-  public async create({
-    professor_id,
-    prod_tec_kind_id,
-    year,
-    description,
-    quantity,
-  }: ProdTecDTO) {
-    const prodTec = this.ormRepository.create({
-      professor_id,
-      prod_tec_kind_id,
-      year,
-      description,
-      quantity,
-    });
+  public async create(prodTecData: ProdTecDTO | ProdTecDTO[]) {
+    //@ts-expect-error
+    const prodTec = this.ormRepository.create(prodTecData);
 
     await this.ormRepository.save(prodTec);
 
@@ -70,6 +50,12 @@ class ProdTecRepository {
     }
 
     return prodTec;
+  }
+
+  public async deleteByProfessor(professorId: string) {
+    await this.ormRepository.query(
+      `delete from prod_tec where professor_id = '${professorId}'`
+    );
   }
 }
 

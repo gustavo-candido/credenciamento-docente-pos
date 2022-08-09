@@ -11,10 +11,13 @@ import ProdBibRepository from "../ProdBib/ProdBibRepository";
 import ProjectRepository from "../Project/ProjectRepository";
 import { TFacomNormCred } from "@FacomNormCred/types";
 import { Project } from "@typeorm/entity/Project";
+import ProdTecRepository from "../ProdTec/ProdTecRepository";
+import { ProdTec } from "@typeorm/entity/ProdTec";
 
 class ImporterController {
   private mentorshipWorkRepository: MentorshipWorkRepository;
   private prodBibRepository: ProdBibRepository;
+  private prodTecRepository: ProdTecRepository;
   private projectRepository: ProjectRepository;
 
   constructor() {
@@ -27,12 +30,16 @@ class ImporterController {
     this.projectRepository = new ProjectRepository(
       AppDataSource.getRepository(Project)
     );
+    this.prodTecRepository = new ProdTecRepository(
+      AppDataSource.getRepository(ProdTec)
+    );
   }
 
   private async clearData(professorId: Professor["id"]) {
     await this.mentorshipWorkRepository.deleteByProfessor(professorId);
     await this.prodBibRepository.deleteByProfessor(professorId);
     await this.projectRepository.deleteByProfessor(professorId);
+    await this.prodTecRepository.deleteByProfessor(professorId);
   }
 
   private async saveMentorship(
@@ -60,11 +67,23 @@ class ImporterController {
       professor_id: professorId,
     }));
 
-    const mentorshipWork = await this.prodBibRepository.create(
-      lattesDataWithProfId
-    );
+    const prodBib = await this.prodBibRepository.create(lattesDataWithProfId);
 
-    return mentorshipWork;
+    return prodBib;
+  }
+
+  private async saveProdTec(
+    professorId: Professor["id"],
+    lattesData: TFacomNormCred
+  ) {
+    const lattesDataWithProfId = lattesData.prod_tec.map((item) => ({
+      ...item,
+      professor_id: professorId,
+    }));
+
+    const prodTec = await this.prodTecRepository.create(lattesDataWithProfId);
+
+    return prodTec;
   }
 
   private async saveProject(
@@ -95,6 +114,7 @@ class ImporterController {
       await this.saveMentorship(professor_id, lattesData);
       await this.saveProdBib(professor_id, lattesData);
       await this.saveProject(professor_id, lattesData);
+      await this.saveProdTec(professor_id, lattesData);
 
       fs.unlink(path, (err) => {
         if (err) throw err;

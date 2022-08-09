@@ -53,9 +53,11 @@ class ProdTecModule {
     const validAnais = this.booksAndChapters.anais
       .filter(filterByTime)
       .map((item) => ({
-        ...item,
-        score: orgAnais?.score ?? 0,
-        prod_tec_kind: orgAnais?.kind ?? "none",
+        year: item.year,
+        description: item.title,
+        prod_tec_kind_id: (orgAnais?.id
+          ? orgAnais?.id
+          : null) as ProdTecKind["id"],
         quantity: 1,
       }));
 
@@ -74,9 +76,11 @@ class ProdTecModule {
     const validBooks = this.booksAndChapters.books
       .filter(filterByTime)
       .map((item) => ({
-        ...item,
-        score: orgBooks?.score ?? 0,
-        prod_tec_kind: orgBooks?.kind ?? "none",
+        year: item.year,
+        description: item.title,
+        prod_tec_kind_id: (orgBooks?.id
+          ? orgBooks?.id
+          : null) as ProdTecKind["id"],
         quantity: 1,
       }));
 
@@ -95,9 +99,9 @@ class ProdTecModule {
       .filter(filterByTime)
       .filter(filterByBrazil)
       .map((item) => ({
-        ...item,
-        score: revNat?.score ?? 0,
-        prod_tec_kind: revNat?.kind ?? "none",
+        year: item.year,
+        description: item.title,
+        prod_tec_kind_id: (revNat?.id ? revNat?.id : null) as ProdTecKind["id"],
         quantity: 1,
       }));
 
@@ -116,9 +120,11 @@ class ProdTecModule {
       .filter(filterByTime)
       .filter(filterByInternational)
       .map((item) => ({
-        ...item,
-        score: revInter?.score ?? 0,
-        prod_tec_kind: revInter?.kind ?? "none",
+        year: item.year,
+        description: item.title,
+        prod_tec_kind_id: (revInter?.id
+          ? revInter?.id
+          : null) as ProdTecKind["id"],
         quantity: 1,
       }));
 
@@ -134,14 +140,18 @@ class ProdTecModule {
       )
     );
 
-    const validOpenSource = this.openSource
-      .filter(filterByTime)
-      .map((item) => ({
-        ...item,
-        score: openSource?.score ?? 0,
-        prod_tec_kind: openSource?.kind ?? "none",
+    const validOpenSource = this.openSource.filter(filterByTime).map((item) => {
+      return {
+        year: item.year,
+        description: item.title,
+        prod_tec_kind_id: (openSource?.id
+          ? openSource?.id
+          : null) as ProdTecKind["id"],
+        // score: openSource?.score ?? 0,
+        // prod_tec_kind: openSource?.kind ?? "none",
         quantity: 1,
-      }));
+      };
+    });
 
     this.infos = [...this.infos, ...validOpenSource];
 

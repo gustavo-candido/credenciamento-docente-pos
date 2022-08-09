@@ -17,11 +17,11 @@ export class ProdTec {
 
   @ManyToOne(() => Professor, { onDelete: "CASCADE" })
   @JoinColumn({ name: "professor_id" })
-  professor_id: Professor;
+  professor_id: Professor["id"];
 
   @ManyToOne(() => ProdTecKind)
   @JoinColumn({ name: "prod_tec_kind_id" })
-  prod_tec_kind_id: ProdTecKind;
+  prod_tec_kind_id: ProdTecKind["id"];
 
   @Column()
   year: number;
