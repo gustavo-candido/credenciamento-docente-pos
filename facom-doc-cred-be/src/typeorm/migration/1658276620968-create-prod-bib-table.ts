@@ -39,6 +39,16 @@ export class createProdBibTable1658276620968 implements MigrationInterface {
             type: "varchar",
             isNullable: true,
           },
+          {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
         ],
       })
     );
