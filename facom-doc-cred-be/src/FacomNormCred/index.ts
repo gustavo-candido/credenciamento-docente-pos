@@ -1,7 +1,9 @@
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
-import { FormModule, ProdBibModule } from "./Modules";
+import { AppDataSource } from "@typeorm/data-source";
+import ProdTecKindRepository from "src/Modules/ProdTecKind/ProdTecKindRepository";
+import { FormModule, ProdBibModule, ProjectModule } from "./Modules";
 import ProdTecModule from "./Modules/ProdTecModule";
-import ProjectModule from "./Modules/ProjectModule";
+import { ProdTecKind } from "@typeorm/entity/ProdTecKind";
 
 import type { TFacomNormCred } from "./types";
 
@@ -35,10 +37,6 @@ class FacomNormCred {
       .build();
   }
 
-  public async getProdTecModule() {
-    // return new ProdTecModule().getOpenSource().build();
-  }
-
   public getProjectModule() {
     const projects = this.facomLattesExtractor.getProjects();
     const lattes_id = this.facomLattesExtractor.getLattesId() ?? "id not found";
@@ -49,12 +47,35 @@ class FacomNormCred {
       .build();
   }
 
+  public async getProdTecModule() {
+    const prodTecKindRepository = new ProdTecKindRepository(
+      AppDataSource.getRepository(ProdTecKind)
+    );
+    const prodTecKind = await prodTecKindRepository.findAll();
+    const booksAndChapters = this.facomLattesExtractor.getBooksAndChapters();
+    const articleReview = this.facomLattesExtractor.getArticleReview();
+    const openSource = this.facomLattesExtractor.getOpenSource();
+
+    return new ProdTecModule({
+      booksAndChapters,
+      articleReview,
+      prodTecKind,
+      openSource,
+    })
+      .getProdAnais()
+      .getProdBooks()
+      .getArticleReviewNational()
+      .getArticleReviewInternational()
+      .getOpenSource()
+      .build();
+  }
+
   public async getAllModules(): Promise<TFacomNormCred> {
     return {
       mentorship: this.getFormModule(),
       prod_bib: await this.getProdBibModule(),
       project: this.getProjectModule(),
-      // ...this.getProdTecModule(),
+      prod_tec: await this.getProdTecModule(),
     };
   }
 }

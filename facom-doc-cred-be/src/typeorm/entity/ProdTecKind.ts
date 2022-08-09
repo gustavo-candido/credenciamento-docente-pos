@@ -8,6 +8,7 @@ export class ProdTecKind {
   @Column()
   kind: string;
 
+  // the type is string
   @Column()
-  score: number;
+  score: string;
 }

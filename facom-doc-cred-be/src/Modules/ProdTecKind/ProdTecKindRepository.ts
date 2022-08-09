@@ -32,6 +32,11 @@ class ProdTecKindRepository {
     return prodTecKind;
   }
 
+  public async findAll() {
+    const prodTecKind = await this.ormRepository.find();
+    return prodTecKind;
+  }
+
   public async update(
     prodTecKindId: string,
     prodTecKindNewData: ProdTecKindDTO

@@ -19,13 +19,12 @@ const getArticleReview = (lattes: TLattes) => {
       const basicData = item?.["DADOS-BASICOS-DO-TRABALHO-TECNICO"];
 
       return {
-        year: basicData?.["ANO"],
+        year: parseInt(basicData?.["ANO"]),
         title: prioritizeLanguage({
           "pt-br": basicData?.["TITULO-DO-TRABALHO-TECNICO"],
           en: basicData?.["TITULO-DO-TRABALHO-TECNICO-INGLES"],
         }),
         country: basicData?.["PAIS"],
-        quantity: 1,
       };
     });
   return articleReview;

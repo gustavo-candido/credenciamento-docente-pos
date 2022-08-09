@@ -118,7 +118,7 @@ class ImporterController {
     });
 
     // response.json(await new FacomNormCred(path).getProjectModule());
-    response.json(facomNormCred.project);
+    response.json(facomNormCred);
   }
 }
 

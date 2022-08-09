@@ -6,8 +6,7 @@ import type {
   TEventWork,
 } from "@FacomLattesExtractor/types";
 
-export const filterByTime = (data: Pick<MentorshipWorkByDegreeDTO, "year">) =>
-  2017 <= data.year;
+export const filterByTime = (data: { year: number }) => 2017 <= data.year;
 
 export const filterByOrientador = (
   data: Pick<MentorshipWorkByDegreeDTO, "role">
@@ -24,3 +23,11 @@ export const filterByIRestrict = (
 export const filterByIGeneral = (
   data: Pick<ProdArticleDTO | TEventWork, "qualis">
 ) => !isQualisRestrict(data.qualis);
+
+export const filterByBrazil = (data: { country: string }) =>
+  data.country.toUpperCase() === "BRAZIL" ||
+  data.country.toUpperCase() === "BRASIL";
+
+export const filterByInternational = (data: { country: string }) =>
+  data.country.toUpperCase() !== "BRAZIL" ||
+  data.country.toUpperCase() !== "BRASIL";
