@@ -61,7 +61,7 @@ class ProjectRepository {
 
   public async deleteByProfessor(professorId: string) {
     await this.ormRepository.query(
-      `delete project where professor_id = '${professorId}'`
+      `delete from project where professor_id = '${professorId}'`
     );
   }
 }

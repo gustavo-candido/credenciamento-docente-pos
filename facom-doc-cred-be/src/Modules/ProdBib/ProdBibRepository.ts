@@ -61,7 +61,7 @@ class ProdBibRepository {
 
   public async deleteByProfessor(professorId: string) {
     await this.ormRepository.query(
-      `delete prod_bib where professor_id = '${professorId}'`
+      `delete from prod_bib where professor_id = '${professorId}'`
     );
   }
 }

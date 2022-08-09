@@ -63,7 +63,7 @@ class MentorshipWorkRepository {
 
   public async deleteByProfessor(professorId: string) {
     await this.ormRepository.query(
-      `delete mentorship_work where professor_id = '${professorId}'`
+      `delete from mentorship_work where professor_id = '${professorId}'`
     );
   }
 }
