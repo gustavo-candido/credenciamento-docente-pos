@@ -6,8 +6,8 @@ export type UserDTO = DeepPartial<User>;
 class UserRepository {
   constructor(private ormRepository: Repository<User>) {}
 
-  public async create({ email }: UserDTO) {
-    const user = this.ormRepository.create({ email });
+  public async create({ email, is_adm = false }: UserDTO) {
+    const user = this.ormRepository.create({ email, is_adm });
 
     await this.ormRepository.save(user);
 
