@@ -1,3 +1,4 @@
+import { Co2Sharp } from "@mui/icons-material";
 import { Container, Table } from "@mui/material";
 import { useEffect, useState } from "react";
 import api from "./services/api";
@@ -6,7 +7,7 @@ import { useUser } from "./user";
 
 export default function ProjectForm() {
   const {
-    user: { professorId },
+    user: { professorId, professorLattes },
   } = useUser();
 
   const [data, setData] = useState([]);
@@ -21,10 +22,10 @@ export default function ProjectForm() {
       setData(
         resData.map((d: any) => ({
           has_sponsor: d.has_sponsor ? "Sim" : "Não",
-          kind: d.kind, // Create input for this
+          kind: d.kind,
           year: d.year,
           title: d.title,
-          responsible_id: d.responsible_id,
+          coordinator: d.responsible_id === professorLattes ? "Sim" : "Não",
         }))
       );
 
@@ -48,8 +49,14 @@ export default function ProjectForm() {
 
           api.patch(`/project/${dataId[index]}/update`, sanitizedArgs);
         }}
-        inputType={["bool", "text", "text", "text", "text"]}
-        labels={["Possuí patrocínio", "Tipo", "Ano", "Título", "Responsável"]}
+        inputType={["bool", "project", "text", "text", "bool"]}
+        labels={[
+          "Possuí financiamento",
+          "Tipo",
+          "Ano",
+          "Título",
+          "Coordenador",
+        ]}
         data={data}
       />
     </Container>

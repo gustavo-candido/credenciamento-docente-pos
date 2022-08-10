@@ -109,6 +109,21 @@ function getInput({ row, name, onChange, inputType }: Record<string, any>) {
           <option value={"POS-DOUTORADO"}>Pos</option>
         </NativeSelect>
       );
+
+    case "project":
+      return (
+        <NativeSelect
+          defaultValue={row[name]}
+          inputProps={{
+            name,
+            id: row.id,
+          }}
+          onChange={(e) => onChange(e, row)}
+        >
+          <option value={"PESQUISA"}>Pesquisa</option>
+          <option value={"DESENVOLVIMENTO"}>Desenvolvimento</option>
+        </NativeSelect>
+      );
     default:
       return (
         <Input

@@ -5,6 +5,7 @@ import api from "./services/api";
 type User = {
   id: string;
   professorId?: string;
+  professorLattes?: string;
 };
 
 type UserContextData = {
@@ -42,6 +43,7 @@ function UserProvider({ children }: React.PropsWithChildren<{}>) {
       const fetchedUser = {
         id: userId,
         professorId: queryProfessor?.data?.id,
+        professorLattes: queryProfessor?.data?.lattes_id,
       };
       setUser(fetchedUser);
       navigate("/");

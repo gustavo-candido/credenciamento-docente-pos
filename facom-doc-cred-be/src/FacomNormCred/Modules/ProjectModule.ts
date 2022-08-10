@@ -12,6 +12,9 @@ class ProjectModule {
     const participatedProjects = this.projects
       .filter(filterByTime)
       .filter((item) => item.has_sponsor)
+      .filter(
+        (item) => item.kind === "PESQUISA" || item.kind === "DESENVOLVIMENTO"
+      )
       .filter((item) => item.responsible_id !== this.lattesId);
 
     this.infos = [...this.infos, ...participatedProjects];
@@ -23,6 +26,9 @@ class ProjectModule {
     const coordinatedProjects = this.projects
       .filter(filterByTime)
       .filter((item) => item.has_sponsor)
+      .filter(
+        (item) => item.kind === "PESQUISA" || item.kind === "DESENVOLVIMENTO"
+      )
       .filter((item) => item.responsible_id === this.lattesId);
 
     this.infos = [...this.infos, ...coordinatedProjects];
