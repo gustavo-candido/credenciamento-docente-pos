@@ -1,7 +1,8 @@
 import { TProject } from "@FacomLattesExtractor/types";
-import { filterByTime } from "@FacomNormCred/filters";
+import { filterByQuadrennial, filterByTime } from "@FacomNormCred/filters";
 
 import { TFacomNormCred } from "@FacomNormCred/types";
+import { CURRENT_QUADRENNIAL } from "src/constants";
 
 class ProjectModule {
   public infos = [] as TFacomNormCred["project"];
@@ -10,7 +11,7 @@ class ProjectModule {
 
   public getParticipatedProjects() {
     const participatedProjects = this.projects
-      .filter(filterByTime)
+      .filter(filterByQuadrennial)
       .filter((item) => item.has_sponsor)
       .filter(
         (item) => item.kind === "PESQUISA" || item.kind === "DESENVOLVIMENTO"
@@ -24,7 +25,7 @@ class ProjectModule {
 
   public getCoordinatedProjects() {
     const coordinatedProjects = this.projects
-      .filter(filterByTime)
+      .filter(filterByQuadrennial)
       .filter((item) => item.has_sponsor)
       .filter(
         (item) => item.kind === "PESQUISA" || item.kind === "DESENVOLVIMENTO"

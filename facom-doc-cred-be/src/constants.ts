@@ -11,3 +11,8 @@ export enum MENTORSHIP_DEGREE {
   DOU = "DOUTORADO",
   POS = "POS-DOUTORADO",
 }
+
+export const CURRENT_QUADRENNIAL = {
+  start: 2017,
+  end: 2020,
+};

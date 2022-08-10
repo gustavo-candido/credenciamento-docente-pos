@@ -25,7 +25,10 @@ export class Project {
   responsible_id: string;
 
   @Column()
-  year: number;
+  year_start: number;
+
+  @Column({ type: "int", nullable: true })
+  year_end?: number | null;
 
   @Column()
   has_sponsor: boolean;

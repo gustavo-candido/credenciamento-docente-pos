@@ -1,3 +1,5 @@
+import { Project } from "@typeorm/entity/Project";
+
 export type TLattes = Record<string, any>;
 
 export interface MentorshipWorkByDegreeDTO {
@@ -56,10 +58,7 @@ export type TEventWork = {
   year: number;
 };
 
-export type TProject = {
-  has_sponsor: boolean;
-  kind: string;
-  responsible_id: string;
-  title: string;
-  year: number;
-};
+export type TProject = Omit<
+  Project,
+  "id" | "created_at" | "updated_at" | "professor_id"
+>;

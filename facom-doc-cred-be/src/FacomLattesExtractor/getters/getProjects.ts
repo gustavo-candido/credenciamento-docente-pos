@@ -31,11 +31,8 @@ const getProjects = (lattes: TLattes): TProject[] => {
         en: item?.["NOME-DO-PROJETO-INGLES"],
       }),
       responsible_id: responsible,
-      year: parseInt(
-        isFilledString(item?.["ANO-FIM"])
-          ? item?.["ANO-FIM"]
-          : item?.["ANO-INICIO"]
-      ),
+      year_start: parseInt(item?.["ANO-INICIO"]),
+      year_end: item?.["ANO-FIM"] ? parseInt(item?.["ANO-FIM"]) : null,
       has_sponsor,
       kind: item?.["NATUREZA"],
     };

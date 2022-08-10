@@ -14,15 +14,23 @@ class ProjectController {
   }
 
   public async create(request: Request, response: Response) {
-    const { professor_id, title, responsible_id, year, has_sponsor, kind } =
-      request.body;
+    const {
+      professor_id,
+      title,
+      responsible_id,
+      year_start,
+      year_end,
+      has_sponsor,
+      kind,
+    } = request.body;
 
     try {
       const project = await this.projectRepository.create({
         professor_id,
         title,
         responsible_id,
-        year,
+        year_start,
+        year_end,
         has_sponsor,
         kind,
       });
@@ -79,15 +87,23 @@ class ProjectController {
 
   public async update(request: Request, response: Response) {
     const { id } = request.params;
-    const { professor_id, title, responsible_id, year, has_sponsor, kind } =
-      request.body;
+    const {
+      professor_id,
+      title,
+      responsible_id,
+      year_start,
+      year_end,
+      has_sponsor,
+      kind,
+    } = request.body;
 
     try {
       const project = await this.projectRepository.update(id, {
         professor_id,
         title,
         responsible_id,
-        year,
+        year_start,
+        year_end,
         has_sponsor,
         kind,
       });

@@ -13,6 +13,7 @@ import { TFacomNormCred } from "@FacomNormCred/types";
 import { Project } from "@typeorm/entity/Project";
 import ProdTecRepository from "../ProdTec/ProdTecRepository";
 import { ProdTec } from "@typeorm/entity/ProdTec";
+import { filterByQuadrennial } from "@FacomNormCred/filters";
 
 class ImporterController {
   private mentorshipWorkRepository: MentorshipWorkRepository;
@@ -131,14 +132,16 @@ class ImporterController {
 
   public async test(request: Request, response: Response) {
     const path = request.file?.path!;
-    const facomNormCred = await new FacomNormCred(path).getAllModules();
+    // const facomNormCred = await new FacomNormCred(path).getAllModules();
 
     fs.unlink(path, (err) => {
       if (err) throw err;
     });
 
     // response.json(await new FacomNormCred(path).getProjectModule());
-    response.json(facomNormCred);
+    response.json({
+      filter: filterByQuadrennial({ year_start: 2019, year_end: 2021 }),
+    });
   }
 }
 

@@ -23,7 +23,8 @@ export default function ProjectForm() {
         resData.map((d: any) => ({
           has_sponsor: d.has_sponsor ? "Sim" : "Não",
           kind: d.kind,
-          year: d.year,
+          year_start: d.year_start,
+          year_end: d.year_end,
           title: d.title,
           coordinator: d.responsible_id === professorLattes ? "Sim" : "Não",
         }))
@@ -40,8 +41,9 @@ export default function ProjectForm() {
           let sanitizedArgs = {
             ...args,
             has_sponsor: args.has_sponsor === "Sim",
+            responsible_id:
+              args.coordinator === "Sim" ? professorLattes : "unknown",
           };
-
           //@ts-expect-error
           delete sanitizedArgs.id;
           //@ts-expect-error
@@ -49,11 +51,12 @@ export default function ProjectForm() {
 
           api.patch(`/project/${dataId[index]}/update`, sanitizedArgs);
         }}
-        inputType={["bool", "project", "text", "text", "bool"]}
+        inputType={["bool", "project", "text", "text", "text", "bool"]}
         labels={[
           "Possuí financiamento",
           "Tipo",
-          "Ano",
+          "Início",
+          "Fim",
           "Título",
           "Coordenador",
         ]}

@@ -31,8 +31,13 @@ export class createProjectTable1659155140643 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "year",
+            name: "year_start",
             type: "int",
+          },
+          {
+            name: "year_end",
+            type: "int",
+            isNullable: true,
           },
           {
             name: "has_sponsor",

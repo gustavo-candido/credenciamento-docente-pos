@@ -5,8 +5,18 @@ import type {
   ProdArticleDTO,
   TEventWork,
 } from "@FacomLattesExtractor/types";
+import { CURRENT_QUADRENNIAL } from "src/constants";
 
 export const filterByTime = (data: { year: number }) => 2017 <= data.year;
+export const filterByQuadrennial = (data: {
+  year_start: number;
+  year_end?: number | null;
+}) =>
+  !(
+    (typeof data.year_end === "number" &&
+      data.year_end < CURRENT_QUADRENNIAL.start) ||
+    CURRENT_QUADRENNIAL.end < data.year_start
+  );
 
 export const filterByOrientador = (
   data: Pick<MentorshipWorkByDegreeDTO, "role">
