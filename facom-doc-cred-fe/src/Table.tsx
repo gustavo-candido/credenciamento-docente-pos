@@ -88,8 +88,8 @@ function getInput({ row, name, onChange, inputType }: Record<string, any>) {
           }}
           onChange={(e) => onChange(e, row)}
         >
-          <option value={"ORIENTADOR_PRINCIPAL"}>Orientador</option>
-          <option value={"CO_ORIENTADOR"}>Coorientador</option>
+          <option value={"ORIENTADOR"}>Orientador</option>
+          <option value={"COORIENTADOR"}>Coorientador</option>
         </NativeSelect>
       );
 

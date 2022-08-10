@@ -21,7 +21,8 @@ export default function MentorshipForm() {
       setData(
         resData.map((d: any) => ({
           is_concluded: d.is_concluded ? "Sim" : "Não",
-          role: d.role,
+          role:
+            d.role === "ORIENTADOR_PRINCIPAL" ? "ORIENTADOR" : "COORIENTADOR",
           year: d.year,
           title: d.title,
           degree: d.degree,
@@ -41,6 +42,10 @@ export default function MentorshipForm() {
         updateRow={async (index: number, args: Record<string, any>) => {
           let sanitizedArgs = {
             ...args,
+            role:
+              args.role === "ORIENTADOR"
+                ? "ORIENTADOR_PRINCIPAL"
+                : "CO_ORIENTADOR",
             is_concluded: args.is_concluded === "Sim",
           };
 
@@ -68,7 +73,7 @@ export default function MentorshipForm() {
           "Titulo",
           "Grau",
           "Aluno",
-          "Patrocinador",
+          "Financiador",
           "Meses supervisionados (apenas pós)",
         ]}
         data={data}

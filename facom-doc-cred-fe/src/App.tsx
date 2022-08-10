@@ -28,7 +28,7 @@ function App() {
           <Route path="/upload" element={loggedRoute(<Upload />)} />
           <Route path="/projetos" element={loggedRoute(<ProjectForm />)} />
           <Route path="/prob-bib" element={loggedRoute(<ProdBibForm />)} />
-          <Route path="/mentoria" element={loggedRoute(<MentorshipForm />)} />
+          <Route path="/orientacao" element={loggedRoute(<MentorshipForm />)} />
 
           <Route path="*" element={<div> Error </div>} />
         </Routes>

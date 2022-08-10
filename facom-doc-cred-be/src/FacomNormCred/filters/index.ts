@@ -7,7 +7,10 @@ import type {
 } from "@FacomLattesExtractor/types";
 import { CURRENT_QUADRENNIAL } from "src/constants";
 
-export const filterByTime = (data: { year: number }) => 2017 <= data.year;
+export const filterByTime = (data: { year: number }) =>
+  CURRENT_QUADRENNIAL.start <= data.year &&
+  data.year <= CURRENT_QUADRENNIAL.end;
+
 export const filterByQuadrennial = (data: {
   year_start: number;
   year_end?: number | null;
