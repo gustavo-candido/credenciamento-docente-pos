@@ -54,6 +54,23 @@ class ProdTecKindController {
     }
   }
 
+  public async findAll(request: Request, response: Response) {
+    try {
+      const prodTecKind = await this.prodTecKindRepository.findAll();
+
+      if (!prodTecKind) {
+        throw new AppError("Produção não encontrada!", 404);
+      }
+
+      return response.json(prodTecKind);
+    } catch (err) {
+      if (isAppError(err)) {
+        return response.status(err.statusCode).json({ error: err.message });
+      }
+      return response.status(500).json({ error: err });
+    }
+  }
+
   public async update(request: Request, response: Response) {
     const { id } = request.params;
     const { kind, score } = request.body;

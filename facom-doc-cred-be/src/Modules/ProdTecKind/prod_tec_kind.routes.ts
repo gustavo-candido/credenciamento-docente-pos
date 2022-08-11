@@ -12,6 +12,12 @@ prodTecKindRoutes.post(
 );
 
 prodTecKindRoutes.get(
+  "/",
+  async (request, response) =>
+    await prodTecKindController.findAll(request, response)
+);
+
+prodTecKindRoutes.get(
   "/:id",
   async (request, response) =>
     await prodTecKindController.findById(request, response)

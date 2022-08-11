@@ -34,6 +34,7 @@ const Header = () => {
       "/perfil",
       "/projetos",
       "/prob-bib",
+      "/prob-tec",
       "/orientacao",
     ].indexOf(window.location.pathname);
     if (tabIndex !== idx) {
@@ -85,6 +86,12 @@ const Header = () => {
               component={Link}
               to="/prob-bib"
               label="Prod bib"
+            />
+            <Tab
+              sx={styles.tab}
+              component={Link}
+              to="/prob-tec"
+              label="Prod tec"
             />
             <Tab
               sx={styles.tab}

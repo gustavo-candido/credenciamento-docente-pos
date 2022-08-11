@@ -24,6 +24,13 @@ class ProdTecRepository {
     return prodTec;
   }
 
+  public async findByProfessor(professorId: string) {
+    const prodTec = await this.ormRepository.query(
+      `select * from prod_tec where professor_id = '${professorId}'`
+    );
+    return prodTec;
+  }
+
   public async update(prodTecId: string, prodTecNewData: ProdTecDTO) {
     const prodTec = await this.ormRepository.findOne({
       where: { id: prodTecId },
