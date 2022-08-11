@@ -28,7 +28,16 @@ export class ProdBib {
   title: string;
 
   @Column({ default: null })
-  event_name: string;
+  veic_conf: string;
+
+  @Column({ default: 0 })
+  i_geral: number;
+
+  @Column({ default: 0 })
+  i_restrito: number;
+
+  @Column()
+  kind: string;
 
   @CreateDateColumn()
   created_at: Date;

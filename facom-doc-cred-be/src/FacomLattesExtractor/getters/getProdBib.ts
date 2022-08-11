@@ -34,12 +34,12 @@ const getProdArticlesNormalized = async (lattes: TLattes) => {
 
     const year = parseInt(item?.["DADOS-BASICOS-DO-ARTIGO"]?.["ANO-DO-ARTIGO"]);
     const issn = item?.["DETALHAMENTO-DO-ARTIGO"]?.["ISSN"].replace("-", "");
+    const conf =
+      item?.["DETALHAMENTO-DO-ARTIGO"]?.["TITULO-DO-PERIODICO-OU-REVISTA"];
 
     const qualis = dataMap.get(issn) ?? "?";
     const generalScore = normalizeQualis(qualisScore(qualis));
     const restrictScore = normalizeQualis(qualisScoreRestrict(qualis));
-
-    const currentDate = new Date(Date.now());
 
     return {
       i_geral: generalScore,
@@ -48,6 +48,7 @@ const getProdArticlesNormalized = async (lattes: TLattes) => {
       qualis,
       title: prioritizeLanguage({ "pt-br": title, en: titleEn }),
       year,
+      veic_conf: conf,
     };
   });
 };
@@ -93,7 +94,7 @@ const getEventWork = async (lattes: TLattes): Promise<TEventWork[]> => {
       const restrictScore = qualisScoreRestrict(qualis);
 
       return {
-        eventName,
+        veic_conf: eventName,
         i_geral: generalScore,
         i_restrito: restrictScore,
         qualis,

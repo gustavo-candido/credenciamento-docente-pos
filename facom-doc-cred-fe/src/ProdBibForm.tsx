@@ -20,11 +20,15 @@ export default function ProdBibForm() {
       setData(
         resData.map((d: any) => ({
           issn_or_sigla: d.issn_or_sigla,
+          veic_conf: d.veic_conf,
           title: d.title,
           year: d.year,
-          event_ame: d.event_name,
+          i_restrito: d.i_restrito,
+          i_geral: d.i_geral,
         }))
       );
+
+      console.log(res?.data);
 
       setDataID(resData.map((d: any) => d.id));
     })();
@@ -43,8 +47,15 @@ export default function ProdBibForm() {
 
           api.patch(`/prod-bib/${dataId[index]}/update`, sanitizedArgs);
         }}
-        inputType={["text", "text", "text", "text"]}
-        labels={["ISSN/SIGLA", "Título", "Ano", "Nome do evento"]}
+        inputType={["text", "text", "text", "text", "text", "text"]}
+        labels={[
+          "ISSN/SIGLA",
+          "VEICULO/CONF",
+          "Título",
+          "Ano",
+          "Ind. Restrito",
+          "Ind. Geral",
+        ]}
         data={data}
       />
     </Container>

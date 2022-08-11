@@ -132,15 +132,11 @@ class ImporterController {
 
   public async test(request: Request, response: Response) {
     const path = request.file?.path!;
-    // const facomNormCred = await new FacomNormCred(path).getAllModules();
+
+    response.json(await new FacomNormCred(path).getProdBibModule());
 
     fs.unlink(path, (err) => {
       if (err) throw err;
-    });
-
-    // response.json(await new FacomNormCred(path).getProjectModule());
-    response.json({
-      filter: filterByQuadrennial({ year_start: 2019, year_end: 2021 }),
     });
   }
 }

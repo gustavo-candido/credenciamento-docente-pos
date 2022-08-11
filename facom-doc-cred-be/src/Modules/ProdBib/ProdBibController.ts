@@ -14,8 +14,16 @@ class ProdBibController {
   }
 
   public async create(request: Request, response: Response) {
-    const { professor_id, issn_or_sigla, year, title, event_name } =
-      request.body;
+    const {
+      professor_id,
+      issn_or_sigla,
+      year,
+      title,
+      veic_conf,
+      i_geral,
+      i_restrito,
+      kind,
+    } = request.body;
 
     try {
       const prodBib = await this.prodBibRepository.create({
@@ -23,7 +31,10 @@ class ProdBibController {
         issn_or_sigla,
         year,
         title,
-        event_name,
+        veic_conf,
+        i_geral,
+        i_restrito,
+        kind,
       });
 
       return response.json(prodBib);
@@ -77,8 +88,16 @@ class ProdBibController {
 
   public async update(request: Request, response: Response) {
     const { id } = request.params;
-    const { professor_id, issn_or_sigla, year, title, event_name } =
-      request.body;
+    const {
+      professor_id,
+      issn_or_sigla,
+      year,
+      title,
+      veic_conf,
+      i_geral,
+      i_restrito,
+      kind,
+    } = request.body;
 
     try {
       const prodBib = await this.prodBibRepository.update(id, {
@@ -86,7 +105,10 @@ class ProdBibController {
         issn_or_sigla,
         year,
         title,
-        event_name,
+        veic_conf,
+        i_geral,
+        i_restrito,
+        kind,
       });
       return response.json(prodBib);
     } catch (err) {
