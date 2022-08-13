@@ -40,6 +40,7 @@ export type TProdTec = {
 };
 
 export type ProdArticleDTO = {
+  veic_conf: string;
   i_geral: number;
   i_restrito: number;
   issn: string;
@@ -49,7 +50,7 @@ export type ProdArticleDTO = {
 };
 
 export type TEventWork = {
-  eventName: string;
+  veic_conf: string;
   i_geral: number;
   i_restrito: number;
   qualis: string;

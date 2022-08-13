@@ -4,7 +4,7 @@ import api from "./services/api";
 import EditableTable from "./Table";
 import { useUser } from "./user";
 
-export default function ProdBibForm() {
+export default function ProdTecForm() {
   const {
     user: { professorId },
   } = useUser();
@@ -14,17 +14,15 @@ export default function ProdBibForm() {
 
   useEffect(() => {
     (async () => {
-      const res = await api.get(`/prod-bib/professor/${professorId}`);
+      const reqProdTec = await api.get(`/prod-tec/professor/${professorId}`);
 
-      const resData = res?.data ?? [];
+      const resData = reqProdTec?.data ?? [];
       setData(
         resData.map((d: any) => ({
-          issn_or_sigla: d.issn_or_sigla,
-          veic_conf: d.veic_conf,
-          title: d.title,
+          description: d.description,
           year: d.year,
-          i_restrito: d.i_restrito,
-          i_geral: d.i_geral,
+          quantity: d.quantity,
+          prod_tec_kind_id: d.prod_tec_kind_id,
         }))
       );
 
@@ -43,17 +41,10 @@ export default function ProdBibForm() {
           delete sanitizedArgs.id;
           delete sanitizedArgs.isEditMode;
 
-          api.patch(`/prod-bib/${dataId[index]}/update`, sanitizedArgs);
+          api.patch(`/prod-tec/${dataId[index]}/update`, sanitizedArgs);
         }}
-        inputType={["text", "text", "text", "text", "text", "text"]}
-        labels={[
-          "ISSN/SIGLA",
-          "VEICULO/CONF",
-          "Título",
-          "Ano",
-          "Ind. Restrito",
-          "Ind. Geral",
-        ]}
+        inputType={["text", "text", "text", "text"]}
+        labels={["Descrição", "Ano", "N° de revisões", "Tipo"]}
         data={data}
       />
     </Container>

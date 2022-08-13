@@ -35,7 +35,19 @@ export class createProdBibTable1658276620968 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "event_name",
+            name: "i_geral",
+            type: "numeric",
+          },
+          {
+            name: "i_restrito",
+            type: "numeric",
+          },
+          {
+            name: "kind",
+            type: "varchar",
+          },
+          {
+            name: "veic_conf",
             type: "varchar",
             isNullable: true,
           },

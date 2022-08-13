@@ -57,6 +57,25 @@ class ProdTecController {
     }
   }
 
+  public async findByProfessor(request: Request, response: Response) {
+    const { id } = request.params;
+
+    try {
+      const prodTec = await this.prodTecRepository.findByProfessor(id);
+
+      if (!prodTec) {
+        throw new AppError("Produção não encontrada!", 404);
+      }
+
+      return response.json(prodTec);
+    } catch (err) {
+      if (isAppError(err)) {
+        return response.status(err.statusCode).json({ error: err.message });
+      }
+      return response.status(500).json({ error: err });
+    }
+  }
+
   public async update(request: Request, response: Response) {
     const { id } = request.params;
     const { professor_id, prod_tec_kind_id, year, description, quantity } =

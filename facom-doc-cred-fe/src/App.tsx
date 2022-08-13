@@ -10,6 +10,7 @@ import ProdBibForm from "./ProdBibForm";
 import MentorshipForm from "./MentorshipForm";
 import { useUser } from "./user";
 import Perfil from "./Perfil";
+import ProdTecForm from "./ProdTecForm";
 
 function App() {
   const { user } = useUser();
@@ -28,6 +29,7 @@ function App() {
           <Route path="/upload" element={loggedRoute(<Upload />)} />
           <Route path="/projetos" element={loggedRoute(<ProjectForm />)} />
           <Route path="/prob-bib" element={loggedRoute(<ProdBibForm />)} />
+          <Route path="/prob-tec" element={loggedRoute(<ProdTecForm />)} />
           <Route path="/orientacao" element={loggedRoute(<MentorshipForm />)} />
 
           <Route path="*" element={<div> Error </div>} />

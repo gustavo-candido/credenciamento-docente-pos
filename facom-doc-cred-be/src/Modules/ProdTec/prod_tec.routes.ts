@@ -16,6 +16,12 @@ prodTecRoutes.get(
     await prodTecController.findById(request, response)
 );
 
+prodTecRoutes.get(
+  "/professor/:id",
+  async (request, response) =>
+    await prodTecController.findByProfessor(request, response)
+);
+
 prodTecRoutes.patch(
   "/:id/update",
   async (request, response) => await prodTecController.update(request, response)

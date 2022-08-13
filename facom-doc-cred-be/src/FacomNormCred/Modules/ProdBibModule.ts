@@ -12,9 +12,13 @@ class ProdBibModule {
     const articlesValid = this.prodBib.article
       .filter(filterByTime)
       .map((item) => ({
+        veic_conf: item.veic_conf,
         issn_or_sigla: item.issn,
         year: item.year,
         title: item.title,
+        i_geral: item.i_geral,
+        i_restrito: item.i_restrito,
+        kind: "per",
       }));
 
     this.infos = [...this.infos, ...articlesValid];
@@ -27,7 +31,10 @@ class ProdBibModule {
       issn_or_sigla: item.sigla,
       year: item.year,
       title: item.title,
-      event_name: item.eventName,
+      veic_conf: item.veic_conf,
+      i_geral: item.i_geral,
+      i_restrito: item.i_restrito,
+      kind: "anais",
     }));
 
     this.infos = [...this.infos, ...eventsValid];

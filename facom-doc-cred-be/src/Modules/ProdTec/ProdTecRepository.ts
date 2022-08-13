@@ -24,6 +24,13 @@ class ProdTecRepository {
     return prodTec;
   }
 
+  public async findByProfessor(professorId: string) {
+    const prodTec = await this.ormRepository.query(
+      `select prod_tec.id, year, description, quantity, kind from prod_tec join prod_tec_kind on prod_tec.prod_tec_kind_id = prod_tec_kind.id where professor_id = '${professorId}'`
+    );
+    return prodTec;
+  }
+
   public async update(prodTecId: string, prodTecNewData: ProdTecDTO) {
     const prodTec = await this.ormRepository.findOne({
       where: { id: prodTecId },
@@ -37,6 +44,8 @@ class ProdTecRepository {
       ...prodTec,
       ...prodTecNewDataFiltered,
     };
+    console.log("updatedProdTec");
+    console.log(updatedProdTec);
 
     await this.ormRepository.save(updatedProdTec);
     return updatedProdTec;
