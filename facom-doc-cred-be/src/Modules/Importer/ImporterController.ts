@@ -13,7 +13,6 @@ import { TFacomNormCred } from "@FacomNormCred/types";
 import { Project } from "@typeorm/entity/Project";
 import ProdTecRepository from "../ProdTec/ProdTecRepository";
 import { ProdTec } from "@typeorm/entity/ProdTec";
-import { filterByQuadrennial } from "@FacomNormCred/filters";
 
 class ImporterController {
   private mentorshipWorkRepository: MentorshipWorkRepository;
@@ -133,7 +132,7 @@ class ImporterController {
   public async test(request: Request, response: Response) {
     const path = request.file?.path!;
 
-    response.json(await new FacomNormCred(path).getProdBibModule());
+    response.json(new FacomNormCred(path).getRankVariables());
 
     fs.unlink(path, (err) => {
       if (err) throw err;

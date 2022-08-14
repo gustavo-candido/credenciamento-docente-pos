@@ -13,7 +13,7 @@ import routes from "./routes";
       console.log(`🗂️  Db connected!`);
     })
     .catch((error) =>
-      console.log(error, "🗂️  Db fail to connect (error above)\n")
+      console.log(error, "🛑  Db fail to connect (error above)\n")
     );
 
   const app = express();

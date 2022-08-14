@@ -1,11 +1,12 @@
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import { AppDataSource } from "@typeorm/data-source";
 import ProdTecKindRepository from "src/Modules/ProdTecKind/ProdTecKindRepository";
-import { FormModule, ProdBibModule, ProjectModule } from "./Modules";
+import { ProdBibModule, ProjectModule } from "./Modules";
 import ProdTecModule from "./Modules/ProdTecModule";
 import { ProdTecKind } from "@typeorm/entity/ProdTecKind";
 
 import type { TFacomNormCred } from "./types";
+import { getCoorMestDout, getDoutoresFor, getICConcluida, getMestresFor, getOriDout, getOriMest, getPosDocSup } from "./Modules/FormModule";
 
 class FacomNormCred {
   private facomLattesExtractor;
@@ -17,15 +18,30 @@ class FacomNormCred {
   public getFormModule() {
     const mentorshipWork = this.facomLattesExtractor.getMentorshipWork();
 
-    return new FormModule(mentorshipWork)
-      .getICConcluida()
-      .getPosDocSup()
-      .getMestresFor()
-      .getDoutoresFor()
-      .getCoorMestDout()
-      .getOriMest()
-      .getOriDout()
-      .build();
+    return [
+      ...getICConcluida(mentorshipWork),
+      ...getPosDocSup(mentorshipWork),
+      ...getMestresFor(mentorshipWork),
+      ...getDoutoresFor(mentorshipWork),
+      ...getCoorMestDout(mentorshipWork),
+      ...getOriMest(mentorshipWork),
+      ...getOriDout(mentorshipWork)
+    ]
+  }
+
+  public getRankVariables() {
+    const mentorshipWork = this.facomLattesExtractor.getMentorshipWork();
+
+    const rankVariables = {
+      NICConcluida: getICConcluida(mentorshipWork).length,
+      NPosDocSup: getPosDocSup(mentorshipWork).length,
+      NMestresFor: getMestresFor(mentorshipWork).length,
+      NCoorMestDout: getCoorMestDout(mentorshipWork).length,
+      NDoutoresFor: getDoutoresFor(mentorshipWork).length,
+      NroOriMest: getOriMest(mentorshipWork).length,
+      NroOriDout: getOriDout(mentorshipWork).length
+    }
+    return rankVariables;
   }
 
   public async getProdBibModule() {
