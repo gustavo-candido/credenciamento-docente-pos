@@ -132,7 +132,7 @@ class ImporterController {
   public async test(request: Request, response: Response) {
     const path = request.file?.path!;
 
-    response.json(new FacomNormCred(path).getRankVariables());
+    response.json(await new FacomNormCred(path).getRankVariables());
 
     fs.unlink(path, (err) => {
       if (err) throw err;

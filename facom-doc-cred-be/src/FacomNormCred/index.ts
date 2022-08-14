@@ -1,12 +1,33 @@
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import { AppDataSource } from "@typeorm/data-source";
 import ProdTecKindRepository from "src/Modules/ProdTecKind/ProdTecKindRepository";
-import { ProdBibModule, ProjectModule } from "./Modules";
+import { ProdBibModule } from "./Modules";
 import ProdTecModule from "./Modules/ProdTecModule";
 import { ProdTecKind } from "@typeorm/entity/ProdTecKind";
 
 import type { TFacomNormCred } from "./types";
-import { getCoorMestDout, getDoutoresFor, getICConcluida, getMestresFor, getOriDout, getOriMest, getPosDocSup } from "./Modules/FormModule";
+import {
+  getCoorMestDout,
+  getDoutoresFor,
+  getICConcluida,
+  getMestresFor,
+  getOriDout,
+  getOriMest,
+  getPosDocSup,
+} from "./Modules/FormModule";
+
+import {
+  getIGeralTotal,
+  getIRestritoTotal,
+  getPontDoc,
+  getPontProdTec,
+} from "./functions";
+
+import {
+  getCoordinatedProjects,
+  getParticipatedProjects,
+} from "./Modules/ProjectModule";
+import { getPQDTSponsorInRepository } from "@FacomLattesExtractor/getters/getPQDTSponsorInRepository";
 
 class FacomNormCred {
   private facomLattesExtractor;
@@ -25,12 +46,19 @@ class FacomNormCred {
       ...getDoutoresFor(mentorshipWork),
       ...getCoorMestDout(mentorshipWork),
       ...getOriMest(mentorshipWork),
-      ...getOriDout(mentorshipWork)
-    ]
+      ...getOriDout(mentorshipWork),
+    ];
   }
 
-  public getRankVariables() {
+  public async getRankVariables() {
     const mentorshipWork = this.facomLattesExtractor.getMentorshipWork();
+    const prodBib = await this.facomLattesExtractor.getProdBib();
+    const prodTecKindRepository = new ProdTecKindRepository(
+      AppDataSource.getRepository(ProdTecKind)
+    );
+
+    const projects = this.facomLattesExtractor.getProjects();
+    const lattes_id = this.facomLattesExtractor.getLattesId() ?? "id not found";
 
     const rankVariables = {
       NICConcluida: getICConcluida(mentorshipWork).length,
@@ -39,9 +67,19 @@ class FacomNormCred {
       NCoorMestDout: getCoorMestDout(mentorshipWork).length,
       NDoutoresFor: getDoutoresFor(mentorshipWork).length,
       NroOriMest: getOriMest(mentorshipWork).length,
-      NroOriDout: getOriDout(mentorshipWork).length
-    }
-    return rankVariables;
+      NroOriDout: getOriDout(mentorshipWork).length,
+      IRestritoTot: getIRestritoTotal(prodBib),
+      IGeralTot: getIGeralTotal(prodBib),
+      PontProdTec: getPontProdTec(
+        await this.getProdTecModule(),
+        await prodTecKindRepository.findAll()
+      ),
+      CoordProjeto: getCoordinatedProjects(projects, lattes_id).length,
+      PartProjeto: getParticipatedProjects(projects, lattes_id).length,
+      PQDT: await getPQDTSponsorInRepository(lattes_id),
+      NMeses: 0,
+    };
+    return getPontDoc(rankVariables);
   }
 
   public async getProdBibModule() {
@@ -57,10 +95,10 @@ class FacomNormCred {
     const projects = this.facomLattesExtractor.getProjects();
     const lattes_id = this.facomLattesExtractor.getLattesId() ?? "id not found";
 
-    return new ProjectModule(projects, lattes_id)
-      .getParticipatedProjects()
-      .getCoordinatedProjects()
-      .build();
+    return [
+      ...getParticipatedProjects(projects, lattes_id),
+      ...getCoordinatedProjects(projects, lattes_id),
+    ];
   }
 
   public async getProdTecModule() {

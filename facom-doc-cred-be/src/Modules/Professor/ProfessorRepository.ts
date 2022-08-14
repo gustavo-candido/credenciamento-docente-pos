@@ -2,17 +2,6 @@ import { DeepPartial, Repository } from "typeorm";
 import { Professor } from "@typeorm/entity/Professor";
 import removeUndefinedKeys from "@utils/removeUndefinedKeys";
 
-// export interface IProfessorDTO {
-//   lattes_id: string;
-//   name: string;
-//   birth_date: Date;
-//   research_topic_id: DeepPartial<Professor>;
-//   ppgco_weekly_workload: number;
-//   other_ppg_weekly_workload: number;
-//   has_pq_or_dt_sponsor: false;
-//   placement: string;
-// }
-
 type ProfessorDTO = DeepPartial<Professor>;
 class ProfessorRepository {
   constructor(private ormRepository: Repository<Professor>) {}
@@ -64,6 +53,14 @@ class ProfessorRepository {
   public async findByUser(userId: string) {
     const professor = await this.ormRepository.query(
       `select * from professor where user_id = '${userId}'`
+    );
+
+    return professor[0];
+  }
+
+  public async findByLattes(lattesId: string): Promise<Professor | undefined> {
+    const professor = await this.ormRepository.query(
+      `select * from professor where lattes_id = '${lattesId}'`
     );
 
     return professor[0];
