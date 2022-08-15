@@ -7,9 +7,10 @@ import type {
 } from "@FacomLattesExtractor/types";
 import { CURRENT_QUADRENNIAL } from "src/constants";
 
-export const filterByTime = (data: { year: number }) =>
+export const filterByTime = (data: { year?: number }) =>
+  data.year &&
   CURRENT_QUADRENNIAL.start <= data.year &&
-  data.year <= CURRENT_QUADRENNIAL.end;
+  data?.year <= CURRENT_QUADRENNIAL.end;
 
 export const filterByQuadrennial = (data: {
   year_start: number;
@@ -21,13 +22,11 @@ export const filterByQuadrennial = (data: {
     CURRENT_QUADRENNIAL.end < data.year_start
   );
 
-export const filterByOrientador = (
-  data: Pick<MentorshipWorkByDegreeDTO, "role">
-) => data.role === "ORIENTADOR_PRINCIPAL";
+export const filterByOrientador = (data?: { role?: string }) =>
+  data?.role === "ORIENTADOR_PRINCIPAL";
 
-export const filterByCoorientador = (
-  data: Pick<MentorshipWorkByDegreeDTO, "role">
-) => data.role === "CO_ORIENTADOR";
+export const filterByCoorientador = (data?: { role?: string }) =>
+  data?.role === "CO_ORIENTADOR";
 
 export const filterByIRestrict = (
   data: Pick<ProdArticleDTO | TEventWork, "qualis">

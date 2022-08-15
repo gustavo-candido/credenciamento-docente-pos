@@ -30,11 +30,11 @@ export class ProdBib {
   @Column({ default: null })
   veic_conf: string;
 
-  @Column({ default: 0 })
-  i_geral: number;
+  @Column({ default: "0" })
+  i_geral: string;
 
-  @Column({ default: 0 })
-  i_restrito: number;
+  @Column({ default: "0" })
+  i_restrito: string;
 
   @Column()
   kind: string;

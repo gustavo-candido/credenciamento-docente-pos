@@ -16,8 +16,8 @@ class ProdBibModule {
         issn_or_sigla: item.issn,
         year: item.year,
         title: item.title,
-        i_geral: item.i_geral,
-        i_restrito: item.i_restrito,
+        i_geral: item.i_geral.toString(),
+        i_restrito: item.i_restrito.toString(),
         kind: "per",
       }));
 
@@ -32,8 +32,8 @@ class ProdBibModule {
       year: item.year,
       title: item.title,
       veic_conf: item.veic_conf,
-      i_geral: item.i_geral,
-      i_restrito: item.i_restrito,
+      i_geral: item.i_geral.toString(),
+      i_restrito: item.i_restrito.toString(),
       kind: "anais",
     }));
 

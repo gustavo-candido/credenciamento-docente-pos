@@ -13,6 +13,7 @@ import { TFacomNormCred } from "@FacomNormCred/types";
 import { Project } from "@typeorm/entity/Project";
 import ProdTecRepository from "../ProdTec/ProdTecRepository";
 import { ProdTec } from "@typeorm/entity/ProdTec";
+import Rank from "@FacomNormCred/Rank";
 
 class ImporterController {
   private mentorshipWorkRepository: MentorshipWorkRepository;
@@ -132,7 +133,9 @@ class ImporterController {
   public async test(request: Request, response: Response) {
     const path = request.file?.path!;
 
-    response.json(await new FacomNormCred(path).getRankVariables());
+    response.json(
+      await new Rank("10fc6751-4483-4e26-adf2-6e7e75feefd9").getPontDoc()
+    );
 
     fs.unlink(path, (err) => {
       if (err) throw err;

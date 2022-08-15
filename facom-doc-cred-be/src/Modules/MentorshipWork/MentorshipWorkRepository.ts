@@ -23,7 +23,9 @@ class MentorshipWorkRepository {
     return mentorshipWork;
   }
 
-  public async findByProfessor(professorId: string) {
+  public async findByProfessor(
+    professorId: string
+  ): Promise<MentorshipWorkDTO[]> {
     const mentorshipWork = await this.ormRepository.query(
       `select * from mentorship_work where professor_id = '${professorId}'`
     );
