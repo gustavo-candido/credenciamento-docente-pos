@@ -76,7 +76,7 @@ class FacomNormCred {
       ),
       CoordProjeto: getCoordinatedProjects(projects, lattes_id).length,
       PartProjeto: getParticipatedProjects(projects, lattes_id).length,
-      PQDT: await getPQDTSponsorInRepository(lattes_id),
+      PQDT: (await getPQDTSponsorInRepository(lattes_id)) ? 10 : 0,
       NMeses: 0,
     };
     return getPontDoc(rankVariables);

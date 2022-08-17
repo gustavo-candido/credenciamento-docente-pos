@@ -59,7 +59,13 @@ const getCustomCellKeys = (row: Record<string, unknown>) => {
   return Object.keys(cpy);
 };
 
-function getInput({ row, name, onChange, inputType }: Record<string, any>) {
+function getInput({
+  row,
+  name,
+  onChange,
+  inputType,
+  prodTecKind,
+}: Record<string, any>) {
   const classes = useStyles();
 
   switch (inputType) {
@@ -78,6 +84,21 @@ function getInput({ row, name, onChange, inputType }: Record<string, any>) {
         </NativeSelect>
       );
 
+    case "prodTecKind":
+      return (
+        <NativeSelect
+          defaultValue={row[name]}
+          inputProps={{
+            name,
+            id: row.id,
+          }}
+          onChange={(e) => onChange(e, row)}
+        >
+          {prodTecKind.map((item: any) => (
+            <option value={item.kind}>{item.kind}</option>
+          ))}
+        </NativeSelect>
+      );
     case "role":
       return (
         <NativeSelect
@@ -90,6 +111,27 @@ function getInput({ row, name, onChange, inputType }: Record<string, any>) {
         >
           <option value={"ORIENTADOR"}>Orientador</option>
           <option value={"COORIENTADOR"}>Coorientador</option>
+        </NativeSelect>
+      );
+
+    case "qualis":
+      return (
+        <NativeSelect
+          defaultValue={row[name]}
+          inputProps={{
+            name,
+            id: row.id,
+          }}
+          onChange={(e) => onChange(e, row)}
+        >
+          <option value={"A1"}>A1</option>
+          <option value={"A2"}>A2</option>
+          <option value={"A3"}>A3</option>
+          <option value={"A4"}>A4</option>
+          <option value={"B1"}>B1</option>
+          <option value={"B2"}>B2</option>
+          <option value={"B3"}>B3</option>
+          <option value={"B4"}>B4</option>
         </NativeSelect>
       );
 
@@ -141,6 +183,7 @@ const CustomTableCell = ({
   name,
   onChange,
   inputType,
+  prodTecKind,
 }: Record<string, any>) => {
   const classes = useStyles();
   const { isEditMode } = row;
@@ -153,6 +196,7 @@ const CustomTableCell = ({
             name,
             onChange,
             inputType,
+            prodTecKind,
           })
         : row[name]}
     </TableCell>
@@ -164,6 +208,7 @@ type EditableTableProps = {
   data: Record<string, any>[];
   inputType: string[];
   updateRow?: (index: number, args: Record<string, any>) => Promise<void>;
+  prodTecKind?: Record<string, any>[];
 };
 
 export default function EditableTable({
@@ -171,6 +216,7 @@ export default function EditableTable({
   data,
   inputType,
   updateRow,
+  prodTecKind,
 }: EditableTableProps) {
   const [rows, setRows] = useState<RowData[]>([]);
   const classes = useStyles();
@@ -246,6 +292,7 @@ export default function EditableTable({
                     {...{ row, name: key, onChange }}
                     key={key}
                     inputType={inputType[index]}
+                    prodTecKind={prodTecKind}
                   />
                 ))}
               </TableRow>

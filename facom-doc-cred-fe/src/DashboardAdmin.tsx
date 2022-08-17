@@ -10,22 +10,14 @@ import { useEffect, useState } from "react";
 import api from "./services/api";
 import { useUser } from "./user";
 
-export default function Dashboard() {
-  const {
-    user: { professorId },
-  } = useUser();
-  const [rows, setRow] = useState<{ variable: string; value: string }[]>([]);
+export default function DashboardAdmin() {
+  const [rows, setRow] = useState<{ name: string; points: string }[]>([]);
 
   useEffect(() => {
     (async () => {
-      const rankReq = await api.get(`/rank/${professorId}`);
+      const rankReq = await api.get("/rank/");
 
-      setRow(
-        Object.entries(rankReq.data).map((item: any) => ({
-          variable: item[0],
-          value: item[1],
-        }))
-      );
+      setRow(rankReq.data);
     })();
   }, []);
 
@@ -43,20 +35,20 @@ export default function Dashboard() {
           <Table sx={{ minWidth: 650 }} size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Variável</TableCell>
+                <TableCell>Docente</TableCell>
                 <TableCell align="right">Pontos</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <TableRow
-                  key={row.variable}
+                  key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.variable}
+                    {row.name}
                   </TableCell>
-                  <TableCell align="right">{row.value}</TableCell>
+                  <TableCell align="right">{row.points}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

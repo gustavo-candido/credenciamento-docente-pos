@@ -27,6 +27,7 @@ export const FormInputText = ({
           fullWidth
           label={label}
           variant="outlined"
+          sx={{ minWidth: "460px" }}
         />
       )}
     />

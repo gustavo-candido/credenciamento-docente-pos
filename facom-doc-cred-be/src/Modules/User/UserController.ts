@@ -47,9 +47,6 @@ class UserController {
         throw new AppError("Usuário não encontrado!");
       }
 
-      // @ts-expect-error
-      delete user.is_adm;
-
       return response.json(user);
     } catch (err) {
       if (isAppError(err)) {

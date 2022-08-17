@@ -8,6 +8,9 @@ import importerRoutes from "./Modules/Importer/importer.routes";
 import projectRouter from "./Modules/Project/project.routes";
 import userRouter from "./Modules/User/user.routes";
 import prodTecKindRoutes from "./Modules/ProdTecKind/prod_tec_kind.routes";
+import rankRouter from "./Modules/Rank/rank.routes";
+import qualisPerRouter from "./Modules/QualisPer/qualis_per.routes";
+import qualisAnalRouter from "./Modules/QualisAnais/qualis_anais.routes";
 
 const routes = Router();
 
@@ -20,5 +23,8 @@ routes.use("/prod-tec-kind", prodTecKindRoutes);
 routes.use("/import", importerRoutes);
 routes.use("/project", projectRouter);
 routes.use("/user", userRouter);
+routes.use("/rank", rankRouter);
+routes.use("/qualis-per", qualisPerRouter);
+routes.use("/qualis-anais", qualisAnalRouter);
 
 export default routes;

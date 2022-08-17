@@ -11,30 +11,58 @@ import MentorshipForm from "./MentorshipForm";
 import { useUser } from "./user";
 import Perfil from "./Perfil";
 import ProdTecForm from "./ProdTecForm";
+import SignIn from "./SignIn";
+import HeaderAdmin from "./HeaderAdmin";
+import DashboardAdmin from "./DashboardAdmin";
+import ResearchTopics from "./ResearchTopics";
+import QualisPer from "./QualisPer";
+import QualisAnais from "./QualisAnais";
 
 function App() {
   const { user } = useUser();
+
   return (
     <>
       <GlobalStyle />
 
-      {user?.id && <Header />}
+      {user?.id && (user?.professorId ? <Header /> : <HeaderAdmin />)}
 
-      <div style={{ marginTop: "64px" }}>
-        <Routes>
-          <Route path="/login" element={<Login />} />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-in" element={<SignIn />} />
 
-          <Route path="/" element={loggedRoute(<Dashboard />)} />
-          <Route path="/perfil" element={loggedRoute(<Perfil />)} />
-          <Route path="/upload" element={loggedRoute(<Upload />)} />
-          <Route path="/projetos" element={loggedRoute(<ProjectForm />)} />
-          <Route path="/prob-bib" element={loggedRoute(<ProdBibForm />)} />
-          <Route path="/prob-tec" element={loggedRoute(<ProdTecForm />)} />
-          <Route path="/orientacao" element={loggedRoute(<MentorshipForm />)} />
+        {user.professorId && (
+          <>
+            <Route path="/" element={loggedRoute(<Dashboard />)} />
+            <Route path="/perfil" element={loggedRoute(<Perfil />)} />
+            <Route path="/upload" element={loggedRoute(<Upload />)} />
+            <Route path="/projetos" element={loggedRoute(<ProjectForm />)} />
+            <Route path="/prob-bib" element={loggedRoute(<ProdBibForm />)} />
+            <Route path="/prob-tec" element={loggedRoute(<ProdTecForm />)} />
+            <Route
+              path="/orientacao"
+              element={loggedRoute(<MentorshipForm />)}
+            />
+          </>
+        )}
 
-          <Route path="*" element={<div> Error </div>} />
-        </Routes>
-      </div>
+        {!user.professorId && (
+          <>
+            <Route path="/" element={loggedRoute(<DashboardAdmin />)} />
+            <Route
+              path="/linhas-de-pesquisa"
+              element={loggedRoute(<ResearchTopics />)}
+            />
+            <Route path="/qualis-per" element={loggedRoute(<QualisPer />)} />
+            <Route
+              path="/qualis-anais"
+              element={loggedRoute(<QualisAnais />)}
+            />
+          </>
+        )}
+
+        <Route path="*" element={<div> Error </div>} />
+      </Routes>
     </>
   );
 }

@@ -267,7 +267,7 @@ class Rank {
       PontProdTec: await this.PontProdTec(),
       CoordProjeto: await this.CoordProjeto(),
       PartProjeto: await this.ParticProjeto(),
-      PQDT: (await this.PQDT()) ?? false,
+      PQDT: (await this.PQDT()) ? 10 : 0,
       NMeses: 0,
     };
   }

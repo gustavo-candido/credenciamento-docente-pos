@@ -1,11 +1,10 @@
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { useFormContext, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 export const FormInputDropdown = ({
   name,
   control,
-  label,
   options = [],
   defaultValue,
 }: Record<string, any>) => {

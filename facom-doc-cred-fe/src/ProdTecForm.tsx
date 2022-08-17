@@ -10,6 +10,8 @@ export default function ProdTecForm() {
   } = useUser();
 
   const [data, setData] = useState([]);
+  const [allKinds, setAllKinds] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [dataId, setDataID] = useState([]);
 
   useEffect(() => {
@@ -22,30 +24,46 @@ export default function ProdTecForm() {
           description: d.description,
           year: d.year,
           quantity: d.quantity,
-          prod_tec_kind_id: d.prod_tec_kind_id,
+          kind: d.kind,
         }))
       );
 
+      const reqKindTec = await api.get("/prod-tec-kind/");
+
+      setAllKinds(reqKindTec.data);
+
       setDataID(resData.map((d: any) => d.id));
+
+      setLoading(false);
     })();
   }, []);
 
+  if (loading) {
+    return <></>;
+  }
+
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ mt: 9 }}>
       <EditableTable
         updateRow={async (index: number, args: Record<string, any>) => {
+          const prod_tec_kind_id = allKinds.find(
+            (item: any) => item.kind === args.kind
+          );
           let sanitizedArgs = {
             ...args,
+            prod_tec_kind_id,
           };
 
+          delete sanitizedArgs.kind;
           delete sanitizedArgs.id;
           delete sanitizedArgs.isEditMode;
 
           api.patch(`/prod-tec/${dataId[index]}/update`, sanitizedArgs);
         }}
-        inputType={["text", "text", "text", "text"]}
+        inputType={["text", "text", "text", "prodTecKind"]}
         labels={["Descrição", "Ano", "N° de revisões", "Tipo"]}
         data={data}
+        prodTecKind={allKinds}
       />
     </Container>
   );

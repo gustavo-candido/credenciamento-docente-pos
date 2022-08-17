@@ -96,6 +96,12 @@ class ProfessorRepository {
 
     return professor;
   }
+
+  public async index() {
+    const professors = await this.ormRepository.find();
+
+    return professors;
+  }
 }
 
 export default ProfessorRepository;

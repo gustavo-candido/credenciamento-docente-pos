@@ -10,24 +10,24 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useUser } from "./user";
 import { useNavigate } from "react-router-dom";
+import api from "./services/api";
 
 const theme = createTheme();
 
-export default function Login() {
+export default function SignIn() {
   const { signUp } = useUser();
   const navigate = useNavigate();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     const email = data.get("email") as string;
 
-    signUp(email);
-  };
-
-  const handleSignIn = () => {
-    navigate("/sign-in");
+    api.post("/user/sign-up", {
+      email,
+    });
+    navigate("/");
   };
 
   return (
@@ -46,7 +46,7 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Cadastro
           </Typography>
           <Box
             component="form"
@@ -66,17 +66,7 @@ export default function Login() {
             />
 
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
-              Login
-            </Button>
-
-            <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              onClick={handleSignIn}
-              sx={{ mt: 3 }}
-            >
-              Cadastro
+              Cadastrar
             </Button>
           </Box>
         </Box>

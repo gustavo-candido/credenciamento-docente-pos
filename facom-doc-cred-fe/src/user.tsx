@@ -4,6 +4,7 @@ import api from "./services/api";
 
 type User = {
   id: string;
+  isAdm: boolean;
   professorId?: string;
   professorLattes?: string;
 };
@@ -31,22 +32,34 @@ function UserProvider({ children }: React.PropsWithChildren<{}>) {
   const navigate = useNavigate();
 
   const signUp = async (email: string) => {
-    const queryUser = await api.post<User>("user/sign-in", {
+    const queryUser = await api.post("user/sign-in", {
       email,
     });
 
     const userId = queryUser?.data?.id;
+    const userAdmin = queryUser?.data?.is_adm;
 
-    if (userId) {
-      const queryProfessor = await api.get(`/professor/user/${userId}`);
+    if (userId && userAdmin) {
+      try {
+        const queryProfessor = await api.get(`/professor/user/${userId}`);
 
-      const fetchedUser = {
-        id: userId,
-        professorId: queryProfessor?.data?.id,
-        professorLattes: queryProfessor?.data?.lattes_id,
-      };
-      setUser(fetchedUser);
-      navigate("/");
+        const fetchedUser = {
+          id: userId,
+          professorId: queryProfessor?.data?.id,
+          professorLattes: queryProfessor?.data?.lattes_id,
+          isAdm: userAdmin,
+        };
+
+        setUser(fetchedUser);
+        navigate("/");
+      } catch (e) {
+        const fetchedUser = {
+          id: userId,
+          isAdm: userAdmin,
+        };
+        setUser(fetchedUser);
+        navigate("/");
+      }
     }
   };
 

@@ -25,19 +25,16 @@ const styles = {
   },
 };
 
-const Header = () => {
+const HeaderAdmin = () => {
   const { logout } = useUser();
   const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
     const idx = [
       "/",
-      "/upload",
-      "/perfil",
-      "/projetos",
-      "/prob-bib",
-      "/prob-tec",
-      "/orientacao",
+      "/linhas-de-pesquisa",
+      "/qualis-per",
+      "/qualis-anais",
     ].indexOf(window.location.pathname);
     if (tabIndex !== idx) {
       setTabIndex(idx);
@@ -75,32 +72,27 @@ const Header = () => {
             onChange={handleTabChange}
           >
             <Tab sx={styles.tab} component={Link} to="/" label="Home" />
-            <Tab sx={styles.tab} component={Link} to="/upload" label="Upload" />
-            <Tab sx={styles.tab} component={Link} to="/perfil" label="Perfil" />
             <Tab
               sx={styles.tab}
               component={Link}
-              to="/projetos"
-              label="Projetos"
+              to="/linhas-de-pesquisa"
+              label="Linhas de pesquisa"
             />
+
             <Tab
               sx={styles.tab}
               component={Link}
-              to="/prob-bib"
-              label="Prod bib"
+              to="/qualis-per"
+              label="Qualis Per"
             />
+
             <Tab
               sx={styles.tab}
               component={Link}
-              to="/prob-tec"
-              label="Prod tec"
+              to="/qualis-anais"
+              label="Qualis Anais"
             />
-            <Tab
-              sx={styles.tab}
-              component={Link}
-              to="/orientacao"
-              label="Orientação"
-            />
+
             <Tab
               sx={styles.tab}
               component={Link}
@@ -115,4 +107,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderAdmin;

@@ -2,6 +2,7 @@ import Container from "@mui/material/Container";
 import React, { ReactElement, ReactNode } from "react";
 
 import Dropzone from "react-dropzone";
+import { Paper } from "@mui/material";
 import api from "../services/api";
 import { useUser } from "../user";
 import { DropContainer, UploadMessage } from "./styles";
@@ -41,23 +42,24 @@ const Upload = (): ReactElement => {
   }
 
   return (
-    <Container maxWidth="xl">
-      <Dropzone
-        // accept=".csv, application/vnd.ms-excel, text/csv"
-        onDropAccepted={(files) => onUpload(professorId, files)}
-      >
-        {({ getRootProps, getInputProps, isDragActive, isDragReject }): any => (
-          <DropContainer
-            {...getRootProps()}
-            isDragActive={isDragActive}
-            isDragReject={isDragReject}
-          >
-            <input {...getInputProps()} data-testid="upload" />
-            {renderDragMessage(isDragActive, isDragReject)}
-          </DropContainer>
-        )}
-      </Dropzone>
-    </Container>
+    <Paper sx={{height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+      <Container maxWidth="lg">
+        <Dropzone
+          onDropAccepted={(files) => onUpload(professorId, files)}
+        >
+          {({ getRootProps, getInputProps, isDragActive, isDragReject }): any => (
+            <DropContainer
+              {...getRootProps()}
+              isDragActive={isDragActive}
+              isDragReject={isDragReject}
+            >
+              <input {...getInputProps()} data-testid="upload" />
+              {renderDragMessage(isDragActive, isDragReject)}
+            </DropContainer>
+          )}
+        </Dropzone>
+      </Container>
+    </Paper>
   );
 };
 

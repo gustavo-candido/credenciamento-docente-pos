@@ -11,7 +11,7 @@ type TRankVar = {
   PontProdTec: number;
   CoordProjeto: number;
   PartProjeto: number;
-  PQDT: boolean;
+  PQDT: number;
   NMeses: number;
 };
 
@@ -44,6 +44,6 @@ export default function getPontDoc({
     0.1 * NICConcluida +
     CoordProjeto +
     0.3 * PartProjeto +
-    10 * (PQDT ? 1 : 0)
+    PQDT
   );
 }
