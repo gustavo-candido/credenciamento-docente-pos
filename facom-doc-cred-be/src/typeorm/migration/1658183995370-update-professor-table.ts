@@ -13,8 +13,12 @@ export class updateProfessorTable1658183995370 implements MigrationInterface {
         type: "uuid",
         isNullable: true,
       }),
-      new TableColumn({ name: "placement", type: "varchar" }),
-      new TableColumn({ name: "ppgco_weekly_workload", type: "int" }),
+      new TableColumn({ name: "placement", type: "varchar", isNullable: true }),
+      new TableColumn({
+        name: "ppgco_weekly_workload",
+        type: "int",
+        default: 0,
+      }),
       new TableColumn({
         name: "other_ppg_weekly_workload",
         type: "int",
@@ -23,6 +27,7 @@ export class updateProfessorTable1658183995370 implements MigrationInterface {
       new TableColumn({
         name: "has_pq_or_dt_sponsor",
         type: "boolean",
+        default: false,
       }),
     ]);
 

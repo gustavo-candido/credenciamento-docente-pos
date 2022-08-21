@@ -36,10 +36,6 @@ class ProfessorController {
         throw new AppError("Docente já cadastrado");
       }
 
-      if (!validPlacement(placement)) {
-        throw new AppError("Enquadramento invalido");
-      }
-
       const professor = await this.professorRepository.create({
         lattes_id,
         name,

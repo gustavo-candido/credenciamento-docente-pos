@@ -52,14 +52,14 @@ function UserProvider({ children }: React.PropsWithChildren<{}>) {
 
         setUser(fetchedUser);
         navigate("/");
-      } catch (e) {
-        const fetchedUser = {
-          id: userId,
-          isAdm: userAdmin,
-        };
-        setUser(fetchedUser);
-        navigate("/");
-      }
+      } catch (e) {}
+    } else {
+      const fetchedUser = {
+        id: userId,
+        isAdm: userAdmin,
+      };
+      setUser(fetchedUser);
+      navigate("/");
     }
   };
 

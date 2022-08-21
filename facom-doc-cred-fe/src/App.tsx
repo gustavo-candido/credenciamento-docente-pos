@@ -21,6 +21,7 @@ import QualisAnais from "./QualisAnais";
 function App() {
   const { user } = useUser();
 
+  console.log(user);
   return (
     <>
       <GlobalStyle />
