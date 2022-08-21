@@ -31,7 +31,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/sign-in" element={<SignIn />} />
 
-        {user.professorId && (
+        {!user.isAdm && user.professorId && (
           <>
             <Route path="/" element={loggedRoute(<Dashboard />)} />
             <Route path="/perfil" element={loggedRoute(<Perfil />)} />
@@ -46,7 +46,7 @@ function App() {
           </>
         )}
 
-        {!user.professorId && (
+        {user.isAdm && !user.professorId && (
           <>
             <Route path="/" element={loggedRoute(<DashboardAdmin />)} />
             <Route
@@ -61,7 +61,7 @@ function App() {
           </>
         )}
 
-        <Route path="*" element={<div> Error </div>} />
+        <Route path="*" element={loggedRoute(<div> Error </div>)} />
       </Routes>
     </>
   );
