@@ -33,7 +33,7 @@ class RankController {
     }
 
     const professorsPointsSorted = professorsPoints.sort(
-      (a, b) => b.points - a.points
+      (a, b) => parseFloat(b.points) - parseFloat(a.points)
     );
 
     return response.json(professorsPointsSorted);
