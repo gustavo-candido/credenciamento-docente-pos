@@ -16,14 +16,17 @@ export class createProfessorTable1658086420300 implements MigrationInterface {
           {
             name: "lattes_id",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "name",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "birth_date",
             type: "date",
+            isNullable: true,
           },
           {
             name: "created_at",

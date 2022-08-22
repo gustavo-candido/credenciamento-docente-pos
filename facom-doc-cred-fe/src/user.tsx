@@ -39,7 +39,7 @@ function UserProvider({ children }: React.PropsWithChildren<{}>) {
     const userId = queryUser?.data?.id;
     const userAdmin = queryUser?.data?.is_adm;
 
-    if (userId && userAdmin) {
+    if (userId && !userAdmin) {
       try {
         const queryProfessor = await api.get(`/professor/user/${userId}`);
 
@@ -52,14 +52,14 @@ function UserProvider({ children }: React.PropsWithChildren<{}>) {
 
         setUser(fetchedUser);
         navigate("/");
-      } catch (e) {
-        const fetchedUser = {
-          id: userId,
-          isAdm: userAdmin,
-        };
-        setUser(fetchedUser);
-        navigate("/");
-      }
+      } catch (e) {}
+    } else {
+      const fetchedUser = {
+        id: userId,
+        isAdm: userAdmin,
+      };
+      setUser(fetchedUser);
+      navigate("/");
     }
   };
 

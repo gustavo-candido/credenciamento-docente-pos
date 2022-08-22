@@ -274,7 +274,7 @@ class Rank {
 
   public async getPontDoc() {
     const rankVariables = await this.getRankVariables();
-    return getPontDoc(rankVariables);
+    return getPontDoc(rankVariables).toFixed(2);
   }
 }
 

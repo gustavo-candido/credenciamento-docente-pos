@@ -24,8 +24,12 @@ export default function SignIn() {
 
     const email = data.get("email") as string;
 
-    api.post("/user/sign-up", {
+    const userReq = await api.post("/user/sign-up", {
       email,
+    });
+
+    await api.post("/professor", {
+      user_id: userReq.data.id,
     });
     navigate("/");
   };
