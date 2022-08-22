@@ -17,10 +17,6 @@ class UserController {
     try {
       const userAlreadySignUp = await this.userRepository.findByEmail(email);
 
-      if (userAlreadySignUp) {
-        throw new AppError("Usuário já possuí cadastro!");
-      }
-
       const user = await this.userRepository.create({
         email,
       });

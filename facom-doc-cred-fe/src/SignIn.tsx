@@ -28,7 +28,7 @@ export default function SignIn() {
       email,
     });
 
-    api.post("/professor", {
+    await api.post("/professor", {
       user_id: userReq.data.id,
     });
     navigate("/");

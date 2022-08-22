@@ -32,10 +32,6 @@ class ProfessorController {
         name
       ));
 
-      if (isDuplicateProfessor) {
-        throw new AppError("Docente já cadastrado");
-      }
-
       const professor = await this.professorRepository.create({
         lattes_id,
         name,
