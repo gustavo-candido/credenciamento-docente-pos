@@ -26,7 +26,7 @@ import routes from "./routes";
     return res.json({ okay: "okay" });
   });
 
-  app.listen(port, () => {
+  app.listen(port, "200.131.206.14", () => {
     console.log(`🚀 Running app on ${port}`);
   });
 })();
