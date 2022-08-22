@@ -105,15 +105,15 @@ export default function Perfil() {
 
         setProfessorData((d) => ({
           ...d,
-          birth_date: formatDate(fetchedProfessorData.birth_date),
-          has_pq_or_dt_sponsor: fetchedProfessorData.has_pq_or_dt_sponsor,
-          lattes_id: fetchedProfessorData.lattes_id,
-          name: fetchedProfessorData.name,
+          birth_date: formatDate(fetchedProfessorData?.birth_date),
+          has_pq_or_dt_sponsor: fetchedProfessorData?.has_pq_or_dt_sponsor,
+          lattes_id: fetchedProfessorData?.lattes_id,
+          name: fetchedProfessorData?.name,
           other_ppg_weekly_workload:
-            fetchedProfessorData.other_ppg_weekly_workload,
-          placement: fetchedProfessorData.placement,
-          ppgco_weekly_workload: fetchedProfessorData.ppgco_weekly_workload,
-          research_topic: fetchedProfessorData.research_topic_id.topic,
+            fetchedProfessorData?.other_ppg_weekly_workload,
+          placement: fetchedProfessorData?.placement,
+          ppgco_weekly_workload: fetchedProfessorData?.ppgco_weekly_workload,
+          research_topic: fetchedProfessorData?.research_topic_id?.topic,
         }));
 
         setLoading(false);
