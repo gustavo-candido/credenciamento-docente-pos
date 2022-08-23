@@ -1,6 +1,6 @@
 import FacomLattesExtractor from "@FacomLattesExtractor/index";
 import { AppDataSource } from "@typeorm/data-source";
-import ProdTecKindRepository from "src/Modules/ProdTecKind/ProdTecKindRepository";
+import ProdTecKindRepository from "../Modules/ProdTecKind/ProdTecKindRepository";
 import { ProdBibModule } from "./Modules";
 import ProdTecModule from "./Modules/ProdTecModule";
 import { ProdTecKind } from "@typeorm/entity/ProdTecKind";

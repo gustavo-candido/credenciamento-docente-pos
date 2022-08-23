@@ -5,20 +5,19 @@ import { ProdTec } from "@typeorm/entity/ProdTec";
 import { ProdTecKind } from "@typeorm/entity/ProdTecKind";
 import { Professor } from "@typeorm/entity/Professor";
 import { Project } from "@typeorm/entity/Project";
-import { MENTORSHIP_DEGREE } from "src/constants";
-import MentorshipWorkRepository from "src/Modules/MentorshipWork/MentorshipWorkRepository";
-import ProdBibRepository from "src/Modules/ProdBib/ProdBibRepository";
-import ProdTecRepository from "src/Modules/ProdTec/ProdTecRepository";
-import ProdTecKindRepository from "src/Modules/ProdTecKind/ProdTecKindRepository";
-import ProfessorRepository from "src/Modules/Professor/ProfessorRepository";
-import ProjectRepository from "src/Modules/Project/ProjectRepository";
+import { MENTORSHIP_DEGREE } from "../constants";
+import MentorshipWorkRepository from "../Modules/MentorshipWork/MentorshipWorkRepository";
+import ProdBibRepository from "../Modules/ProdBib/ProdBibRepository";
+import ProdTecRepository from "../Modules/ProdTec/ProdTecRepository";
+import ProfessorRepository from "../Modules/Professor/ProfessorRepository";
+import ProjectRepository from "../Modules/Project/ProjectRepository";
 import {
   filterByCoorientador,
   filterByOrientador,
   filterByTime,
 } from "./filters";
 
-import { getPontDoc } from "src/FacomNormCred/functions";
+import { getPontDoc } from "@FacomNormCred/functions";
 
 class Rank {
   constructor(private professorId: string) {}

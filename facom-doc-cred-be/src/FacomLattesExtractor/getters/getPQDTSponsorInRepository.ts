@@ -1,5 +1,5 @@
 import { AppDataSource } from "@typeorm/data-source";
-import ProfessorRepository from "src/Modules/Professor/ProfessorRepository";
+import ProfessorRepository from "../../Modules/Professor/ProfessorRepository";
 import { Professor } from "@typeorm/entity/Professor";
 
 export async function getPQDTSponsorInRepository(lattesId: string) {

@@ -4,11 +4,13 @@ import {
   filterByTime,
 } from "@FacomNormCred/filters";
 
-import { MENTORSHIP_DEGREE } from "src/constants";
+import { MENTORSHIP_DEGREE } from "../../constants";
 import { TFacomNormCred } from "@FacomNormCred/types";
 import { TMentorshipWork } from "@FacomLattesExtractor/types";
 
-export function getICConcluida(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
+export function getICConcluida(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
   const concludedMentorships = mentorshipWork.concluded;
   const concludedIC = concludedMentorships.ic;
 
@@ -29,7 +31,9 @@ export function getICConcluida(mentorshipWork: TMentorshipWork): TFacomNormCred[
   return concludedICValid;
 }
 
-export function getPosDocSup(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
+export function getPosDocSup(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
   const concludedMentorships = mentorshipWork.concluded;
   const concludedPosDocSup = concludedMentorships.postdoctoral;
 
@@ -50,7 +54,9 @@ export function getPosDocSup(mentorshipWork: TMentorshipWork): TFacomNormCred["m
   return concludedPosDocSupValid;
 }
 
-export function getMestresFor(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
+export function getMestresFor(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
   const concludedMentorships = mentorshipWork.concluded;
   const concludedMestresForm = concludedMentorships.master;
 
@@ -71,7 +77,9 @@ export function getMestresFor(mentorshipWork: TMentorshipWork): TFacomNormCred["
   return concludedMestresFormValid;
 }
 
-export function getDoutoresFor(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
+export function getDoutoresFor(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
   const concludedMentorships = mentorshipWork.concluded;
   const concludedDoutoresFor = concludedMentorships.doctoral;
 
@@ -92,7 +100,9 @@ export function getDoutoresFor(mentorshipWork: TMentorshipWork): TFacomNormCred[
   return concludedDoutoresForValid;
 }
 
-function _getCoorMest(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
+function _getCoorMest(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
   const concludedMentorships = mentorshipWork.concluded;
   const concludedMestres = concludedMentorships.master;
 
@@ -113,7 +123,9 @@ function _getCoorMest(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorsh
   return concludedMestresValid;
 }
 
-function _getCoorDout(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
+function _getCoorDout(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
   const concludedMentorships = mentorshipWork.concluded;
   const concludedDout = concludedMentorships.doctoral;
 
@@ -134,13 +146,20 @@ function _getCoorDout(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorsh
   return concludedDoutValid;
 }
 
-export function getCoorMestDout(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
-  const coorMestDout = [..._getCoorMest(mentorshipWork), ..._getCoorDout(mentorshipWork)];
+export function getCoorMestDout(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
+  const coorMestDout = [
+    ..._getCoorMest(mentorshipWork),
+    ..._getCoorDout(mentorshipWork),
+  ];
 
   return coorMestDout;
 }
 
-export function getOriMest(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
+export function getOriMest(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
   const currentMentorships = mentorshipWork.current;
   const currentOriMest = currentMentorships.master;
 
@@ -161,7 +180,9 @@ export function getOriMest(mentorshipWork: TMentorshipWork): TFacomNormCred["men
   return currentOriMestValid;
 }
 
-export function getOriDout(mentorshipWork: TMentorshipWork): TFacomNormCred["mentorship"] {
+export function getOriDout(
+  mentorshipWork: TMentorshipWork
+): TFacomNormCred["mentorship"] {
   const currentMentorships = mentorshipWork.current;
   const currentOriDout = currentMentorships.doctoral;
 

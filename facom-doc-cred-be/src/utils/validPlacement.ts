@@ -1,4 +1,4 @@
-import { PLACEMENTS } from "src/constants";
+import { PLACEMENTS } from "../constants";
 
 const validPlacement = (placement: string) => {
   return PLACEMENTS.includes(placement);

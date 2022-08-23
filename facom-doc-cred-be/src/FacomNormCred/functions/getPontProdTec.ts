@@ -1,5 +1,5 @@
-import { ProdTecDTO } from "src/Modules/ProdTec/ProdTecRepository";
-import { ProdTecKindDTO } from "src/Modules/ProdTecKind/ProdTecKindRepository";
+import { ProdTecDTO } from "../../Modules/ProdTec/ProdTecRepository";
+import { ProdTecKindDTO } from "../../Modules/ProdTecKind/ProdTecKindRepository";
 
 export default function getPontProdTec(
   prodTec: ProdTecDTO[],

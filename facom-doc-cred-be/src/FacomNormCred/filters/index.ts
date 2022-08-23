@@ -5,7 +5,7 @@ import type {
   ProdArticleDTO,
   TEventWork,
 } from "@FacomLattesExtractor/types";
-import { CURRENT_QUADRENNIAL } from "src/constants";
+import { CURRENT_QUADRENNIAL } from "../../constants";
 
 export const filterByTime = (data: { year?: number }) =>
   data.year &&

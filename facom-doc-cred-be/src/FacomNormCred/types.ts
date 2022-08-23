@@ -1,7 +1,7 @@
-import { MentorshipWorkDTO } from "src/Modules/MentorshipWork/MentorshipWorkRepository";
-import { ProdBibDTO } from "src/Modules/ProdBib/ProdBibRepository";
-import { ProdTecDTO } from "src/Modules/ProdTec/ProdTecRepository";
-import { ProjectDTO } from "src/Modules/Project/ProjectRepository";
+import { MentorshipWorkDTO } from "../Modules/MentorshipWork/MentorshipWorkRepository";
+import { ProdBibDTO } from "../Modules/ProdBib/ProdBibRepository";
+import { ProdTecDTO } from "../Modules/ProdTec/ProdTecRepository";
+import { ProjectDTO } from "../Modules/Project/ProjectRepository";
 
 export type TProdTecModule = {};
 

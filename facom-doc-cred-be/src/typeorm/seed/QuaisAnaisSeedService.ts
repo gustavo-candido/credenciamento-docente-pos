@@ -1,5 +1,5 @@
 import isFilledString from "@utils/isFilledString";
-import { QUALIS_PATH } from "src/constants";
+import { QUALIS_PATH } from "../../constants";
 import XLSX from "xlsx";
 
 export default class QualisAnaisSeedService {
