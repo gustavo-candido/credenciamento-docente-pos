@@ -6,7 +6,6 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["es5", "es6"],
-    "module": "commonjs",
     "moduleResolution": "node",
 
     "outDir": "./dist",
@@ -22,6 +21,7 @@
     "strictPropertyInitialization": false,
     "sourceMap": true,
     "strict": true,
-    "target": "es5"
+    "target": "esnext",
+    "module": "commonjs"
   }
 }
